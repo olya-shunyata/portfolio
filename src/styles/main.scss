@@ -1,0 +1,264 @@
+/* src/styles/main.scss */
+
+/* -----------------------------
+   Design tokens
+------------------------------ */
+
+:root {
+  /* Colors */
+  --color-background: #ffffff;
+  --color-text: #151515;;
+  --color-muted: #6b6b6b;
+  --color-border: #e6e6e6;
+  --color-panel: #f2f2f2;
+  --color-accent: #B9D9F5;
+
+  /* Typography */
+  --font-family-base: "PP Neue Montreal", "Neue Montreal", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans",
+    sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+
+  --font-size-body: 16px;
+  --line-height-body: 1.45;
+
+  /* Small UI text (header, labels) */
+  --font-size-ui: 12px;
+  --line-height-ui: 1.25;
+  --letter-spacing-ui: 0.06em;
+  --letter-spacing-brand: 0.08em;
+
+  /* Layout */
+  --container-max-width: 1440px;
+  --container-padding: 16px; /* will be overridden by breakpoints */
+
+  /* Spacing scale */
+  --space-1: 8px;
+  --space-2: 10px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-9: 36px;
+  --space-10: 40px;
+
+  /* Section vertical padding */
+  --section-padding-block: 28px;
+
+  /* Header padding / offsets */
+  --header-padding-top: 20px;
+  --header-padding-bottom: 14px;
+  --header-desktop-offset-y: 6px;
+
+  /* Focus */
+  --focus-ring: 0 0 0 3px rgba(17, 17, 17, 0.2);
+}
+
+/* -----------------------------
+   Breakpoints (documented)
+   1440: desktop xl
+   1200: desktop
+   1024: laptop
+   768 : tablet
+   480 : mobile
+   375 : small mobile
+------------------------------ */
+
+/* Desktop XL (≥1440) */
+@media (min-width: 1440px) {
+  :root {
+    --container-padding: 32px;
+    --section-padding-block: 32px;
+
+    --header-padding-top: 18px;
+    --header-padding-bottom: 12px;
+    --header-desktop-offset-y: 6px;
+  }
+}
+
+/* Desktop (1200–1439) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  :root {
+    --container-padding: 28px;
+    --section-padding-block: 32px;
+
+    --header-padding-top: 18px;
+    --header-padding-bottom: 12px;
+    --header-desktop-offset-y: 6px;
+  }
+}
+
+/* Laptop (1024–1199) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  :root {
+    --container-padding: 24px;
+    --section-padding-block: 30px;
+
+    --header-padding-top: 18px;
+    --header-padding-bottom: 12px;
+    --header-desktop-offset-y: 6px;
+  }
+}
+
+/* Tablet (768–1023) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --container-padding: 20px;
+    --section-padding-block: 28px;
+
+    --header-padding-top: 16px;
+    --header-padding-bottom: 10px;
+    --header-desktop-offset-y: 0px;
+  }
+}
+
+/* Mobile (480–767) */
+@media (min-width: 480px) and (max-width: 767px) {
+  :root {
+    --container-padding: 16px;
+    --section-padding-block: 24px;
+
+    --header-padding-top: 14px;
+    --header-padding-bottom: 10px;
+    --header-desktop-offset-y: 0px;
+  }
+}
+
+/* Small mobile (≤479, includes 375) */
+@media (max-width: 479px) {
+  :root {
+    --container-padding: 14px;
+    --section-padding-block: 22px;
+
+    --header-padding-top: 12px;
+    --header-padding-bottom: 10px;
+    --header-desktop-offset-y: 0px;
+  }
+}
+
+/* -----------------------------
+   Layout helpers
+------------------------------ */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+.section {
+  padding-block: var(--section-padding-block);
+}
+
+/* -----------------------------
+   Typography helpers
+------------------------------ */
+
+.text-muted {
+  color: var(--color-muted);
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-ui {
+  font-size: var(--font-size-ui);
+  line-height: var(--line-height-ui);
+  letter-spacing: var(--letter-spacing-ui);
+}
+
+.text-brand {
+  font-size: var(--font-size-ui);
+  line-height: var(--line-height-ui);
+  letter-spacing: var(--letter-spacing-brand);
+  text-transform: uppercase;
+}
+
+/* Headings (keep as utilities; blocks can override) */
+.heading-xl {
+  margin: 0;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  font-size: clamp(34px, 6vw, 64px);
+}
+
+.heading-lg {
+  margin: 0;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-size: clamp(28px, 4.2vw, 48px);
+}
+
+.heading-md {
+  margin: 0;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-size: clamp(22px, 3.2vw, 34px);
+}
+
+/* -----------------------------
+   UI primitives
+------------------------------ */
+
+.divider {
+  border-top: 1px solid var(--color-border);
+}
+
+.panel {
+  background: var(--color-panel);
+  border: 1px solid var(--color-border);
+}
+
+.surface {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  background: var(--color-background);
+
+  font-size: 13px;
+  line-height: 1.2;
+
+  cursor: pointer;
+}
+
+.button:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+/* -----------------------------
+   Accessibility
+------------------------------ */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

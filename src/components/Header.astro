@@ -1,0 +1,144 @@
+---
+const navItems = [
+  { label: "PROJECTS", href: "#projects" },
+  { label: "CONTACTS", href: "#contacts" },
+  { label: "ABOUT ME", href: "#about" },
+];
+---
+<header class="site-header">
+  <div class="container site-header__container">
+    <div class="site-header__grid">
+      <div class="site-header__brand">
+        <span class="site-header__brand-name">OLGA BIS</span>
+        <span class="site-header__brand-experience">2020 - 2026</span>
+        <span class="site-header__brand-profession">UX / UI DESIGNER</span>
+      </div>
+
+    <nav class="site-header__navigation" aria-label="Primary">
+        {navItems.map((item, index) => (
+            <>
+            <a
+                class="site-header__navigation-link"
+                href={item.href}
+            >
+                {item.label}
+            </a>
+
+            {index < navItems.length - 1 && (
+                <span
+                class="site-header__navigation-divider"
+                aria-hidden="true"
+                >
+                /
+                </span>
+            )}
+            </>
+        ))}
+    </nav>
+
+      <div class="site-header__location">
+        BASED IN SERBIA&nbsp;&nbsp;/&nbsp;&nbsp;
+        <span
+          class="site-header__tz-label"
+          data-tz-label
+        >
+          GMT +1:00
+        </span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  import { applyTimezoneLabel } from "../scripts/timezone-label.js";
+  applyTimezoneLabel();
+</script>
+
+<style lang="scss">
+.site-header {
+  background: var(--color-background);
+  margin-bottom: 100px;
+}
+
+.site-header__container {
+  padding-top: 26px;
+  padding-bottom: 18px;
+}
+
+.site-header__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 12px;
+}
+
+.site-header__brand {
+  display: grid;
+  row-gap: 4px;
+
+  span {
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+.site-header__brand-name {
+    padding-left: 38px;
+}
+
+.site-header__brand-profession {
+    padding-left: 24px;
+}
+
+.site-header__navigation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.site-header__navigation-divider {
+  font-size: var(--font-size-ui);
+  line-height: var(--line-height-ui);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-muted);
+}
+
+.site-header__navigation-link {
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.site-header__navigation-link:hover {
+  text-decoration: underline;
+}
+
+.site-header__location {
+  font-size: 12px;
+  line-height: 1.25;
+  color: var(--color-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-self: center;
+}
+
+@media (min-width: 900px) {
+  .site-header__grid {
+    grid-template-columns: 1fr auto 1fr;
+    column-gap: 24px;
+    align-items: start;
+  }
+
+  .site-header__navigation {
+    justify-content: center;
+  }
+
+  .site-header__location {
+    justify-self: end;
+  }
+}
+</style>
