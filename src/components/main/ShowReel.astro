@@ -1,0 +1,23 @@
+---
+const image = "/portfolio/images/showreel.webp";
+---
+<div class="showreel">'
+    <img src={image} alt="Showreel" class="showreel__image" />
+</div>
+
+<style lang="scss">
+.showreel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 80px var(--space-l) 64px var(--space-l);
+    background: var(--color-surface);
+}
+.showreel__image {
+    aspect-ratio: 4 / 3;
+    width: auto;
+    margin: 0 auto;
+    max-width: 854px;
+}
+</style>

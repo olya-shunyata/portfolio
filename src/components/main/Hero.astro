@@ -1,5 +1,6 @@
 ---
 import SkillChips from "./SkillChips.astro";
+import type { Image } from "../../types";
 
 const headline =
   "Senior UX/UI designer shaping digital products from concept to launch. I’ve collaborated with leading design studios, international startups, product teams, designing websites and apps";
@@ -12,10 +13,19 @@ const skills = [
   "AI-tools",
 ];
 
-const heroImages = {
-  left: "/portfolio/images/hero_01.webp",
-  right: "/portfolio/images/hero_02.webp",
-  cursor: "/portfolio/images/cursor.svg",
+const heroImages: Record<string, Image> = {
+  left: {
+    src: "/portfolio/images/hero_01.webp",
+    alt: "A screenshot of a mobile app interface showcasing a sleek and modern design with intuitive navigation and visually appealing graphics.",
+  },
+  right: {
+    src: "/portfolio/images/hero_02.webp",
+    alt: "A screenshot of a mobile app interface showcasing a sleek and modern design with intuitive navigation and visually appealing graphics.",
+  },
+  cursor: {
+    src: "/portfolio/images/cursors/cursor.svg",
+    alt: "A cursor icon representing user interaction and navigation within a digital interface.",
+  },
 };
 ---
 
@@ -27,8 +37,8 @@ const heroImages = {
       <div class="hero-section__cursor" aria-hidden="true">
         <img
           class="hero-section__cursor-icon"
-          src={heroImages.cursor}
-          alt=""
+          src={heroImages.cursor.src}
+          alt={heroImages.cursor.alt}
           loading="eager"
           decoding="async"
         />
@@ -40,25 +50,17 @@ const heroImages = {
       
     </div>
     <div class="hero-section__media-grid">
+    {Object.values(heroImages).filter((image) => image !== heroImages.cursor).map((image) => (
       <figure class="hero-section__media-card">
         <img
           class="hero-section__media-image"
-          src={heroImages.left}
-          alt=""
+          src={image.src}
+          alt={image.alt}
           loading="eager"
           decoding="async"
         />
       </figure>
-
-      <figure class="hero-section__media-card">
-        <img
-          class="hero-section__media-image"
-          src={heroImages.right}
-          alt=""
-          loading="eager"
-          decoding="async"
-        />
-      </figure>
+    ))}
     </div>
   </div>
 </section>
@@ -76,16 +78,15 @@ const heroImages = {
 }
 
 .hero-section__container {
-  gap: 72px;
+  gap: 90px;
 }
 
 .hero-section__header {
   position: relative;
-  gap: 32px;
+  gap: var(--space-4l);
 }
 
 .hero-section__title {
-  margin: 0;
   color: var(--color-text);
 
   font-family: var(--font-family-base);
@@ -102,7 +103,7 @@ const heroImages = {
 .hero-section__cursor {
   position: absolute;
 
-  left: min(calc(980px + var(--space-4)), calc(100% - 140px));
+  left: min(calc(980px + var(--space-l)), calc(100% - 140px));
   top: 110px;
 
   display: inline-flex;
@@ -113,7 +114,7 @@ const heroImages = {
 
   transform: translate3d(0, 0, 0);
 
-  animation: figma-cursor 8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  animation: figma-drift 8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
   will-change: transform;
 }
 
@@ -124,7 +125,7 @@ const heroImages = {
 
 .hero-section__media-grid {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-m);
   grid-template-columns: repeat(2, 1fr);
 }
 
@@ -174,77 +175,5 @@ const heroImages = {
     font-size: 30px;
     line-height: 1.1;
   }
-}
-
-@keyframes figma-cursor {
-  0%   { transform: translate3d(0, 0, 0); }
-  5%  { transform: translate3d(0, 0, 0); }
-
-  18%  {
-    transform: translate3d(
-      calc(var(--cursor-motion) * -0.8),
-      calc(var(--cursor-motion) * -0.35),
-      0
-    );
-  }
-
-  26%  {
-    transform: translate3d(
-      calc(var(--cursor-motion) * -1),
-      calc(var(--cursor-motion) * -0.55),
-      0
-    );
-  }
-
-  32%  {
-    transform: translate3d(
-      calc(var(--cursor-motion) * -1),
-      calc(var(--cursor-motion) * -0.55),
-      0
-    );
-  }
-
-  36%  {
-    transform: translate3d(
-      calc(var(--cursor-motion) * -0.95),
-      calc(var(--cursor-motion) * -0.5),
-      0
-    );
-  }
-
-  40%  {
-    transform: translate3d(
-      calc(var(--cursor-motion) * -1),
-      calc(var(--cursor-motion) * -0.55),
-      0
-    );
-  }
-
-  52%  {
-    transform: translate3d(
-      calc(var(--cursor-motion) * -0.35),
-      calc(var(--cursor-motion) * -0.8),
-      0
-    );
-  }
-
-  60%  {
-    transform: translate3d(
-      calc(var(--cursor-motion) * -0.1),
-      calc(var(--cursor-motion) * -0.9),
-      0
-    );
-  }
-
-  70%  {
-    transform: translate3d(
-      calc(var(--cursor-motion) * -0.1),
-      calc(var(--cursor-motion) * -0.9),
-      0
-    );
-  }
-
-  88%  { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(0, 0, 0); }
 }
 </style>

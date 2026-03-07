@@ -1,0 +1,68 @@
+---
+import type { InfoColumnItem } from '../../types';
+const { items } = Astro.props as { items: InfoColumnItem[] };
+---
+<div class="info-columns">
+    {items.map((item) => (
+      <div class="info-columns__column">
+        <h3 class="info-columns__title">{item.title}</h3>
+        <div class="info-columns__description">
+            {item.description.map((list) => (
+              <ul class="info-columns__list">
+                {list.map((point) => (
+                  <li class="info-columns__point">{point}</li>
+                ))}
+              </ul>
+            ))}
+        </div>
+      </div>
+    ))}
+</div>
+
+<style lang="scss">
+.info-columns {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(max-content, minmax(400px, 1fr));
+    gap: 140px;
+    
+    @media (max-width: 1024px) {
+        grid-auto-flow: row;
+        gap: var(--space-6l);
+    }
+}
+
+.info-columns__column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+
+    @media (max-width: 1024px) {
+        max-width: 400px; 
+    }
+}
+
+.info-columns__title {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.info-columns__description {
+    color: rgba(0, 0, 0, 0.62);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 130%;
+    display: flex;
+    gap: 70px;
+}
+
+.info-columns__list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+</style>

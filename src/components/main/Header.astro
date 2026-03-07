@@ -1,4 +1,11 @@
 ---
+import getTimezoneLabel from "../../scripts/timezone-label";
+
+const name = "OLGA BIS";
+const profession = "UX / UI DESIGNER";
+const yearsActive = `2020 - ${new Date().getFullYear()}`;
+const geo = `BASED IN SERBIA / ${getTimezoneLabel()}`;
+
 const navItems = [
   { label: "PROJECTS", href: "#projects" },
   { label: "CONTACTS", href: "#contacts" },
@@ -9,50 +16,39 @@ const navItems = [
   <div class="container site-header__container">
     <div class="site-header__grid">
       <div class="site-header__brand">
-        <span class="site-header__brand-name">OLGA BIS</span>
-        <span class="site-header__brand-experience">2020 - 2026</span>
-        <span class="site-header__brand-profession">UX / UI DESIGNER</span>
+        <span class="site-header__brand-name">{name}</span>
+        <span class="site-header__brand-experience">{yearsActive}</span>
+        <span class="site-header__brand-profession">{profession}</span>
       </div>
 
-    <nav class="site-header__navigation" aria-label="Primary">
-        {navItems.map((item, index) => (
-            <>
-            <a
-                class="site-header__navigation-link"
-                href={item.href}
-            >
-                {item.label}
-            </a>
-
-            {index < navItems.length - 1 && (
-                <span
-                class="site-header__navigation-divider"
-                aria-hidden="true"
+      <nav class="site-header__navigation" aria-label="Primary">
+          {navItems.map((item, index) => (
+              <>
+                <a
+                    class="site-header__navigation-link"
+                    href={item.href}
                 >
-                /
-                </span>
-            )}
-            </>
-        ))}
-    </nav>
+                    {item.label}
+                </a>
 
-      <div class="site-header__location">
-        BASED IN SERBIA&nbsp;&nbsp;/&nbsp;&nbsp;
-        <span
-          class="site-header__tz-label"
-          data-tz-label
-        >
-          GMT +1:00
-        </span>
-      </div>
+                {index < navItems.length - 1 && (
+                    <span
+                    class="site-header__navigation-divider"
+                    aria-hidden="true"
+                    >
+                    /
+                    </span>
+                )}
+              </>
+          ))}
+      </nav>
+
+      <span class="site-header__location">
+        {geo}
+      </span>
     </div>
   </div>
 </header>
-
-<script>
-  import { applyTimezoneLabel } from "../scripts/timezone-label.js";
-  applyTimezoneLabel();
-</script>
 
 <style lang="scss">
 .site-header {
@@ -94,14 +90,14 @@ const navItems = [
 .site-header__navigation {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-xs);
 }
 
 .site-header__navigation-divider {
   font-size: var(--font-size-ui);
   line-height: var(--line-height-ui);
   letter-spacing: var(--letter-spacing-ui);
-  color: var(--color-muted);
+  color: var(--color-text);
 }
 
 .site-header__navigation-link {
@@ -119,7 +115,6 @@ const navItems = [
 .site-header__location {
   font-size: 12px;
   line-height: 1.25;
-  color: var(--color-muted);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   display: inline-flex;

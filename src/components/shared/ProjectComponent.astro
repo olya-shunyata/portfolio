@@ -1,0 +1,63 @@
+---
+const { title, delimiter, fluid, mobileFluid } = Astro.props;
+---
+
+<section class="projects-section">
+  <div class:list={[
+    'container', 
+    { 
+      'container--fluid': fluid, 
+      'container--mobile-fluid': mobileFluid,
+    }
+  ]}>
+    <h2 class:list={[
+      'projects-section__title', 
+      { 
+        'projects-section__title--delimiter': delimiter, 
+        'projects-section__title--padded': fluid,
+        'projects-section__title--padded-mobile': mobileFluid,
+      }
+    ]}>{title}</h2>
+    
+    {delimiter && <hr class="projects-section__delimiter" aria-hidden="true" />}
+    <slot /> 
+  </div>
+</section>
+
+<style lang="scss">
+.projects-section {
+  --card-content-width-min: 320px;
+  --card-content-width-max: 375px;
+}
+
+.projects-section__title {
+  font-weight: var(--font-weight-regular);
+  letter-spacing: -0.02em;
+
+  font-size: 40px;
+  line-height: 1.05;
+  margin-bottom: 54px;
+}
+
+.projects-section__title--padded {
+  padding-inline: var(--container-padding);
+}
+
+.projects-section__title--padded-mobile {
+  @media (max-width: 1024px) {
+    padding-inline: var(--container-padding);
+  }
+}
+
+.projects-section__title--delimiter {
+  margin-bottom: var(--space-l);
+}
+
+.projects-section__delimiter {
+  margin: 0;
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin-bottom: var(--space-l);
+  height: 0;
+}
+</style>
