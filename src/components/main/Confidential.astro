@@ -22,14 +22,14 @@ const cursors: Record<string, CursorIcon> = {
   },
   samolet: {
     src: "/portfolio/images/cursors/samolet.svg",
-    alt: "Samolёt Figma cursor icon",
+    alt: "Samolet Figma cursor icon",
     top: "40%",
     left: "35%",
   },
   vtb: {
-    src: "/portfolio/images/cursors/vtb.webp",
+    src: "/portfolio/images/cursors/vtb.svg",
     alt: "VTB Bank Figma cursor icon",
-    top: "88%",
+    top: "80%",
     left: "30%",
   },
   otpbank: {
@@ -53,7 +53,7 @@ const cursors: Record<string, CursorIcon> = {
   metacade: {
     src: "/portfolio/images/cursors/metacade.svg",
     alt: "Metacade Figma cursor icon",
-    top: "80%",
+    top: "75%",
     left: "76%",
   },
 };
@@ -116,7 +116,7 @@ const deliveredItems = [
         class={`nda__cursor nda__cursor--${name}`}
         src={cursor.src}
         alt={cursor.alt}
-        style={`top: ${cursor.top}; left: ${cursor.left};`}
+        style={`--initial-top: ${cursor.top}; --initial-left: ${cursor.left};`}
       />
     ))}
   </div>
@@ -137,10 +137,6 @@ const deliveredItems = [
 
     font-size: 24px;
     line-height: 120%;
-  }
-
-  .nda__info {
-    padding: var(--container-padding);
   }
 
   .nda__block {
@@ -206,6 +202,8 @@ const deliveredItems = [
     width: auto;
     z-index: 1;
     pointer-events: none;
+    top: var(--initial-top);
+    left: var(--initial-left);
 
     will-change: transform;
     backface-visibility: hidden;
@@ -224,6 +222,12 @@ const deliveredItems = [
     }
   }
 
+  @media (max-width: 1024px) {
+    .nda__info {
+      padding: var(--container-padding);
+    }
+  }
+
   @media (max-width: 768px) {
     .nda__block {
       min-height: 400px;
@@ -236,12 +240,17 @@ const deliveredItems = [
 
     .nda__cursor {
       height: clamp(40px, 8vh, 80px);
+      left: calc(var(--initial-left) - 10%);
     }
 
-    .nda__cursor--sila {
-      position: absolute;
-      top: 58%;
-      left: 35% !important;
+    .nda__cursor--metacade {
+      left: calc(var(--initial-left) - 22%);
+      top: calc(var(--initial-top) + 10%);
+    }
+
+    .nda__cursor--vtb {
+      left: calc(var(--initial-left) - 15%);
+      top: calc(var(--initial-top) - 5%);
     }
 
     .nda__stats {

@@ -29,64 +29,59 @@ const heroImages: Record<string, Image> = {
 };
 ---
 
-<section class="hero-section">
-  <div class="container hero-section__container">
-    <div class="hero-section__header">
-      <h1 class="hero-section__title">{headline}</h1>
+<div class="hero">
+  <div class="hero__header">
+    <h1 class="hero__title">{headline}</h1>
 
-      <div class="hero-section__cursor" aria-hidden="true">
-        <img
-          class="hero-section__cursor-icon"
-          src={heroImages.cursor.src}
-          alt={heroImages.cursor.alt}
-          loading="eager"
-          decoding="async"
-        />
-      </div>
+    <div class="hero__cursor" aria-hidden="true">
+      <img
+        class="hero__cursor-icon"
+        src={heroImages.cursor.src}
+        alt={heroImages.cursor.alt}
+        loading="eager"
+        decoding="async"
+      />
+    </div>
 
-      <div class="hero-section__skills">
-        <SkillChips items={skills} />
-      </div>
-      
+    <div class="hero__skills">
+      <SkillChips items={skills} />
     </div>
-    <div class="hero-section__media-grid">
-    {Object.values(heroImages).filter((image) => image !== heroImages.cursor).map((image) => (
-      <figure class="hero-section__media-card">
-        <img
-          class="hero-section__media-image"
-          src={image.src}
-          alt={image.alt}
-          loading="eager"
-          decoding="async"
-        />
-      </figure>
-    ))}
-    </div>
+    
   </div>
-</section>
+  <div class="hero__media-grid">
+  {Object.values(heroImages).filter((image) => image !== heroImages.cursor).map((image) => (
+    <figure class="hero__media-card">
+      <img
+        class="hero__media-image"
+        src={image.src}
+        alt={image.alt}
+        loading="eager"
+        decoding="async"
+      />
+    </figure>
+  ))}
+  </div>
+</div>
 
 <style lang="scss">
 
-.hero-section {
+.hero {
   --cursor-motion: 32px;
+  gap: 90px;
 }
 
-.hero-section__container,
-.hero-section__header {
+.hero,
+.hero__header {
   display: flex;
   flex-direction: column;
 }
 
-.hero-section__container {
-  gap: 90px;
-}
-
-.hero-section__header {
+.hero__header {
   position: relative;
   gap: var(--space-4l);
 }
 
-.hero-section__title {
+.hero__title {
   color: var(--color-text);
 
   font-family: var(--font-family-base);
@@ -100,7 +95,7 @@ const heroImages: Record<string, Image> = {
   max-width: 980px;
 }
 
-.hero-section__cursor {
+.hero__cursor {
   position: absolute;
 
   left: min(calc(980px + var(--space-l)), calc(100% - 140px));
@@ -118,52 +113,52 @@ const heroImages: Record<string, Image> = {
   will-change: transform;
 }
 
-.hero-section__cursor-icon {
+.hero__cursor-icon {
   display: block;
   height: auto;
 }
 
-.hero-section__media-grid {
+.hero__media-grid {
   display: grid;
   gap: var(--space-m);
   grid-template-columns: repeat(2, 1fr);
 }
 
-.hero-section__media-card {
+.hero__media-card {
   margin: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-section__cursor {
+  .hero__cursor {
     animation: none;
   }
 }
 
 /* laptop */
 @media (max-width: 1199px) {
-  .hero-section__title {
+  .hero__title {
     font-size: 46px;
   }
 }
 
 /* tablet */
 @media (max-width: 1023px) {
-  .hero-section__title {
+  .hero__title {
     font-size: 40px;
   }
 
-  .hero-section__cursor {
+  .hero__cursor {
     display: none;
   }
 
-  .hero-section__media-grid {
+  .hero__media-grid {
     grid-template-columns: 1fr;
   }
 }
 
 /* mobile */
 @media (max-width: 767px) {
-  .hero-section__title {
+  .hero__title {
     font-size: 34px;
     line-height: 1.15;
   }
@@ -171,7 +166,7 @@ const heroImages: Record<string, Image> = {
 
 /* small mobile */
 @media (max-width: 479px) {
-  .hero-section__title {
+  .hero__title {
     font-size: 30px;
     line-height: 1.1;
   }

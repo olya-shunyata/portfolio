@@ -1,50 +1,149 @@
 ---
-const photo = "/images/contacts.jpg";
+import type { Image } from "../../types";
+import getTimezoneLabel from "../../scripts/timezone-label";
+
+import DownloadIcon from "../icons/Download.Icon.astro";
+
+import SecuredMail from "../shared/SecuredMail.astro";
+
+const image: Image = {
+  src: "/portfolio/images/about.webp",
+  alt: "Contact me",
+};
+
+const hints = ['Contacts', `Serbia, ${getTimezoneLabel()}`];
+const title = "Let's get in touch!";
+const links = [
+  { label: "Telegram", href: "#" },
+  { label: "LinkedIn", href: "#" },
+  { label: "CV", href: "#", icon: DownloadIcon },
+]
+
 ---
-<section id="contacts" class="sec">
-  <div class="in">
-    <div class="grid">
-      <div class="left">
-        <div class="eyebrow">Contacts</div>
-        <h2 class="h2">Let's get in touch</h2>
-
-        <div class="actions">
-          <a class="btn" href="https://t.me/your" target="_blank" rel="noreferrer">(1) Telegram</a>
-          <a class="btn" href="https://linkedin.com/in/your" target="_blank" rel="noreferrer">(2) LinkedIn</a>
-          <a class="btn" href="/cv.pdf" target="_blank" rel="noreferrer">(3) CV</a>
-        </div>
-
-        <a class="mail" href="mailto:olgabis.design@gmail.com">olgabis.design@gmail.com</a>
+<div class="contacts">
+  <div class="contacts__content">
+    <span class="contacts__hints">
+      {hints.map((hint, index) => (
+        <span key={index}>{hint}</span>
+      ))}
+    </span>
+    <div class="contacts__info">
+      <h2>{title}</h2>
+      <div class="contacts__list">
+        {links.map((link, index) => (
+          <div class="contacts__point">
+            <span class="contacts__number">( {index + 1} )</span>
+            <a href={link.href} class="contacts__plaque">
+              {link.icon && <link.icon size="15" class="contacts__link-icon" />}
+              {link.label}
+            </a>
+          </div>
+        ))}
       </div>
-
-      <figure class="right">
-        <img src={photo} alt="" loading="lazy" decoding="async" />
-      </figure>
+      <div class="contacts__mail">
+        <SecuredMail />
+      </div>
     </div>
   </div>
-</section>
+  <image class="contacts__image" src={image.src} alt={image.alt}/>
+</div>
 
 <style lang="scss">
-@use "../styles/tokens.scss" as *;
-
-.sec { padding-block: 28px; }
-.in { @include container; }
-.grid {
-  border: 1px solid $line;
-  background: $panel;
+.contacts {
   display: grid;
-  gap: 0;
-  @media (min-width: 900px) { grid-template-columns: 1fr 1.6fr; }
+  grid-template-columns: 1fr auto;
+  justify-content: center;
+  background: var(--color-surface);
+  height: fit-content;
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
 }
-.left { padding: 18px; display: grid; gap: 14px; }
-.eyebrow { font-size: 12px; color: $muted; }
-.h2 { margin: 0; font-size: clamp(28px, 4vw, 48px); font-weight: 400; letter-spacing: -0.02em; }
-.actions { display: grid; gap: 10px; max-width: 220px; }
-.btn { border: 1px solid $line; padding: 10px 12px; background: #fff; font-size: 13px; }
-.mail { font-size: 16px; margin-top: 10px; }
-.right { margin: 0; border-left: 1px solid $line; background: #000; }
-.right img { width: 100%; height: 100%; object-fit: cover; }
-@media (max-width: 899px) {
-  .right { border-left: none; border-top: 1px solid $line; }
+
+.contacts__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6l);
+  padding: var(--space-4l) var(--space-6l);
+}
+
+.contacts__hints {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.contacts__info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: var(--space-4l);
+
+  h2 {
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 113%;
+  }
+}
+
+.contacts__list {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: var(--space-l);
+
+  .contacts__number {
+    display: inline-block;
+    width: var(--space-4l);
+    font-size: var(--space-xl);
+    color: var(--color-text);
+  }
+}
+
+.contacts__plaque {
+  display: inline-flex; 
+  align-items: center;
+  gap: var(--space-xs);
+  
+  min-width: 104px;
+  padding: var(--space-s) var(--space-xl);
+  border: 1px solid rgba(15, 15, 15, 0.7);
+  
+  color: var(--color-primary);
+  text-decoration: none;
+  white-space: nowrap;
+  
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-dark);
+  }
+}
+
+.contacts__point {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4l);
+} 
+
+.contacts__link-icon {
+  flex-shrink: 0;
+  margin-top: -2px;
+}
+
+.contacts__mail {
+  display: flex;
+  justify-self: flex-end;
+}
+
+.contacts__image {
+  max-height: 600px;
+  aspect-ratio: 241 / 200;
 }
 </style>

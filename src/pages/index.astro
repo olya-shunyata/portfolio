@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/main/Header.astro";
 import Hero from "../components/main/Hero.astro";
 import Projects from "../components/main/Projects.astro";
-import ProjectComponent from "../components/shared/ProjectComponent.astro";
+import ProjectSection from "../components/shared/ProjectSection.astro";
 import Confidential from "../components/main/Confidential.astro";
 import ShowReel from "../components/main/ShowReel.astro";
 import Contacts from "../components/main/Contacts.astro";
@@ -12,16 +12,21 @@ import Footer from "../components/main/Footer.astro";
 <BaseLayout title="Olga Bis — Portfolio">
   <Header />
   <main>
-    <Hero />
-    <ProjectComponent title="Projects" mobileFluid>
+    <section class="container">
+      <Hero />
+    </section>
+    <ProjectSection title="Projects" mobileFluid>
       <Projects />
-    </ProjectComponent>
-    <ProjectComponent title="Confidential" delimiter mobileFluid>
+    </ProjectSection>
+    <ProjectSection title="Confidential" delimiter mobileFluid>
       <Confidential />
-    </ProjectComponent>
-    <ProjectComponent title="What else I can do" mobileFluid>
+    </ProjectSection>
+    <ProjectSection title="What else I can do" mobileFluid>
       <ShowReel />
-    </ProjectComponent>
+    </ProjectSection>
+    <section class="container">
+      <Contacts />
+    </section>
   </main>
   <Footer />
 </BaseLayout>

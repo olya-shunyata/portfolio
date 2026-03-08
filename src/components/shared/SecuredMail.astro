@@ -1,0 +1,105 @@
+---
+---
+<script>
+  const emailBtn = document.getElementById('email-trigger');
+  
+  emailBtn?.addEventListener('click', async () => {
+    const user = emailBtn.dataset.user;
+    const domain = emailBtn.dataset.domain;
+    const fullEmail = `${user}@${domain}`;
+
+    try {
+      await navigator.clipboard.writeText(fullEmail);
+
+      const display = emailBtn.querySelector('.contact-me__display');
+      const status = emailBtn.querySelector('.contact-me__status');
+      
+      const originalDisplay = display.textContent;
+      const originalStatus = status.textContent;
+
+      emailBtn.classList.add('is-copied');
+      display.textContent = fullEmail; // Reveal full email
+      status.textContent = 'Copied to clipboard!';
+
+      setTimeout(() => {
+        emailBtn.classList.remove('is-copied');
+        display.textContent = originalDisplay;
+        status.textContent = originalStatus;
+      }, 3000);
+
+    } catch (err) {
+      console.error('Failed to copy!', err);
+      window.location.href = `mailto:${fullEmail}`;
+    }
+  });
+</script>
+<div class="contact-me-wrapper">
+  <span class="contact-me-hint">Work inquiry?</span>
+  <button 
+    class="contact-me" 
+    id="email-trigger"
+    data-user="olgabis.design" 
+    data-domain="gmail.com"
+  >
+    <span class="contact-me__display">olga••••design@•••••.com</span>
+    <span class="contact-me__status">Click to copy</span>
+  </button>
+</div>
+<style lang="scss">
+.contact-me-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.contact-me-hint {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  letter-spacing: 0.05em;
+}
+
+.contact-me {
+  background: none;
+  border: 1px solid var(--color-border);
+  padding: var(--space-m) var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  min-width: 220px;
+  text-align: left;
+
+  &:hover {
+    border-color: var(--color-primary);
+    background: var(--color-surface-hover);
+    
+    .contact-me__status {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &__display {
+    font-family: var(--font-mono, monospace);
+    font-size: 18px;
+    color: var(--color-text);
+  }
+
+  &__status {
+    font-size: 11px;
+    color: var(--color-primary);
+    opacity: 0.6;
+    transition: all 0.2s ease;
+  }
+
+  &.is-copied {
+    border-color: var(--color-success);
+    .contact-me__status {
+      color: var(--color-success);
+      opacity: 1;
+    }
+  }
+}
+</style>
