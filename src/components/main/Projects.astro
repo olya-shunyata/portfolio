@@ -4,16 +4,16 @@ const items = [
     title: "Software\nfor veterinary clinics",
     desc: "Helps manage appointments, patient records, inpatient treatment workflows, and day-to-day operations.",
     tags: ["Health tech", "User Experience Design (UX)", "Prototyping", "Interaction Design", "User Testing & Feedback"],
-    imageLeft: "/portfolio/images/project_nl_left.webp",
-    imageRight: "/portfolio/images/project_nl_right.webp",
+    imageLeft: "/portfolio/images/project_vet.webp",
+    imageRight: "/portfolio/images/project_vet_info.webp",
     href: "/projects/vet/",
   },
   {
     title: "SaaS service is a data-driven\nwebsite optimization",
     desc: "Using tools like heat maps and A/B testing, teams can validate hypotheses.",
     tags: ["SaaS", "User Experience Design (UX)", "Prototyping", "User Interface Design (UI)", "Web design", "3D graphics"],
-    imageLeft: "/portfolio/images/project_ab_left.webp",
-    imageRight: "/portfolio/images/project_ab_right.webp",
+    imageLeft: "/portfolio/images/project_ab.webp",
+    imageRight: "/portfolio/images/project_ab_heat.webp",
     href: "/projects/saas/",
   },
 ];
@@ -50,15 +50,15 @@ const items = [
         </a>
       </div>
 
-      <figure class="project-card__media">
+      <div class="project-card__media">
         <img
-          class="project-card__image--lg"
+          class="project-card__image"
           src={project.imageRight}
           alt=""
           loading="lazy"
           decoding="async"
         />
-      </figure>
+      </div>
     </article>
   ))}
 </div>
@@ -115,11 +115,8 @@ const items = [
 }
 
 .project-card__image {
+  width: auto;
   max-width: var(--card-content-width-min);
-}
-
-.project-card__image--lg {
-  width: 100%;
 }
 
 .project-card__tags {
@@ -162,19 +159,18 @@ const items = [
   text-underline-position: from-font;
 }
 
-/* Media */
 .project-card__media {
   margin: 0;
   height: 100%;
-  background: var(--color-background);
-  border: 1px solid var(--color-border);
+  width: 100%;
+  background: var(--color-white);
   display: grid;
   place-items: center;
 }
 
 .project-card__image {
-  width: 100%;
   height: auto;
+  max-width: 438px;
   display: block;
 }
 

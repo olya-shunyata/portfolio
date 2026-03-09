@@ -1,5 +1,6 @@
 ---
 import SkillChips from "./SkillChips.astro";
+import MediaGrid from "../shared/MediaGrid.astro";
 import type { Image } from "../../types";
 
 const headline =
@@ -15,11 +16,11 @@ const skills = [
 
 const heroImages: Record<string, Image> = {
   left: {
-    src: "/portfolio/images/hero_01.webp",
+    src: "/portfolio/images/ab_mockup.webp",
     alt: "A screenshot of a mobile app interface showcasing a sleek and modern design with intuitive navigation and visually appealing graphics.",
   },
   right: {
-    src: "/portfolio/images/hero_02.webp",
+    src: "/portfolio/images/vet_mockup.webp",
     alt: "A screenshot of a mobile app interface showcasing a sleek and modern design with intuitive navigation and visually appealing graphics.",
   },
   cursor: {
@@ -42,25 +43,13 @@ const heroImages: Record<string, Image> = {
         decoding="async"
       />
     </div>
-
+    <MediaGrid images={Object.values(heroImages).filter((image) => image !== heroImages.cursor)} />
     <div class="hero__skills">
       <SkillChips items={skills} />
     </div>
     
   </div>
-  <div class="hero__media-grid">
-  {Object.values(heroImages).filter((image) => image !== heroImages.cursor).map((image) => (
-    <figure class="hero__media-card">
-      <img
-        class="hero__media-image"
-        src={image.src}
-        alt={image.alt}
-        loading="eager"
-        decoding="async"
-      />
-    </figure>
-  ))}
-  </div>
+
 </div>
 
 <style lang="scss">
@@ -118,16 +107,6 @@ const heroImages: Record<string, Image> = {
   height: auto;
 }
 
-.hero__media-grid {
-  display: grid;
-  gap: var(--space-m);
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.hero__media-card {
-  margin: 0;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .hero__cursor {
     animation: none;
@@ -149,10 +128,6 @@ const heroImages: Record<string, Image> = {
 
   .hero__cursor {
     display: none;
-  }
-
-  .hero__media-grid {
-    grid-template-columns: 1fr;
   }
 }
 

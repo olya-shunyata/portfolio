@@ -19,16 +19,8 @@ const { title = "Olga Bis" } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <div class="layout">
+    <div class="flex-gapped-layout">
       <slot />
     </div>
   </body>
 </html>
-
-<style lang="scss">
-.layout {
-  display: flex;
-  flex-direction: column;
-  gap: 90px;
-}
-</style>

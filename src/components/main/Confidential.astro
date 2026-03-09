@@ -1,5 +1,5 @@
 ---
-import type { Image } from "../../types";
+import type { Image, InfoItem } from "../../types";
 import InfoColumns from "../shared/InfoColumns.astro";
 import LockIcon from "../icons/LockIcon.astro";
 
@@ -60,7 +60,7 @@ const cursors: Record<string, CursorIcon> = {
 
 const ndaLabel = "NDA protected";
 
-const items = [
+const items: InfoItem[] = [
   {
     title: "My roles",
     description: [["UX/UI Designer", "Product Designer"]]

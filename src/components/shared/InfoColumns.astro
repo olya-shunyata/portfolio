@@ -1,6 +1,6 @@
 ---
-import type { InfoColumnItem } from '../../types';
-const { items } = Astro.props as { items: InfoColumnItem[] };
+import type { InfoItem } from '../../types';
+const { items } = Astro.props as { items: InfoItem[] };
 ---
 <div class="info-columns">
     {items.map((item) => (

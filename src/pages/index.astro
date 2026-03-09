@@ -11,17 +11,17 @@ import Footer from "../components/main/Footer.astro";
 ---
 <BaseLayout title="Olga Bis — Portfolio">
   <Header />
-  <main>
+  <main class="flex-gapped-layout">
     <section class="container">
       <Hero />
     </section>
-    <ProjectSection title="Projects" mobileFluid>
+    <ProjectSection title="Projects">
       <Projects />
     </ProjectSection>
     <ProjectSection title="Confidential" delimiter mobileFluid>
       <Confidential />
     </ProjectSection>
-    <ProjectSection title="What else I can do" mobileFluid>
+    <ProjectSection title="What else I can do">
       <ShowReel />
     </ProjectSection>
     <section class="container">
@@ -30,10 +30,3 @@ import Footer from "../components/main/Footer.astro";
   </main>
   <Footer />
 </BaseLayout>
-<style lang="scss">
-main {
-  display: flex;
-  flex-direction: column;
-  gap: 90px;
-}
-</style>

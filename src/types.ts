@@ -1,4 +1,4 @@
-export type InfoColumnItem = {
+export type InfoItem = {
     title: string;
     description: string[][];
 }
@@ -8,4 +8,5 @@ export type Image = {
     alt: string;
     width?: number;
     height?: number;
+    class?: string;
 }

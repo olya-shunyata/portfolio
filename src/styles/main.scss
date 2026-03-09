@@ -316,3 +316,13 @@ body {
   color: var(--color-text);
   background: var(--color-white);
 }
+
+.flex-gapped-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+}
+
+.backround-dark {
+  background-color: var(--color-dark);
+}

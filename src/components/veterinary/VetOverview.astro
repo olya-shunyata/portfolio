@@ -1,0 +1,27 @@
+---
+import InfoColumns from "../shared/InfoColumns.astro";
+
+import type { InfoColumnItem } from '../types';
+
+const infoItems: InfoColumnItem[] = [
+  {
+    title: "My role",
+    description: [
+        ["UX / UI designer"]
+    ]
+  },
+  {
+    title: "Introduction",
+    description: [
+        ["App & PC software for managing veterinary clinics, designed to manage appointment bookings, patient records and inpatient treatment workflows."],
+    ]
+  },
+  {
+    title: "Contribution",
+    description: [
+        ["I led the redesign of the inpatient workflow, focusing on improving identification accuracy and treatment tracking within the veterinary clinic."],
+    ]
+  }
+];
+---
+<InfoColumns items={infoItems} />
