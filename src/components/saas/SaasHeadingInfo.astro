@@ -1,0 +1,123 @@
+---
+import InfoColumns from "../shared/InfoColumns.astro";
+import type { InfoItem } from "../../types";
+
+const heading = "The Conversion Optimization and Personalization Platform";
+
+const items: InfoItem[] = [
+  {
+    title: "My role",
+    description: [["UX / UI designer"]],
+  },
+  {
+    title: "Introduction",
+    description: [[
+      "SaaS service is a data-driven website optimization platform that helps businesses improve digital performance. Using tools like heat maps",
+      "and A/B testing, teams can validate hypotheses.",
+    ]],
+  },
+  {
+    title: "Contribution",
+    selected: true,
+    description: [[
+      [
+        { text: "I led the redesign of the platform and its marketing website, conducting competitive research, " },
+        { text: "refining key user scenarios,", accent: true },
+        { text: "and rebuilding feature hierarchy.", accent: true },
+      ],
+      [
+        { text: "I improved user flow,", accent: true },
+        { text: " " },
+        { text: "modernized the visual system.", accent: true },
+      ],
+    ]],
+  },
+];
+---
+
+<section class="saas-heading-info" data-node-id="2298:1518">
+  <div class="saas-heading-info__header">
+    <h2 class="saas-heading-info__title">{heading}</h2>
+    <hr class="saas-heading-info__line" aria-hidden="true" />
+  </div>
+
+  <InfoColumns items={items} />
+</section>
+
+<style lang="scss">
+.saas-heading-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.saas-heading-info__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.saas-heading-info__title {
+  margin: 0;
+  max-width: 628px;
+
+  font-size: clamp(34px, 3.34vw, 48px);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.13;
+  letter-spacing: 0;
+}
+
+.saas-heading-info__line {
+  margin: 0;
+  border: none;
+  border-top: 1px solid var(--color-border);
+  height: 0;
+}
+
+.saas-heading-info :global(.info-columns) {
+  grid-auto-columns: max-content;
+  gap: 140px;
+}
+
+.saas-heading-info :global(.info-columns__column) {
+  gap: var(--space-xs);
+}
+
+.saas-heading-info :global(.info-columns__description) {
+  gap: 0;
+}
+
+.saas-heading-info :global(.info-columns__column:nth-child(1)) {
+  width: 118px;
+}
+
+.saas-heading-info :global(.info-columns__column:nth-child(2)) {
+  width: 339px;
+}
+
+.saas-heading-info :global(.info-columns__column:nth-child(3)) {
+  width: 425px;
+}
+
+@media (max-width: 1024px) {
+  .saas-heading-info :global(.info-columns) {
+    gap: var(--space-6l);
+  }
+
+  .saas-heading-info :global(.info-columns__column) {
+    width: min(100%, 640px);
+    max-width: min(100%, 640px);
+  }
+}
+
+@media (max-width: 767px) {
+  .saas-heading-info__title {
+    max-width: 350px;
+  }
+
+  .saas-heading-info :global(.info-columns__column) {
+    width: min(100%, 480px);
+    max-width: min(100%, 480px);
+  }
+}
+</style>

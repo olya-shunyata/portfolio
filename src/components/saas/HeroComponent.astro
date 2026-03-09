@@ -1,0 +1,149 @@
+---
+import type { Image } from "../../types";
+
+const heroCards: Image[] = [
+  {
+    src: "https://www.figma.com/api/mcp/asset/38979dc4-46f7-426e-b3cb-b8a0efc19169",
+    alt: "SaaS hero preview image one.",
+  },
+  {
+    src: "https://www.figma.com/api/mcp/asset/960472af-23c7-4f04-8645-55d2e239bdb3",
+    alt: "SaaS hero preview image two.",
+  },
+  {
+    src: "https://www.figma.com/api/mcp/asset/6a24cdf5-3f47-4004-ac6a-ad2c2c1e0663",
+    alt: "SaaS hero preview image three.",
+  },
+];
+---
+
+<section class="saas-hero" aria-label="SaaS product previews">
+  <div class="saas-hero__stage" data-node-id="2245:1244">
+    <div class="saas-hero__track saas-hero__track--a" aria-hidden="true">
+      {heroCards.map((card) => (
+        <figure class="saas-hero__card">
+          <img
+            class="saas-hero__image"
+            src={card.src}
+            alt={card.alt}
+            loading="eager"
+            decoding="async"
+          />
+        </figure>
+      ))}
+    </div>
+
+    <div class="saas-hero__track saas-hero__track--b" aria-hidden="true">
+      {heroCards.map((card) => (
+        <figure class="saas-hero__card">
+          <img
+            class="saas-hero__image"
+            src={card.src}
+            alt={card.alt}
+            loading="eager"
+            decoding="async"
+          />
+        </figure>
+      ))}
+    </div>
+
+    <span class="visually-hidden">
+      Animated carousel of SaaS product screens moving continuously from right to left.
+    </span>
+  </div>
+</section>
+
+<style lang="scss">
+.saas-hero {
+  --stage-height: clamp(270px, 43.06vw, 620px);
+  --card-width: clamp(300px, 45.625vw, 657px);
+  --card-gap: clamp(20px, 3.472vw, 50px);
+  --scroll-duration: 24s;
+
+  width: 100%;
+  background: var(--color-dark);
+  overflow: hidden;
+}
+
+.saas-hero__stage {
+  position: relative;
+  width: 100%;
+  height: var(--stage-height);
+  margin-inline: auto;
+  overflow: hidden;
+}
+
+.saas-hero__track {
+  position: absolute;
+  inset: 0 auto 0 0;
+
+  display: flex;
+  align-items: center;
+  gap: var(--card-gap);
+
+  width: max-content;
+  padding-right: var(--card-gap);
+}
+
+.saas-hero__track--a {
+  animation: saas-marquee-a var(--scroll-duration) linear infinite;
+}
+
+.saas-hero__track--b {
+  animation: saas-marquee-b var(--scroll-duration) linear infinite;
+}
+
+.saas-hero__card {
+  width: var(--card-width);
+  aspect-ratio: 657 / 440;
+  margin: 0;
+}
+
+.saas-hero__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 1023px) {
+  .saas-hero__stage {
+    --stage-height: clamp(240px, 52vw, 500px);
+    --card-width: clamp(280px, 62vw, 560px);
+    --scroll-duration: 20s;
+  }
+}
+
+@media (max-width: 767px) {
+  .saas-hero__stage {
+    --stage-height: clamp(210px, 64vw, 360px);
+    --card-width: clamp(250px, 84vw, 420px);
+    --scroll-duration: 16s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .saas-hero__track--a,
+  .saas-hero__track--b {
+    animation: none;
+  }
+}
+
+@keyframes saas-marquee-a {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes saas-marquee-b {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+</style>

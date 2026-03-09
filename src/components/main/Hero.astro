@@ -4,7 +4,7 @@ import MediaGrid from "../shared/MediaGrid.astro";
 import type { Image } from "../../types";
 
 const headline =
-  "Senior UX/UI designer shaping digital products from concept to launch. I’ve collaborated with leading design studios, international startups, product teams, designing websites and apps";
+  "Senior UX/UI designer shaping digital products from concept to launch. I've collaborated with";
 
 const skills = [
   "strong UX thinking",
@@ -32,7 +32,16 @@ const heroImages: Record<string, Image> = {
 
 <div class="hero">
   <div class="hero__header">
-    <h1 class="hero__title">{headline}</h1>
+    <h1 class="hero__title" data-node-id="2151:213">
+      {headline}{" "}
+      <span class="hero__title-accent">leading design studios,</span>{" "}
+      <span class="hero__title-accent">international startups,</span>{" "}
+      <span class="hero__title-accent">product teams,</span>{" "}
+      designing websites and apps
+    </h1>
+    <div class="hero__skills">
+      <SkillChips items={skills} />
+    </div>
 
     <div class="hero__cursor" aria-hidden="true">
       <img
@@ -44,16 +53,10 @@ const heroImages: Record<string, Image> = {
       />
     </div>
     <MediaGrid images={Object.values(heroImages).filter((image) => image !== heroImages.cursor)} />
-    <div class="hero__skills">
-      <SkillChips items={skills} />
-    </div>
-    
   </div>
-
 </div>
 
 <style lang="scss">
-
 .hero {
   --cursor-motion: 32px;
   gap: 90px;
@@ -71,17 +74,25 @@ const heroImages: Record<string, Image> = {
 }
 
 .hero__title {
+  margin: 0;
   color: var(--color-text);
 
   font-family: var(--font-family-base);
   font-style: normal;
   font-weight: var(--font-weight-regular);
 
-  font-size: 52px;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-size: clamp(34px, 3.54vw, 51px);
+  line-height: 1.13;
+  letter-spacing: 0;
 
-  max-width: 980px;
+  max-width: 1020px;
+}
+
+.hero__title-accent {
+  display: inline-block;
+  white-space: nowrap;
+  background: var(--color-accent);
+  padding: 0.03em 0.16em 0.05em;
 }
 
 .hero__cursor {
@@ -116,14 +127,14 @@ const heroImages: Record<string, Image> = {
 /* laptop */
 @media (max-width: 1199px) {
   .hero__title {
-    font-size: 46px;
+    font-size: clamp(34px, 4.2vw, 46px);
   }
 }
 
 /* tablet */
 @media (max-width: 1023px) {
   .hero__title {
-    font-size: 40px;
+    font-size: clamp(34px, 4.2vw, 40px);
   }
 
   .hero__cursor {
@@ -134,8 +145,13 @@ const heroImages: Record<string, Image> = {
 /* mobile */
 @media (max-width: 767px) {
   .hero__title {
+    max-width: 350px;
     font-size: 34px;
     line-height: 1.15;
+  }
+
+  .hero__title-accent {
+    padding: 0 0.12em 0.02em;
   }
 }
 

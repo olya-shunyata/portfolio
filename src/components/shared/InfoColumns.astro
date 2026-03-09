@@ -1,16 +1,31 @@
 ---
 import type { InfoItem } from '../../types';
+
 const { items } = Astro.props as { items: InfoItem[] };
 ---
 <div class="info-columns">
     {items.map((item) => (
-      <div class="info-columns__column">
+      <div class:list={[
+        "info-columns__column",
+        { "info-columns__column--selected": item.selected }
+      ]}>
         <h3 class="info-columns__title">{item.title}</h3>
         <div class="info-columns__description">
             {item.description.map((list) => (
               <ul class="info-columns__list">
                 {list.map((point) => (
-                  <li class="info-columns__point">{point}</li>
+                  <li class="info-columns__point">
+                    {typeof point === "string"
+                      ? point
+                      : point.map((part) => (
+                        <span class:list={[
+                          "info-columns__inline-part",
+                          { "info-columns__inline-part--accent": part.accent }
+                        ]}>
+                          {part.text}
+                        </span>
+                      ))}
+                  </li>
                 ))}
               </ul>
             ))}
@@ -42,6 +57,32 @@ const { items } = Astro.props as { items: InfoItem[] };
     }
 }
 
+.info-columns__column--selected {
+    position: relative;
+    padding: 4px 6px;
+    border: 1.5px solid var(--color-accent);
+}
+
+.info-columns__column--selected::before,
+.info-columns__column--selected::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9px;
+    height: 22px;
+    background: var(--color-accent);
+    border-radius: 4px;
+    transform: translateY(-50%);
+}
+
+.info-columns__column--selected::before {
+    left: -5px;
+}
+
+.info-columns__column--selected::after {
+    right: -5px;
+}
+
 .info-columns__title {
     font-size: 24px;
     font-style: normal;
@@ -63,6 +104,24 @@ const { items } = Astro.props as { items: InfoItem[] };
     display: flex;
     flex-direction: column;
     gap: 6px;
+}
+
+.info-columns__point {
+    display: block;
+}
+
+.info-columns__inline-part {
+    display: inline;
+}
+
+.info-columns__inline-part--accent {
+    background: linear-gradient(
+      180deg,
+      transparent 12%,
+      var(--color-accent) 12%,
+      var(--color-accent) 88%,
+      transparent 88%
+    );
 }
 
 </style>
