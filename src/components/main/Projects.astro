@@ -1,19 +1,22 @@
 ---
+// const ctaLabel = "View project";
+const ctaLabel = "see more";
+
 const items = [
   {
-    title: "Software\nfor veterinary clinics",
+    title: ["Software", "for veterinary clinics"],
     desc: "Helps manage appointments, patient records, inpatient treatment workflows, and day-to-day operations.",
-    tags: ["Health tech", "User Experience Design (UX)", "Prototyping", "Interaction Design", "User Testing & Feedback"],
-    imageLeft: "/portfolio/images/project_vet.webp",
-    imageRight: "/portfolio/images/project_vet_info.webp",
+    tags: ["Health tech", "User Experience Design", "Prototyping", "Interaction Design", "User Testing & Feedback"],
+    imageLeft: "/images/project_vet.webp",
+    imageRight: "/images/project_vet_info.webp",
     href: "/projects/vet/",
   },
   {
-    title: "SaaS service is a data-driven\nwebsite optimization",
+    title: ["SaaS website", "optimization platform"],
     desc: "Using tools like heat maps and A/B testing, teams can validate hypotheses.",
-    tags: ["SaaS", "User Experience Design (UX)", "Prototyping", "User Interface Design (UI)", "Web design", "3D graphics"],
-    imageLeft: "/portfolio/images/project_ab.webp",
-    imageRight: "/portfolio/images/project_ab_heat.webp",
+    tags: ["SaaS", "User Experience Design", "Prototyping", "User Interface Design", "Web design", "3D graphics"],
+    imageLeft: "/images/project_ab.webp",
+    imageRight: "/images/project_ab_heat.webp",
     href: "/projects/saas/",
   },
 ];
@@ -24,7 +27,14 @@ const items = [
     <article class="project-card">
       <div class="project-card__content">
         <div class="project-card__header">
-          <h3 class="project-card__heading">{project.title}</h3>
+          <h3 class="project-card__heading">
+            {project.title.map((line, index) => (
+              <>
+                {index > 0 && <br />}
+                {line}
+              </>
+            ))}
+          </h3>
           <p class="project-card__description">{project.desc}</p>
         </div>
 
@@ -46,13 +56,12 @@ const items = [
         </div>
 
         <a class="project-card__link" href={project.href}>
-          see more
+          {ctaLabel}
         </a>
       </div>
 
       <div class="project-card__media">
         <img
-          class="project-card__image"
           src={project.imageRight}
           alt=""
           loading="lazy"
@@ -81,7 +90,7 @@ const items = [
 }
 
 .project-card__content {
-  max-width: 560px;
+  max-width: var(--width-max);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -94,6 +103,7 @@ const items = [
   flex-direction: column;
   align-items: center;
   gap: var(--space-m);
+  max-width: 326px;
 }
 
 .project-card__heading {
@@ -103,20 +113,20 @@ const items = [
   letter-spacing: -0.02em;
   width: 100%;
 
-  font-size: 32px;
-  line-height: 1.1;
+  font-size: 34px;
+  line-height: 1.15;
 }
 
 .project-card__description {
   margin: 0;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.3;
   max-width: 420px;
 }
 
 .project-card__image {
   width: auto;
-  max-width: var(--card-content-width-min);
+  max-width: 300px;
 }
 
 .project-card__tags {
@@ -126,7 +136,7 @@ const items = [
   justify-content: center;
   gap: 6px;
   font-size: 12px;
-  line-height: 1;
+  line-height: 1.3;
   max-width: var(--card-content-width-min);
 }
 
@@ -151,6 +161,7 @@ const items = [
 
   font-size: 24px;
   line-height: 1.3;
+  text-transform: lowercase;
   text-decoration: underline;
   text-decoration-style: solid;
   text-decoration-skip-ink: auto;
@@ -168,17 +179,20 @@ const items = [
   place-items: center;
 }
 
-.project-card__image {
-  height: auto;
-  max-width: 438px;
-  display: block;
-}
-
 /* Desktop layout like макет: текст слева, изображение справа */
 @media (min-width: 900px) {
   .project-card {
     grid-template-columns: 1fr 1.2fr;
     align-items: center;
+  }
+  .project-card__media {
+    place-items: stretch;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-card__image {
+    max-width: 100%;
   }
 }
 

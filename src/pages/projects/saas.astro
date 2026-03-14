@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/main/Header.astro";
+import SaasCarousel from "../../components/saas/SaasCarousel.astro";
+import SaasHeadingInfo from "../../components/saas/SaasHeadingInfo.astro";
+import SaasProblemOpportunity from "../../components/saas/SaasProblemOpportunity.astro";
+import SaasTest from "../../components/saas/SaasTest.astro";
+---
+<BaseLayout>
+  <Header />
+  <main class="main">
+    <section class="container">
+      <SaasHeadingInfo />
+    </section>
+    <section class="container">
+      <SaasCarousel />
+    </section>
+    <section class="container">
+      <SaasProblemOpportunity />
+    </section>
+    <SaasTest />
+  </main>
+</BaseLayout>
+<style lang="scss">
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+  padding: 90px 0;
+}
+</style>

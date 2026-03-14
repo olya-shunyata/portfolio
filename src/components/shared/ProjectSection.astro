@@ -1,8 +1,8 @@
 ---
-const { title, delimiter, fluid, mobileFluid } = Astro.props;
+const { id, title, delimiter, fluid, mobileFluid } = Astro.props;
 ---
 
-<section class="projects-section">
+<section class="projects-section" id={id || ''}>
   <div class:list={[
     'container', 
     { 

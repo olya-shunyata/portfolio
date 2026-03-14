@@ -6,6 +6,7 @@
 
 :root {
   /* Colors */
+  --color-black: #000;
   --color-white: #FFF;
   --color-accent: #B9D9F5;
   --color-dark: #151515;
@@ -315,12 +316,6 @@ body {
   font-weight: var(--font-weight-regular);
   color: var(--color-text);
   background: var(--color-white);
-}
-
-.flex-gapped-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 90px;
 }
 
 .backround-dark {

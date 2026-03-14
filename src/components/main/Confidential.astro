@@ -9,49 +9,49 @@ type CursorIcon = Image & {
 }
 
 const image: Image = {
-  src: "/portfolio/images/nda.webp",
+  src: "/images/nda.webp",
   alt: "Heavily blurred showcase with list of companies.",
 };
 
 const cursors: Record<string, CursorIcon> = {
   sila: {
-    src: "/portfolio/images/cursors/sila.svg",
+    src: "/images/cursors/sila.svg",
     alt: "SilaSveta Figma cursor icon",
     top: "58%",
     left: "16%",
   },
   samolet: {
-    src: "/portfolio/images/cursors/samolet.svg",
+    src: "/images/cursors/samolet.svg",
     alt: "Samolet Figma cursor icon",
     top: "40%",
     left: "35%",
   },
   vtb: {
-    src: "/portfolio/images/cursors/vtb.svg",
+    src: "/images/cursors/vtb.svg",
     alt: "VTB Bank Figma cursor icon",
     top: "80%",
     left: "30%",
   },
   otpbank: {
-    src: "/portfolio/images/cursors/otpbank.svg",
+    src: "/images/cursors/otpbank.svg",
     alt: "OTP Bank Figma cursor icon",
     top: "52%",
     left: "66%",
   },
   pinkman: {
-    src: "/portfolio/images/cursors/pinkman.svg",
+    src: "/images/cursors/pinkman.svg",
     alt: "Pinkman Figma cursor icon",
     top: "68%",
     left: "52%",
   },
   funsun: {
-    src: "/portfolio/images/cursors/funsun.svg",
+    src: "/images/cursors/funsun.svg",
     alt: "Funsun Figma cursor icon",
     top: "30%",
     left: "78%",
   },
   metacade: {
-    src: "/portfolio/images/cursors/metacade.svg",
+    src: "/images/cursors/metacade.svg",
     alt: "Metacade Figma cursor icon",
     top: "75%",
     left: "76%",
@@ -74,7 +74,7 @@ const items: InfoItem[] = [
   {
     title: "Tools",
     description: [
-      ["User Experience Design (UX)", "User Interface Design (UI)", "Interaction Design", "Typography & Color Schemes", "Design System", "Accessibility"],
+      ["User Experience Design", "User Interface Design", "Interaction Design", "Typography & Color Schemes", "Design System", "Accessibility"],
       ["User Testing & Feedback", "Competitive Analysis", "Success Metrics", "A/B testing", "2D & 3D graphics", "AI-generated visuals"]
     ]
   }
@@ -126,13 +126,12 @@ const deliveredItems = [
 @use "sass:math";
 
   .nda {
-    --nda-interval: 56px;
     --overlay-padding: var(--space-6l);
     --cursor-motion: 18px;
     
     display: flex;
     flex-direction: column;
-    gap: var(--nda-interval);
+    gap: 60px;
     width: 100%;
 
     font-size: 24px;
@@ -225,6 +224,10 @@ const deliveredItems = [
   @media (max-width: 1024px) {
     .nda__info {
       padding: var(--container-padding);
+    }
+
+    .nda__cursor {
+      height: clamp(40px, 10vh, 90px);
     }
   }
 

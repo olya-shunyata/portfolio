@@ -1,10 +1,34 @@
 ---
-import SkillChips from "./SkillChips.astro";
+import SkillChips from "../shared/SkillChips.astro";
 import MediaGrid from "../shared/MediaGrid.astro";
 import type { Image } from "../../types";
 
-const headline =
-  "Senior UX/UI designer shaping digital products from concept to launch. I've collaborated with";
+const headline = [
+  {
+    text: "Senior UX/UI designer shaping digital products from concept to launch. I've collaborated with ",
+  },
+  {
+    text: "leading design studios",
+    highlight: true,
+  },
+  {
+    text: ", ",
+  },
+  {
+    text: "international startups",
+    highlight: true,
+  },
+  {
+    text: ", ",
+  },
+  {
+    text: "product teams",
+    highlight: true,
+  },
+  {
+    text: " designing websites and apps.",
+  }
+]
 
 const skills = [
   "strong UX thinking",
@@ -14,17 +38,25 @@ const skills = [
   "AI-tools",
 ];
 
+// const skills = [
+//   "Complex user flows",
+//   "End-to-end UX/UI",
+//   "Design systems",
+//   "Visual direction",
+//   "Interaction design",
+// ];
+
 const heroImages: Record<string, Image> = {
   left: {
-    src: "/portfolio/images/ab_mockup.webp",
+    src: "/images/ab_mockup.webp",
     alt: "A screenshot of a mobile app interface showcasing a sleek and modern design with intuitive navigation and visually appealing graphics.",
   },
   right: {
-    src: "/portfolio/images/vet_mockup.webp",
+    src: "/images/vet_mockup.webp",
     alt: "A screenshot of a mobile app interface showcasing a sleek and modern design with intuitive navigation and visually appealing graphics.",
   },
   cursor: {
-    src: "/portfolio/images/cursors/cursor.svg",
+    src: "/images/cursors/cursor.svg",
     alt: "A cursor icon representing user interaction and navigation within a digital interface.",
   },
 };
@@ -32,12 +64,10 @@ const heroImages: Record<string, Image> = {
 
 <div class="hero">
   <div class="hero__header">
-    <h1 class="hero__title" data-node-id="2151:213">
-      {headline}{" "}
-      <span class="hero__title-accent">leading design studios,</span>{" "}
-      <span class="hero__title-accent">international startups,</span>{" "}
-      <span class="hero__title-accent">product teams,</span>{" "}
-      designing websites and apps
+    <h1 class="hero__title">
+      {headline.map((item) =>
+        item?.highlight ? <span class="hero__title-accent">{item.text}</span> : item.text
+      )}
     </h1>
     <div class="hero__skills">
       <SkillChips items={skills} />
@@ -52,14 +82,15 @@ const heroImages: Record<string, Image> = {
         decoding="async"
       />
     </div>
-    <MediaGrid images={Object.values(heroImages).filter((image) => image !== heroImages.cursor)} />
   </div>
+  <MediaGrid images={Object.values(heroImages).filter((image) => image !== heroImages.cursor)} />
 </div>
 
 <style lang="scss">
 .hero {
   --cursor-motion: 32px;
-  gap: 90px;
+  --hero-gap: 70px;
+  gap: var(--hero-gap);
 }
 
 .hero,
@@ -70,7 +101,7 @@ const heroImages: Record<string, Image> = {
 
 .hero__header {
   position: relative;
-  gap: var(--space-4l);
+  gap: 35px;
 }
 
 .hero__title {
@@ -98,8 +129,8 @@ const heroImages: Record<string, Image> = {
 .hero__cursor {
   position: absolute;
 
-  left: min(calc(980px + var(--space-l)), calc(100% - 140px));
-  top: 110px;
+  left: min(calc(980px + var(--space-6l)), calc(100% - 100px));
+  top: clamp(25vh, 120px, 300px);
 
   display: inline-flex;
   align-items: center;

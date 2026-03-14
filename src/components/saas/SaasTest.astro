@@ -1,14 +1,14 @@
 ---
 import type { Image } from "../../types";
 
-type ABTestAssetKey = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+type SaasTestAssetKey = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 
-type ABTestAssets = {
-  desktop: Record<ABTestAssetKey, Image>;
-  mobile: Record<ABTestAssetKey, Image>;
+type SaasTestAssets = {
+  desktop: Record<SaasTestAssetKey, Image>;
+  mobile: Record<SaasTestAssetKey, Image>;
 };
 
-const assets: ABTestAssets = {
+const assets: SaasTestAssets = {
   desktop: {
     topLeft: {
       src: "https://www.figma.com/api/mcp/asset/1147670c-87c9-4f75-9ce6-3184b81f9e1b",

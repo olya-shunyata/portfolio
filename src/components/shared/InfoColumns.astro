@@ -40,6 +40,7 @@ const { items } = Astro.props as { items: InfoItem[] };
     grid-auto-flow: column;
     grid-auto-columns: minmax(max-content, minmax(400px, 1fr));
     gap: 140px;
+    justify-content: space-between;
     
     @media (max-width: 1024px) {
         grid-auto-flow: row;

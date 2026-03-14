@@ -17,13 +17,13 @@ const heroCards: Image[] = [
 ];
 ---
 
-<section class="saas-hero" aria-label="SaaS product previews">
-  <div class="saas-hero__stage" data-node-id="2245:1244">
-    <div class="saas-hero__track saas-hero__track--a" aria-hidden="true">
+<section class="saas-carousel" aria-label="SaaS product previews">
+  <div class="saas-carousel__stage" data-node-id="2245:1244">
+    <div class="saas-carousel__track saas-carousel__track--a" aria-hidden="true">
       {heroCards.map((card) => (
-        <figure class="saas-hero__card">
+        <figure class="saas-carousel__card">
           <img
-            class="saas-hero__image"
+            class="saas-carousel__image"
             src={card.src}
             alt={card.alt}
             loading="eager"
@@ -33,11 +33,11 @@ const heroCards: Image[] = [
       ))}
     </div>
 
-    <div class="saas-hero__track saas-hero__track--b" aria-hidden="true">
+    <div class="saas-carousel__track saas-carousel__track--b" aria-hidden="true">
       {heroCards.map((card) => (
-        <figure class="saas-hero__card">
+        <figure class="saas-carousel__card">
           <img
-            class="saas-hero__image"
+            class="saas-carousel__image"
             src={card.src}
             alt={card.alt}
             loading="eager"
@@ -54,7 +54,7 @@ const heroCards: Image[] = [
 </section>
 
 <style lang="scss">
-.saas-hero {
+.saas-carousel {
   --stage-height: clamp(270px, 43.06vw, 620px);
   --card-width: clamp(300px, 45.625vw, 657px);
   --card-gap: clamp(20px, 3.472vw, 50px);
@@ -65,7 +65,7 @@ const heroCards: Image[] = [
   overflow: hidden;
 }
 
-.saas-hero__stage {
+.saas-carousel__stage {
   position: relative;
   width: 100%;
   height: var(--stage-height);
@@ -73,7 +73,7 @@ const heroCards: Image[] = [
   overflow: hidden;
 }
 
-.saas-hero__track {
+.saas-carousel__track {
   position: absolute;
   inset: 0 auto 0 0;
 
@@ -85,21 +85,21 @@ const heroCards: Image[] = [
   padding-right: var(--card-gap);
 }
 
-.saas-hero__track--a {
+.saas-carousel__track--a {
   animation: saas-marquee-a var(--scroll-duration) linear infinite;
 }
 
-.saas-hero__track--b {
+.saas-carousel__track--b {
   animation: saas-marquee-b var(--scroll-duration) linear infinite;
 }
 
-.saas-hero__card {
+.saas-carousel__card {
   width: var(--card-width);
   aspect-ratio: 657 / 440;
   margin: 0;
 }
 
-.saas-hero__image {
+.saas-carousel__image {
   display: block;
   width: 100%;
   height: 100%;
@@ -107,7 +107,7 @@ const heroCards: Image[] = [
 }
 
 @media (max-width: 1023px) {
-  .saas-hero__stage {
+  .saas-carousel__stage {
     --stage-height: clamp(240px, 52vw, 500px);
     --card-width: clamp(280px, 62vw, 560px);
     --scroll-duration: 20s;
@@ -115,7 +115,7 @@ const heroCards: Image[] = [
 }
 
 @media (max-width: 767px) {
-  .saas-hero__stage {
+  .saas-carousel__stage {
     --stage-height: clamp(210px, 64vw, 360px);
     --card-width: clamp(250px, 84vw, 420px);
     --scroll-duration: 16s;
@@ -123,8 +123,8 @@ const heroCards: Image[] = [
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .saas-hero__track--a,
-  .saas-hero__track--b {
+  .saas-carousel__track--a,
+  .saas-carousel__track--b {
     animation: none;
   }
 }

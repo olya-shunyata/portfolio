@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectSection from "../../components/shared/ProjectSection.astro";
+import Header from "../../components/main/Header.astro";
+import Footer from "../../components/main/Footer.astro";
+import VetOverview from "../../components/veterinary/VetOverview.astro";
+import VetMedia from "../../components/veterinary/VetMedia.astro";
+---
+<BaseLayout title="Olga Bis — Portfolio">
+  <Header />
+  <main class="main">
+    <ProjectSection>
+      <div class="flex-gapped-layout">
+        <VetOverview />
+        <VetMedia />
+      </div>
+    </ProjectSection>
+  </main>
+  <Footer />
+</BaseLayout>
