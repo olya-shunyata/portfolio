@@ -29,5 +29,5 @@ pnpm-debug.log*
 !.dev.vars.example
 !.env.example
 
-*.Zone.Identifier
+*Zone.Identifier
 *.mp4

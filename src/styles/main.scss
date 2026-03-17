@@ -12,12 +12,14 @@
   --color-dark: #151515;
   --color-dark-grey: #d4d5d7;
   --color-grey: #b4b4b4;
+  --color-light-grey: #edeef0;
 
   --color-opacity-20: rgba(15, 15, 15, 0.2);
+  --color-opacity-30: rgba(15, 15, 15, 0.3);
   --color-opacity-60: rgba(0, 0, 0, 0.6);
 
   --color-success: rgb(0, 186, 0);
-  --color-surface: #EDEEF0;
+  --color-surface: var(--color-light-grey);
   --color-muted: var(--color-opacity-60);
   --color-text: var(--color-dark);
   --color-border: var(--color-dark-grey);
@@ -320,4 +322,15 @@ body {
 
 .backround-dark {
   background-color: var(--color-dark);
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 32px;
+  width: 100%;
+
+  @media (max-width: 1023px) {
+    grid-template-columns: auto;
+  }
 }

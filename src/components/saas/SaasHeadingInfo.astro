@@ -1,8 +1,6 @@
 ---
-import InfoColumns from "../shared/InfoColumns.astro";
+import InfoColumn from "../shared/InfoColumn.astro";
 import type { InfoItem } from "../../types";
-
-const heading = "The Conversion Optimization and Personalization Platform";
 
 const items: InfoItem[] = [
   {
@@ -12,8 +10,7 @@ const items: InfoItem[] = [
   {
     title: "Introduction",
     description: [[
-      "SaaS service is a data-driven website optimization platform that helps businesses improve digital performance. Using tools like heat maps",
-      "and A/B testing, teams can validate hypotheses.",
+      "SaaS service is a data-driven website optimization platform that helps businesses improve digital performance. Using tools like heat maps and A/B testing, teams can validate hypotheses.",
     ]],
   },
   {
@@ -35,89 +32,34 @@ const items: InfoItem[] = [
 ];
 ---
 
-<section class="saas-heading-info" data-node-id="2298:1518">
-  <div class="saas-heading-info__header">
-    <h2 class="saas-heading-info__title">{heading}</h2>
-    <hr class="saas-heading-info__line" aria-hidden="true" />
+<div class="saas-info grid-layout">
+  <div class="saas-info__left">
+    <InfoColumn item={items[0]}/>
   </div>
-
-  <InfoColumns items={items} />
-</section>
+  <div class="saas-info__right">
+    {items.slice(1,).map((item) => <InfoColumn item={item} />)}
+  </div>
+</div>
 
 <style lang="scss">
-.saas-heading-info {
+.saas-info__left {
+  grid-column: span 2;
+}
+
+.saas-info__right {
+  grid-column: span 4;
   display: flex;
-  flex-direction: column;
-  gap: var(--space-xl);
-}
-
-.saas-heading-info__header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-m);
-}
-
-.saas-heading-info__title {
-  margin: 0;
-  max-width: 628px;
-
-  font-size: clamp(34px, 3.34vw, 48px);
-  font-weight: var(--font-weight-regular);
-  line-height: 1.13;
-  letter-spacing: 0;
-}
-
-.saas-heading-info__line {
-  margin: 0;
-  border: none;
-  border-top: 1px solid var(--color-border);
-  height: 0;
-}
-
-.saas-heading-info :global(.info-columns) {
-  grid-auto-columns: max-content;
+  justify-content: space-between;
   gap: 140px;
-}
 
-.saas-heading-info :global(.info-columns__column) {
-  gap: var(--space-xs);
-}
-
-.saas-heading-info :global(.info-columns__description) {
-  gap: 0;
-}
-
-.saas-heading-info :global(.info-columns__column:nth-child(1)) {
-  width: 118px;
-}
-
-.saas-heading-info :global(.info-columns__column:nth-child(2)) {
-  width: 339px;
-}
-
-.saas-heading-info :global(.info-columns__column:nth-child(3)) {
-  width: 425px;
-}
-
-@media (max-width: 1024px) {
-  .saas-heading-info :global(.info-columns) {
-    gap: var(--space-6l);
+  @media (max-width: 1024px) {
+    gap: 80px;
   }
 
-  .saas-heading-info :global(.info-columns__column) {
-    width: min(100%, 640px);
-    max-width: min(100%, 640px);
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 36px;
   }
 }
 
-@media (max-width: 767px) {
-  .saas-heading-info__title {
-    max-width: 350px;
-  }
-
-  .saas-heading-info :global(.info-columns__column) {
-    width: min(100%, 480px);
-    max-width: min(100%, 480px);
-  }
-}
 </style>

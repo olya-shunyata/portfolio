@@ -1,7 +1,7 @@
 ---
 import InfoColumns from "../shared/InfoColumns.astro";
 
-import type { InfoColumnItem } from '../types';
+import type { InfoColumnItem } from '../../types';
 
 const infoItems: InfoColumnItem[] = [
   {
@@ -24,4 +24,10 @@ const infoItems: InfoColumnItem[] = [
   }
 ];
 ---
-<InfoColumns items={infoItems} />
+<InfoColumns
+  items={infoItems}
+  layout="case-study"
+  widths={["108px", "347px", "392px"]}
+  gaps={["160px", "108px"]}
+  descriptionGap="0px"
+/>

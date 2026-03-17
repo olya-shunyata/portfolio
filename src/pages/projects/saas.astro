@@ -1,25 +1,74 @@
 ---
+import type { NavItem } from "../../types";
+
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/main/Header.astro";
+import ProjectSection from "../../components/shared/ProjectSection.astro";
+import BottomNav from "../../components/shared/BottomNav.astro";
+
 import SaasCarousel from "../../components/saas/SaasCarousel.astro";
 import SaasHeadingInfo from "../../components/saas/SaasHeadingInfo.astro";
-import SaasProblemOpportunity from "../../components/saas/SaasProblemOpportunity.astro";
+import SaasProblemSection from "../../components/saas/SaasProblemSection.astro";
 import SaasTest from "../../components/saas/SaasTest.astro";
+import SaasHeatMaps from "../../components/saas/SaasHeatMaps.astro";
+import SaasProductPage from "../../components/saas/SaasProductPage.astro";
+import SaasIllustrations from "../../components/saas/SaasIllustrations.astro";
+
+const titles = {
+  heading: "The Conversion Optimization and Personalization Platform",
+}
+
+const navHeading = "See more";
+
+const navItems: [NavItem, NavItem] = [
+  {
+    title: "Software for vet clinics",
+    direction: "previous",
+    href: "/projects/vet",
+    image: {
+      src: "/images/saas/nav/prev.webp",
+      alt: "Software for vet clinics nav image",
+    }
+  },
+  {
+    title: "Confidential projects",
+    direction: "next",
+    href: "/#confidential",
+    image: {
+      src: "/images/saas/nav/next.webp",
+      alt: "Confidential projects nav image"
+    }
+  }
+]
 ---
 <BaseLayout>
   <Header />
   <main class="main">
-    <section class="container">
+    <ProjectSection title={titles.heading} delimiter>
       <SaasHeadingInfo />
-    </section>
-    <section class="container">
+    </ProjectSection>
+    <section class="container--fluid">
       <SaasCarousel />
     </section>
     <section class="container">
-      <SaasProblemOpportunity />
+      <SaasProblemSection />
     </section>
-    <SaasTest />
+    <section class="container">
+      <SaasTest />
+    </section>
+    <section class="container">
+      <SaasHeatMaps />
+    </section>
+    <section class="container">
+      <SaasProductPage />
+    </section>
+    <section class="container">
+      <SaasIllustrations />
+    </section>
   </main>
+  <footer class="container">
+    <BottomNav navItems={navItems} heading={navHeading} />
+  </footer>
 </BaseLayout>
 <style lang="scss">
 .main {

@@ -1,70 +1,59 @@
 ---
 import type { Image } from "../../types";
-
-const heroCards: Image[] = [
-  {
-    src: "https://www.figma.com/api/mcp/asset/38979dc4-46f7-426e-b3cb-b8a0efc19169",
-    alt: "SaaS hero preview image one.",
-  },
-  {
-    src: "https://www.figma.com/api/mcp/asset/960472af-23c7-4f04-8645-55d2e239bdb3",
-    alt: "SaaS hero preview image two.",
-  },
-  {
-    src: "https://www.figma.com/api/mcp/asset/6a24cdf5-3f47-4004-ac6a-ad2c2c1e0663",
-    alt: "SaaS hero preview image three.",
-  },
-];
+const heroCards: Image[] = Array.from({ length: 5 }, (_, index) => ({
+  src: `/images/saas/carousel/slide_${index + 1}.webp`,
+  alt: `SaaS hero preview image ${index + 1}.`,
+}));
 ---
-
 <section class="saas-carousel" aria-label="SaaS product previews">
   <div class="saas-carousel__stage" data-node-id="2245:1244">
-    <div class="saas-carousel__track saas-carousel__track--a" aria-hidden="true">
-      {heroCards.map((card) => (
-        <figure class="saas-carousel__card">
-          <img
-            class="saas-carousel__image"
-            src={card.src}
-            alt={card.alt}
-            loading="eager"
-            decoding="async"
-          />
-        </figure>
+    <div class="saas-carousel__track" aria-hidden="true">
+      {[0, 1].map((groupIndex) => (
+        <div class="saas-carousel__group" data-carousel-group>
+          {heroCards.map((card, index) => (
+            <figure class="saas-carousel__card">
+              <img
+                class="saas-carousel__image"
+                src={card.src}
+                alt={card.alt}
+                loading={groupIndex === 0 && index < 2 ? "eager" : "lazy"}
+                decoding="async"
+              />
+            </figure>
+          ))}
+        </div>
       ))}
     </div>
-
-    <div class="saas-carousel__track saas-carousel__track--b" aria-hidden="true">
-      {heroCards.map((card) => (
-        <figure class="saas-carousel__card">
-          <img
-            class="saas-carousel__image"
-            src={card.src}
-            alt={card.alt}
-            loading="eager"
-            decoding="async"
-          />
-        </figure>
-      ))}
+    <div class="visually-hidden">
+      <span>
+        Animated carousel of SaaS product screens moving continuously from right to left.
+      </span>
     </div>
-
-    <span class="visually-hidden">
-      Animated carousel of SaaS product screens moving continuously from right to left.
-    </span>
   </div>
 </section>
-
+<script>
+  const stage = document.querySelector(".saas-carousel__stage");
+  const firstGroup = stage?.querySelector("[data-carousel-group]");
+  if (stage instanceof HTMLElement && firstGroup instanceof HTMLElement) {
+    const syncShift = () => {
+      const width = Math.round(firstGroup.getBoundingClientRect().width);
+      stage.style.setProperty("--marquee-shift", `${width}px`);
+    };
+    syncShift();
+    const ro = new ResizeObserver(syncShift);
+    ro.observe(firstGroup);
+  }
+</script>
 <style lang="scss">
 .saas-carousel {
   --stage-height: clamp(270px, 43.06vw, 620px);
   --card-width: clamp(300px, 45.625vw, 657px);
   --card-gap: clamp(20px, 3.472vw, 50px);
-  --scroll-duration: 24s;
-
+  --scroll-duration: 45s;
   width: 100%;
   background: var(--color-dark);
   overflow: hidden;
 }
-
 .saas-carousel__stage {
   position: relative;
   width: 100%;
@@ -72,40 +61,32 @@ const heroCards: Image[] = [
   margin-inline: auto;
   overflow: hidden;
 }
-
 .saas-carousel__track {
   position: absolute;
   inset: 0 auto 0 0;
-
   display: flex;
   align-items: center;
-  gap: var(--card-gap);
-
   width: max-content;
-  padding-right: var(--card-gap);
+  will-change: transform;
+  animation: saas-marquee var(--scroll-duration) linear infinite;
+  transform: translate3d(0, 0, 0);
 }
-
-.saas-carousel__track--a {
-  animation: saas-marquee-a var(--scroll-duration) linear infinite;
+.saas-carousel__group {
+  display: flex;
+  flex: 0 0 auto;
 }
-
-.saas-carousel__track--b {
-  animation: saas-marquee-b var(--scroll-duration) linear infinite;
-}
-
 .saas-carousel__card {
-  width: var(--card-width);
+  flex: 0 0 auto;
   aspect-ratio: 657 / 440;
-  margin: 0;
+  width: var(--card-width);
+  margin: 0 calc(var(--card-gap) / 2);
 }
-
 .saas-carousel__image {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
 @media (max-width: 1023px) {
   .saas-carousel__stage {
     --stage-height: clamp(240px, 52vw, 500px);
@@ -113,7 +94,6 @@ const heroCards: Image[] = [
     --scroll-duration: 20s;
   }
 }
-
 @media (max-width: 767px) {
   .saas-carousel__stage {
     --stage-height: clamp(210px, 64vw, 360px);
@@ -121,29 +101,17 @@ const heroCards: Image[] = [
     --scroll-duration: 16s;
   }
 }
-
 @media (prefers-reduced-motion: reduce) {
-  .saas-carousel__track--a,
-  .saas-carousel__track--b {
+  .saas-carousel__track {
     animation: none;
   }
 }
-
-@keyframes saas-marquee-a {
+@keyframes saas-marquee {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translateX(-100%);
-  }
-}
-
-@keyframes saas-marquee-b {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
+    transform: translate3d(calc(-1 * var(--marquee-shift, 0px)), 0, 0);
   }
 }
 </style>

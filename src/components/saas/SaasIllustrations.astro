@@ -1,0 +1,79 @@
+---
+import type { Image } from "../../types";
+import SubHeader from "../shared/SubHeader.astro"
+
+const artifactsHeader = "Artifacts";
+
+const headers = {
+    model: {
+        title: "( 3D illustrations )",
+        description: [
+            "Created in Cinema 4D and rendered using Arnold Renderer"
+        ]
+    },
+    prototype: {
+        title: "( Prototyping )",
+    },
+    uikit: {
+        title: "( UI-kit )",
+    }
+}
+
+const images: Record<string, Image> = {
+    model: {
+        src: "/images/saas/showcase_3d.webp",
+        alt: "Showcase of 3D models",
+    },
+    prototype: {
+        src: "/images/saas/prototype.webp",
+        alt: "UI prototype image",
+    },
+    uikit: {
+        src: "/images/saas/ui_kit.webp",
+        alt: "UI Kit presentation",
+    }
+}
+
+---
+
+<div class="saas-showcase">
+    <div class="saas-showcase__models">
+        <SubHeader item={headers.model} />
+        <img src={images.model.src} alt={images.model.alt} />
+    </div>
+    <div class="saas-showcase__prototype">
+        <div class="grid-layout">
+            <h2 class="saas-showcase__artifacts">{artifactsHeader}</h2>
+        </div>
+        <SubHeader item={headers.prototype} />
+        <img src={images.prototype.src} alt={images.prototype.alt} />
+    </div>
+    <div class="saas-showcase__uikit">
+        <SubHeader item={headers.uikit} />
+        <img src={images.uikit.src} alt={images.uikit.alt} />
+    </div>
+</div>
+<style lang="scss">
+.saas-showcase,
+.saas-showcase > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.saas-showcase__artifacts {
+    grid-column: 3 / 6;
+    font-size: 34px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 8px;
+}
+
+.saas-showcase {
+    gap: 90px;
+}
+
+.saas-showcase > div {
+    gap: 40px;
+}
+</style>

@@ -1,110 +1,80 @@
 ---
 import type { Image } from "../../types";
+import SubHeader from "../shared/SubHeader.astro";
 
-type SaasTestAssetKey = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
-
-type SaasTestAssets = {
-  desktop: Record<SaasTestAssetKey, Image>;
-  mobile: Record<SaasTestAssetKey, Image>;
+type SaasTestCard = Image & {
+  width: number;
+  height: number;
+  loading: "eager" | "lazy";
 };
 
-const assets: SaasTestAssets = {
-  desktop: {
-    topLeft: {
-      src: "https://www.figma.com/api/mcp/asset/1147670c-87c9-4f75-9ce6-3184b81f9e1b",
-      alt: "A/B test setup screen.",
-    },
-    topRight: {
-      src: "https://www.figma.com/api/mcp/asset/15d4ced3-d384-48ca-9c60-dab8e4249578",
-      alt: "Goal management screen.",
-    },
-    bottomLeft: {
-      src: "https://www.figma.com/api/mcp/asset/7358581a-9f9b-46e4-90f7-c53bc81f8670",
-      alt: "Traffic split and participation settings.",
-    },
-    bottomRight: {
-      src: "https://www.figma.com/api/mcp/asset/447bdd60-9716-4df3-8041-e068bb917869",
-      alt: "A/B test analytics dashboard.",
-    },
+const cards: Record<string, SaasTestCard> = {
+  first: {
+    src: "/images/saas/tests/test_1.webp",
+    alt: "A/B test setup screen.",
+    width: 1189,
+    height: 743,
+    loading: "eager",
   },
-  mobile: {
-    topLeft: {
-      src: "https://www.figma.com/api/mcp/asset/52d2d880-046a-4568-94c9-7b68b0f8b87b",
-      alt: "A/B test mobile screen one.",
-    },
-    topRight: {
-      src: "https://www.figma.com/api/mcp/asset/2d07e139-3215-48b1-acdb-1d5a40bdef8e",
-      alt: "A/B test mobile screen two.",
-    },
-    bottomLeft: {
-      src: "https://www.figma.com/api/mcp/asset/0b452d8e-32f5-4a8f-b451-da34c084c907",
-      alt: "A/B test mobile screen three.",
-    },
-    bottomRight: {
-      src: "https://www.figma.com/api/mcp/asset/481e6a9b-34d1-42b5-9327-06297835d1c6",
-      alt: "A/B test mobile screen four.",
-    },
+  second: {
+    src: "/images/saas/tests/test_2.webp",
+    alt: "Goal management screen.",
+    width: 1189,
+    height: 743,
+    loading: "lazy",
   },
+  bottomLeft: {
+    src: "/images/saas/tests/test_4.webp",
+    alt: "Traffic split and participation settings.",
+    width: 787,
+    height: 527,
+    loading: "lazy",
+  },
+  bottomRight: {
+    src: "/images/saas/tests/test_3.webp",
+    alt: "A/B test analytics dashboard.",
+    width: 489,
+    height: 527,
+    loading: "lazy",
+  },
+};
+
+const subHeader = {
+  title: "(  A/B test  )",
 };
 ---
 
-<section class="saas-abtest container" data-node-id="2302:1576" aria-labelledby="abtest-title">
-  <h3 id="abtest-title" class="saas-abtest__title">(  A/B test  )</h3>
-
+<div class="saas-abtest">
+  <SubHeader item={subHeader} type="h3" />
   <div class="saas-abtest__stage">
-    <div class="saas-abtest__card saas-abtest__card--top-left">
-      <picture>
-        <source media="(max-width: 767px)" srcset={assets.mobile.topLeft.src} />
+    <div class="saas-abtest__stage-top">
+      {[cards.first, cards.second].map((card) => 
         <img
           class="saas-abtest__image"
-          src={assets.desktop.topLeft.src}
-          alt={assets.desktop.topLeft.alt}
-          loading="eager"
+          src={card.src}
+          alt={card.alt}
+          width={card.width}
+          loading={card.loading}
           decoding="async"
         />
-      </picture>
+      )}
     </div>
-
-    <div class="saas-abtest__card saas-abtest__card--top-right">
-      <picture>
-        <source media="(max-width: 767px)" srcset={assets.mobile.topRight.src} />
-        <img
-          class="saas-abtest__image"
-          src={assets.desktop.topRight.src}
-          alt={assets.desktop.topRight.alt}
-          loading="lazy"
-          decoding="async"
-        />
-      </picture>
-    </div>
-
-    <div class="saas-abtest__card saas-abtest__card--bottom-left">
-      <picture>
-        <source media="(max-width: 767px)" srcset={assets.mobile.bottomLeft.src} />
-        <img
-          class="saas-abtest__image"
-          src={assets.desktop.bottomLeft.src}
-          alt={assets.desktop.bottomLeft.alt}
-          loading="lazy"
-          decoding="async"
-        />
-      </picture>
-    </div>
-
-    <div class="saas-abtest__card saas-abtest__card--bottom-right">
-      <picture>
-        <source media="(max-width: 767px)" srcset={assets.mobile.bottomRight.src} />
-        <img
-          class="saas-abtest__image saas-abtest__image--crop-right"
-          src={assets.desktop.bottomRight.src}
-          alt={assets.desktop.bottomRight.alt}
-          loading="lazy"
-          decoding="async"
-        />
-      </picture>
+    <div class="saas-abtest__bottom">
+      <div class="saas-abtest__bottom-images">
+        {[cards.bottomLeft, cards.bottomRight].map((card) =>
+          <img
+            class="saas-abtest__image"
+            src={card.src}
+            alt={card.alt}
+            width={card.width}
+            loading={card.loading}
+            decoding="async"
+          />
+        )}
+      </div>
     </div>
   </div>
-</section>
+</div>
 
 <style lang="scss">
 .saas-abtest {
@@ -112,123 +82,77 @@ const assets: SaasTestAssets = {
   flex-direction: column;
   gap: 40px;
   width: 100%;
-}
-
-.saas-abtest__title {
-  margin: 0;
-  padding-left: min(27.398vw, 377px);
-
-  color: var(--color-text);
-  font-size: 24px;
-  font-weight: var(--font-weight-regular);
-  line-height: 1.2;
+  --abtest-space: 50px;
 }
 
 .saas-abtest__stage {
-  position: relative;
-  width: 100%;
+  flex: 1 1 0;
   background: var(--color-dark);
-  aspect-ratio: 1376 / 2359;
-  overflow: hidden;
+  width: 100%;
+  padding-bottom: 90px;
 }
 
-.saas-abtest__card {
-  position: absolute;
-  margin: 0;
+.saas-abtest__stage,
+.saas-abtest__stage-top {
+  display: flex;
+  flex-direction: column;
 }
 
-.saas-abtest__card--top-left {
-  left: 5.959%;
-  top: 2.12%;
-  width: 86.41%;
-  height: 33.74%;
-}
-
-.saas-abtest__card--top-right {
-  left: 12.282%;
-  top: 37.982%;
-  width: 86.41%;
-  height: 33.74%;
-}
-
-.saas-abtest__card--bottom-left {
-  left: 5.959%;
-  top: 73.845%;
-  width: 57.195%;
-  height: 22.348%;
-}
-
-.saas-abtest__card--bottom-right {
-  left: 66.788%;
-  top: 73.845%;
-  width: 35.538%;
-  height: 22.348%;
-  overflow: hidden;
+.saas-abtest__stage-top {
+  padding: var(--abtest-space);
+  padding-top: 90px;
+  gap: var(--abtest-space);
+  .saas-abtest__image:first-child {
+    display: flex;
+  }
+  .saas-abtest__image:last-child {
+    display: flex;
+    align-self: end;
+  }
 }
 
 .saas-abtest__image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  aspect-ratio: 16 / 10;
+  height: auto;
 }
 
-.saas-abtest__image--crop-right {
-  width: 160.98%;
-  object-fit: fill;
-  object-position: left center;
-  max-width: none;
+.saas-abtest__bottom {
+  position: relative;
+  aspect-ratio: 1276 / 527; // (787 + 50 gap + 489) x 527
+  overflow: hidden;
+  padding: 0 var(--abtest-space) var(--abtest-space) 0;
 }
 
-@media (max-width: 767px) {
-  .saas-abtest {
-    padding-inline: 0;
-    gap: 28px;
-    align-items: center;
+.saas-abtest__bottom-images {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  gap: var(--abtest-space);
+  padding-left: var(--abtest-space);
+
+  .saas-abtest__image {
+    aspect-ratio: initial;
+    height: 100%;
+    width: auto;
   }
+}
 
-  .saas-abtest__title {
-    padding-left: 0;
-    width: min(100%, 350px);
-    font-size: 20px;
+@media (max-width: 1024px) {
+  .saas-abtest {
+    --abtest-space: 32px;
   }
 
   .saas-abtest__stage {
-    width: min(100%, 350px);
-    aspect-ratio: 350 / 668;
+    padding-bottom: 40px;
   }
+}
 
-  .saas-abtest__card--top-left {
-    left: 3.429%;
-    top: 4.192%;
-    width: 93.143%;
-    height: 32.635%;
+@media (max-width: 768px) {
+  .saas-abtest {
+    --abtest-space: 20px;
   }
-
-  .saas-abtest__card--top-right {
-    left: 9.143%;
-    top: 39.82%;
-    width: 93.143%;
-    height: 32.635%;
-  }
-
-  .saas-abtest__card--bottom-left {
-    left: 9.143%;
-    top: 75.449%;
-    width: 58%;
-    height: 20.359%;
-  }
-
-  .saas-abtest__card--bottom-right {
-    left: 64%;
-    top: 75.449%;
-    width: 36%;
-    height: 20.359%;
-  }
-
-  .saas-abtest__image--crop-right {
-    width: 100%;
-    object-fit: cover;
+  .saas-abtest__stage {
+    padding-bottom: 28px;
   }
 }
 </style>

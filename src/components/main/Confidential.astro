@@ -1,6 +1,6 @@
 ---
 import type { Image, InfoItem } from "../../types";
-import InfoColumns from "../shared/InfoColumns.astro";
+import InfoColumn from "../shared/InfoColumn.astro";
 import LockIcon from "../icons/LockIcon.astro";
 
 type CursorIcon = Image & {
@@ -88,7 +88,7 @@ const deliveredItems = [
 
 <div class="nda">
   <div class="nda__info">
-    <InfoColumns items={items}/>
+    {items.map((item) => <InfoColumn item={item} />)}
   </div>
 
   <div 
@@ -218,6 +218,19 @@ const deliveredItems = [
         animation-duration: (14 + math.div(math.random(8000), 1000)) * 1s;
         --cursor-drift-scale: #{0.5 + math.div(math.random(10), 10)}; 
       }
+    }
+  }
+
+  .nda__info {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(max-content, minmax(400px, 1fr));
+    gap: 140px;
+    justify-content: space-between;
+    
+    @media (max-width: 1024px) {
+        grid-auto-flow: row;
+        gap: var(--space-6l);
     }
   }
 

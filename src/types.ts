@@ -7,7 +7,7 @@ export type InfoPoint = string | InfoTextPart[];
 
 export type InfoItem = {
     title: string;
-    description: InfoPoint[][];
+    description?: InfoPoint[][];
     selected?: boolean;
 }
 
@@ -36,4 +36,11 @@ export type Image = {
     width?: number;
     height?: number;
     class?: string;
+}
+
+export type NavItem = {
+    image: Image,
+    title: string;
+    href: string;
+    direction: 'previous' | 'next';
 }
