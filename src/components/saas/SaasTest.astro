@@ -1,5 +1,6 @@
 ---
-import type { Image } from "../../types";
+import type { Image, InfoRowSection } from "../../types";
+import InfoRows from "../shared/InfoRows.astro";
 import SubHeader from "../shared/SubHeader.astro";
 
 type SaasTestCard = Image & {
@@ -39,13 +40,30 @@ const cards: Record<string, SaasTestCard> = {
   },
 };
 
+const header = {
+  title: "Design",
+  description: [
+    "The stylistic solution relies on the interplay of contrasting typography and vibrant accents.",
+  ]
+}
+
+const topHeader: InfoRowSection = {
+    title: "Design",
+    description: "The stylistic solution relies on the interplay of contrasting typography and vibrant accents.",
+}
+
 const subHeader = {
   title: "(  A/B test  )",
 };
 ---
 
 <div class="saas-abtest">
-  <SubHeader item={subHeader} type="h3" />
+  <div class="grid-layout">
+    <div class="saas-abtest__heading">
+      <InfoRows sections={[topHeader]} />
+    </div>
+    <SubHeader item={subHeader} type="h3" />
+  </div>
   <div class="saas-abtest__stage">
     <div class="saas-abtest__stage-top">
       {[cards.first, cards.second].map((card) => 
@@ -83,6 +101,15 @@ const subHeader = {
   gap: 40px;
   width: 100%;
   --abtest-space: 50px;
+}
+
+.saas-abtest__heading {
+  display: grid;
+  grid-column: 3 / 6;
+
+  @media (max-width: 768px) {
+    grid-column: auto;
+  }
 }
 
 .saas-abtest__stage {

@@ -13,7 +13,9 @@ const { navItems, heading } = Astro.props as { navItems: [NavItem, NavItem], hea
   <nav class="nav-bottom__nav">
     {navItems.map((navItem) =>
       <a href={navItem.href} class="nav-bottom__card">
-        <img class="nav-bottom__image" src={navItem.image.src} alt={navItem.image.alt}/>
+        <div class="nav-bottom__image">
+          <img src={navItem.image.src} alt={navItem.image.alt}/>
+        </div>
         <div class="nav-bottom__content">
           <span class="nav-bottom__title">{navItem.title}</span>
           <span class="nav-bottom__link">
@@ -64,7 +66,7 @@ const { navItems, heading } = Astro.props as { navItems: [NavItem, NavItem], hea
   justify-content: space-between;
   gap: 20px;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 439px) {
     flex-direction: column;
   }
 }
@@ -78,6 +80,17 @@ const { navItems, heading } = Astro.props as { navItems: [NavItem, NavItem], hea
 .nav-bottom__image {
   height: 176px;
   border: 0;
+  background: var(--color-dark);
+  padding-block: 32px;
+  display: flex;
+  align-items: center;
+
+  img {
+    height: 100%;
+    width: 100%;
+    padding: 0 32px;
+    object-fit: contain;
+  }
 }
 
 .nav-bottom__content {

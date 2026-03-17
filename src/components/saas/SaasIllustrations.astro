@@ -37,27 +37,36 @@ const images: Record<string, Image> = {
 ---
 
 <div class="saas-showcase">
-    <div class="saas-showcase__models">
-        <SubHeader item={headers.model} />
+    <div class="saas-showcase__case">
+        <div class="grid-layout">
+            <SubHeader item={headers.model} />
+        </div>
         <img src={images.model.src} alt={images.model.alt} />
     </div>
-    <div class="saas-showcase__prototype">
+    <div class="saas-showcase__case">
         <div class="grid-layout">
             <h2 class="saas-showcase__artifacts">{artifactsHeader}</h2>
+            <SubHeader item={headers.prototype} />
         </div>
-        <SubHeader item={headers.prototype} />
         <img src={images.prototype.src} alt={images.prototype.alt} />
     </div>
-    <div class="saas-showcase__uikit">
-        <SubHeader item={headers.uikit} />
+    <div class="saas-showcase__case">
+        <div class="grid-layout">
+            <SubHeader item={headers.uikit} />
+        </div>
         <img src={images.uikit.src} alt={images.uikit.alt} />
     </div>
 </div>
 <style lang="scss">
-.saas-showcase,
-.saas-showcase > div {
+.saas-showcase {
     display: flex;
     flex-direction: column;
+}
+
+.saas-showcase__case {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
 
 .saas-showcase__artifacts {
@@ -71,9 +80,5 @@ const images: Record<string, Image> = {
 
 .saas-showcase {
     gap: 90px;
-}
-
-.saas-showcase > div {
-    gap: 40px;
 }
 </style>

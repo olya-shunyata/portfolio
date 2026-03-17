@@ -14,7 +14,9 @@ const images: Image[] = Array.from({ length: 3 }, (_, index) => ({
 ---
 
 <div class="saas-heatmaps">
-    <SubHeader item={header} type="h3" />
+    <div class="grid-layout">
+        <SubHeader item={header} type="h3" />
+    </div>
     <div class="saas-heatmaps__images">
         {images.map((image) => 
             <img class="saas-heatmaps__image" src={image.src} alt={image.alt} />

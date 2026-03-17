@@ -71,10 +71,11 @@ const navItems: [NavItem, NavItem] = [
   </footer>
 </BaseLayout>
 <style lang="scss">
+@use "../../styles/mixins" as *;
+
 .main {
-  display: flex;
-  flex-direction: column;
-  gap: 90px;
   padding: 90px 0;
+
+  @include main-page-gap;
 }
 </style>

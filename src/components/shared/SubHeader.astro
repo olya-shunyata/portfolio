@@ -5,12 +5,12 @@ const { item, type = "h3" } = Astro.props as { item: InfoItem; type?: "h3" | "h4
 const Tag = type;
 ---
 
-<div class="grid-layout">
+<>
     <span class="content-header">
         <Tag>{item.title}</Tag>
         {item?.description && <span class="content-header__sub">{item.description}</span>}
     </span>
-</div>
+</>
 
 <style lang="scss">
 .content-header {
