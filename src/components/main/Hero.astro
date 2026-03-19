@@ -2,6 +2,7 @@
 import SkillChips from "../shared/SkillChips.astro";
 import MediaGrid from "../shared/MediaGrid.astro";
 import type { Image } from "../../types";
+import { buildUrl } from "../../scripts/path-utils";
 
 const headline = [
   {
@@ -48,15 +49,15 @@ const skills = [
 
 const heroImages: Record<string, Image> = {
   left: {
-    src: "/images/ab_mockup.webp",
+    src: buildUrl("/images/ab_mockup.webp"),
     alt: "A screenshot of a mobile app interface showcasing a sleek and modern design with intuitive navigation and visually appealing graphics.",
   },
   right: {
-    src: "/images/vet_mockup.webp",
+    src: buildUrl("/images/vet_mockup.webp"),
     alt: "A screenshot of a mobile app interface showcasing a sleek and modern design with intuitive navigation and visually appealing graphics.",
   },
   cursor: {
-    src: "/images/cursors/cursor.svg",
+    src: buildUrl("/images/cursors/cursor.svg"),
     alt: "A cursor icon representing user interaction and navigation within a digital interface.",
   },
 };

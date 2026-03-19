@@ -13,6 +13,7 @@ import SaasTest from "../../components/saas/SaasTest.astro";
 import SaasHeatMaps from "../../components/saas/SaasHeatMaps.astro";
 import SaasProductPage from "../../components/saas/SaasProductPage.astro";
 import SaasIllustrations from "../../components/saas/SaasIllustrations.astro";
+import { buildUrl } from "../../scripts/path-utils";
 
 const titles = {
   heading: "The Conversion Optimization and Personalization Platform",
@@ -24,18 +25,18 @@ const navItems: [NavItem, NavItem] = [
   {
     title: "Software for vet clinics",
     direction: "previous",
-    href: "/projects/vet",
+    href: buildUrl("/projects/vet"),
     image: {
-      src: "/images/saas/nav/prev.webp",
+      src: buildUrl("/images/saas/nav/prev.webp"),
       alt: "Software for vet clinics nav image",
     }
   },
   {
     title: "Confidential projects",
     direction: "next",
-    href: "/#confidential",
+    href: buildUrl("/#confidential"),
     image: {
-      src: "/images/saas/nav/next.webp",
+      src: buildUrl("/images/saas/nav/next.webp"),
       alt: "Confidential projects nav image"
     }
   }

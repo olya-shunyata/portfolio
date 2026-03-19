@@ -1,7 +1,9 @@
 ---
+import { buildUrl } from "../../scripts/path-utils";
+
 const videoSrc =
   "https://res.cloudinary.com/dqttqbfmo/video/upload/v1773402706/ipad_z6exsk.mp4";
-const posterSrc = "/images/showreel.webp";
+const posterSrc = buildUrl("/images/showreel.webp");
 const videoTitle = "Showreel video displayed inside an iPad-style frame";
 ---
 

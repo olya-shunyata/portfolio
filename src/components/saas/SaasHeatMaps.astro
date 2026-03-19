@@ -1,13 +1,14 @@
 ---
 import SubHeader from "../shared/SubHeader.astro"
 import type { Image } from '../../types';
+import { buildUrl } from "../../scripts/path-utils";
 
 const header = {
     title: "( Heatmaps )",
 }
 
 const images: Image[] = Array.from({ length: 3 }, (_, index) => ({
-  src: `/images/saas/heatmaps/hm_${index + 1}.webp`,
+  src: buildUrl(`/images/saas/heatmaps/hm_${index + 1}.webp`),
   alt: `Heatmap image ${index + 1}.`,
 }));
 

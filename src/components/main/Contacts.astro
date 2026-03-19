@@ -1,11 +1,12 @@
 ---
 import type { Image } from "../../types";
+import { buildUrl } from "../../scripts/path-utils";
 import getTimezoneLabel from "../../scripts/timezone-label";
 
 import DownloadIcon from "../icons/DownloadIcon.astro";
 
 const image: Image = {
-  src: "/images/about.webp",
+  src: buildUrl("/images/about.webp"),
   alt: "Contact me",
 };
 

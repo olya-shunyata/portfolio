@@ -1,5 +1,6 @@
 ---
 import type { Image, InfoItem } from "../../types";
+import { buildUrl } from "../../scripts/path-utils";
 import InfoColumn from "../shared/InfoColumn.astro";
 import LockIcon from "../icons/LockIcon.astro";
 
@@ -9,49 +10,49 @@ type CursorIcon = Image & {
 }
 
 const image: Image = {
-  src: "/images/nda.webp",
+  src: buildUrl("/images/nda.webp"),
   alt: "Heavily blurred showcase with list of companies.",
 };
 
 const cursors: Record<string, CursorIcon> = {
   sila: {
-    src: "/images/cursors/sila.svg",
+    src: buildUrl("/images/cursors/sila.svg"),
     alt: "SilaSveta Figma cursor icon",
     top: "58%",
     left: "16%",
   },
   samolet: {
-    src: "/images/cursors/samolet.svg",
+    src: buildUrl("/images/cursors/samolet.svg"),
     alt: "Samolet Figma cursor icon",
     top: "40%",
     left: "35%",
   },
   vtb: {
-    src: "/images/cursors/vtb.svg",
+    src: buildUrl("/images/cursors/vtb.svg"),
     alt: "VTB Bank Figma cursor icon",
     top: "80%",
     left: "30%",
   },
   otpbank: {
-    src: "/images/cursors/otpbank.svg",
+    src: buildUrl("/images/cursors/otpbank.svg"),
     alt: "OTP Bank Figma cursor icon",
     top: "52%",
     left: "66%",
   },
   pinkman: {
-    src: "/images/cursors/pinkman.svg",
+    src: buildUrl("/images/cursors/pinkman.svg"),
     alt: "Pinkman Figma cursor icon",
     top: "68%",
     left: "52%",
   },
   funsun: {
-    src: "/images/cursors/funsun.svg",
+    src: buildUrl("/images/cursors/funsun.svg"),
     alt: "Funsun Figma cursor icon",
     top: "30%",
     left: "78%",
   },
   metacade: {
-    src: "/images/cursors/metacade.svg",
+    src: buildUrl("/images/cursors/metacade.svg"),
     alt: "Metacade Figma cursor icon",
     top: "75%",
     left: "76%",

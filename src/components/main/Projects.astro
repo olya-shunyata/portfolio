@@ -1,4 +1,6 @@
 ---
+import { buildUrl } from "../../scripts/path-utils";
+
 // const ctaLabel = "View project";
 const ctaLabel = "see more";
 
@@ -7,17 +9,17 @@ const items = [
     title: ["Software", "for veterinary clinics"],
     desc: "Helps manage appointments, patient records, inpatient treatment workflows, and day-to-day operations.",
     tags: ["Health tech", "User Experience Design", "Prototyping", "Interaction Design", "User Testing & Feedback"],
-    imageLeft: "/images/project_vet.webp",
-    imageRight: "/images/project_vet_info.webp",
-    href: "/projects/vet/",
+    imageLeft: buildUrl("/images/project_vet.webp"),
+    imageRight: buildUrl("/images/project_vet_info.webp"),
+    href: buildUrl("/projects/vet/"),
   },
   {
     title: ["SaaS website", "optimization platform"],
     desc: "Using tools like heat maps and A/B testing, teams can validate hypotheses.",
     tags: ["SaaS", "User Experience Design", "Prototyping", "User Interface Design", "Web design", "3D graphics"],
-    imageLeft: "/images/project_ab.webp",
-    imageRight: "/images/project_ab_heat.webp",
-    href: "/projects/saas/",
+    imageLeft: buildUrl("/images/project_ab.webp"),
+    imageRight: buildUrl("/images/project_ab_heat.webp"),
+    href: buildUrl("/projects/saas/"),
   },
 ];
 ---

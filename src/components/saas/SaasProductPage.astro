@@ -1,5 +1,7 @@
 ---
+import { buildUrl } from "../../scripts/path-utils";
 import SubHeader from "../shared/SubHeader.astro"
+
 const header = {
     title: "( Product page )",
     description: [
@@ -7,8 +9,8 @@ const header = {
     ]
 }
 const videoSrc = "https://res.cloudinary.com/dqttqbfmo/video/upload/v1773518438/video_landing_x2xxbd.mp4";
-const posterSrc = "/images/saas/cover.webp";
-const mockupSrc = "/images/mockups/laptop.webp";
+const posterSrc = buildUrl("/images/saas/cover.webp");
+const mockupSrc = buildUrl("/images/mockups/laptop.webp");
 const videoTitle = "Video presentation of SaaS landing by Olga Bis"
 ---
 <div class="saas-product">

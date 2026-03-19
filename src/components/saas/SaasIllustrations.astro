@@ -1,5 +1,7 @@
 ---
 import type { Image } from "../../types";
+import { buildUrl } from "../../scripts/path-utils";
+
 import SubHeader from "../shared/SubHeader.astro"
 
 const artifactsHeader = "Artifacts";
@@ -21,15 +23,15 @@ const headers = {
 
 const images: Record<string, Image> = {
     model: {
-        src: "/images/saas/showcase_3d.webp",
+        src: buildUrl("/images/saas/showcase_3d.webp"),
         alt: "Showcase of 3D models",
     },
     prototype: {
-        src: "/images/saas/prototype.webp",
+        src: buildUrl("/images/saas/prototype.webp"),
         alt: "UI prototype image",
     },
     uikit: {
-        src: "/images/saas/ui_kit.webp",
+        src: buildUrl("/images/saas/ui_kit.webp"),
         alt: "UI Kit presentation",
     }
 }

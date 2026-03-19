@@ -2,13 +2,14 @@
 import InfoRows from "../shared/InfoRows.astro";
 import type { InfoRowSection } from "../../types";
 import type { Image } from '../../types';
+import { buildUrl } from "../../scripts/path-utils";
 
 const image: Image = {
-    src: '/images/saas/key-scenario.png',
+    src: buildUrl('/images/saas/key-scenario.png'),
     alt: 'Key Scenarios image',
 }
 const imageMobile: Image = {
-    src: '/images/saas/key-scenario-sm.png',
+    src: buildUrl('/images/saas/key-scenario-sm.png'),
     alt: 'Key Scenarios image',
 }
 

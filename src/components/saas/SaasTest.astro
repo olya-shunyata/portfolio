@@ -1,5 +1,7 @@
 ---
 import type { Image, InfoRowSection } from "../../types";
+import { buildUrl } from "../../scripts/path-utils";
+
 import InfoRows from "../shared/InfoRows.astro";
 import SubHeader from "../shared/SubHeader.astro";
 
@@ -11,28 +13,28 @@ type SaasTestCard = Image & {
 
 const cards: Record<string, SaasTestCard> = {
   first: {
-    src: "/images/saas/tests/test_1.webp",
+    src: buildUrl("/images/saas/tests/test_1.webp"),
     alt: "A/B test setup screen.",
     width: 1189,
     height: 743,
     loading: "eager",
   },
   second: {
-    src: "/images/saas/tests/test_2.webp",
+    src: buildUrl("/images/saas/tests/test_2.webp"),
     alt: "Goal management screen.",
     width: 1189,
     height: 743,
     loading: "lazy",
   },
   bottomLeft: {
-    src: "/images/saas/tests/test_4.webp",
+    src: buildUrl("/images/saas/tests/test_4.webp"),
     alt: "Traffic split and participation settings.",
     width: 787,
     height: 527,
     loading: "lazy",
   },
   bottomRight: {
-    src: "/images/saas/tests/test_3.webp",
+    src: buildUrl("/images/saas/tests/test_3.webp"),
     alt: "A/B test analytics dashboard.",
     width: 489,
     height: 527,

@@ -1,7 +1,9 @@
 ---
+import { buildUrl } from "../../scripts/path-utils";
 import type { Image } from "../../types";
+
 const heroCards: Image[] = Array.from({ length: 5 }, (_, index) => ({
-  src: `/images/saas/carousel/slide_${index + 1}.webp`,
+  src: buildUrl(`/images/saas/carousel/slide_${index + 1}.webp`),
   alt: `SaaS hero preview image ${index + 1}.`,
 }));
 ---
