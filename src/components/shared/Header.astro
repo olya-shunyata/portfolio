@@ -1,4 +1,5 @@
 ---
+import { buildUrl } from "../../scripts/path-utils";
 import getTimezoneLabel from "../../scripts/timezone-label";
 
 const name = "OLGA BIS";
@@ -7,9 +8,9 @@ const yearsActive = `2020 - ${new Date().getFullYear()}`;
 const geo = `BASED IN SERBIA / ${getTimezoneLabel()}`;
 
 const navItems = [
-  { label: "PROJECTS", href: "/#projects" },
-  { label: "CONTACTS", href: "/#contacts" },
-  { label: "ABOUT ME", href: "/about" },
+  { label: "PROJECTS", href: buildUrl("/#projects") },
+  { label: "CONTACTS", href: buildUrl("/#contacts") },
+  { label: "ABOUT ME", href: buildUrl("/about") },
 ];
 ---
 <header class="site-header">
@@ -53,6 +54,7 @@ const navItems = [
 <style lang="scss">
 .site-header {
   background: var(--color-background);
+  height: var(--header-height);
 }
 
 .site-header__container {

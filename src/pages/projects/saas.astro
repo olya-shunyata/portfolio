@@ -2,7 +2,7 @@
 import type { NavItem } from "../../types";
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Header from "../../components/main/Header.astro";
+import Header from "../../components/shared/Header.astro";
 import ProjectSection from "../../components/shared/ProjectSection.astro";
 import BottomNav from "../../components/shared/BottomNav.astro";
 
@@ -42,7 +42,7 @@ const navItems: [NavItem, NavItem] = [
   }
 ]
 ---
-<BaseLayout>
+<BaseLayout title="Olga Bis - SaaS Case">
   <Header />
   <main class="main">
     <ProjectSection title={titles.heading} delimiter>

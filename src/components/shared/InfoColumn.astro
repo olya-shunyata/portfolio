@@ -1,12 +1,12 @@
 ---
 import type { InfoItem } from '../../types';
 
-const { item } = Astro.props as { item: InfoItem };
+const { item, titleSize = "24px", descriptionSize = "16px" } = Astro.props as { item: InfoItem, titleSize?: string, descriptionSize?: string};
 ---
 <div class:list={[
   "info-column",
   { "info-column--selected": item?.selected || false }
-]}>
+]} style={`--info-column-title-size: ${titleSize}; --info-column-description-size: ${descriptionSize};`}>
   <h3 class="info-column__title">{item.title}</h3>
   <div class="info-column__description">
       {item.description.map((list) => (
@@ -28,7 +28,6 @@ const { item } = Astro.props as { item: InfoItem };
         </ul>
       ))}
   </div>
-</div>
 </div>
 
 <style lang="scss">
@@ -71,18 +70,18 @@ const { item } = Astro.props as { item: InfoItem };
 }
 
 .info-column__title {
-    font-size: 24px;
+    font-size: var(--info-column-title-size);
     font-style: normal;
     font-weight: 400;
-    line-height: 120%;
+    line-height: 1.2;
 }
 
 .info-column__description {
+    font-size: var(--info-column-description-size);
     color: rgba(0, 0, 0, 0.62);
-    font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 130%;
+    line-height: 1.3;
     display: flex;
     gap: 70px;
 }

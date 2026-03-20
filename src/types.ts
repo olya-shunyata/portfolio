@@ -6,7 +6,7 @@ export type InfoTextPart = {
 export type InfoPoint = string | InfoTextPart[];
 
 export type InfoItem = {
-    title: string;
+    title?: string;
     description?: InfoPoint[][];
     selected?: boolean;
 }

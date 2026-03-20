@@ -1,0 +1,118 @@
+---
+import type { Image, InfoItem } from "../types";
+import { buildUrl } from "../scripts/path-utils";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/shared/Header.astro";
+import InfoColumn from "../components/shared/InfoColumn.astro";
+import ContactsAbout from "../components/about/ContactsAbout.astro";
+
+const videoLink =
+    "https://res.cloudinary.com/dqttqbfmo/video/upload/v1773955890/The_cat_types_on_the_keyboard__Kling_26_Pro_68461_iaavnw.mp4";
+
+const photo: Image = {
+    src: buildUrl("/images/photo.webp"),
+    alt: "Self-portait photo",
+};
+
+const helloItem: InfoItem = {
+    description: [
+        [
+            [
+                { text: "Hello!" },
+                {
+                    text: "My name is Olya, I'm a Senior UX/UI designer and",
+                },
+                {
+                    text: "I have been working in this field for 5 years",
+                    accent: true,
+                },
+                {
+                    text: ". I have worked with leading design studios, international startups, and product teams such as ",
+                },
+                { text: "Sila Sveta", accent: true },
+                { text: ", " },
+                { text: "Samolet", accent: true },
+                { text: ", " },
+                { text: "VTB Bank", accent: true },
+                { text: ", pinkman, Fun&Sun, and Metacade." },
+            ],
+        ],
+    ],
+};
+
+const texts = [
+    "Design is more than my profession — it’s a big part of who I am. I love diving into details, understanding the full context, and shaping solutions that feel thoughtful, clear, and effective.",
+    "I blend UX thinking and human-centered design to create experiences that are both functional and aesthetic. I’m inspired by nature, urban spaces, and technology.",
+];
+---
+
+<BaseLayout title="Olga Bis — About me">
+    <Header />
+    <main class="container about-page grid-layout">
+        <div class="about-page__photo-wrapper">
+            <img class="about-page__photo" src={photo.src} alt={photo.alt} />
+        </div>
+        <div class="about-page__text">
+            <div class="about-page__hello">
+                <InfoColumn item={helloItem} descriptionSize="22px" />
+            </div>
+            <div class="about-page__about">
+                {texts.map((text) => <p>{text}</p>)}
+            </div>
+            <span class="about-page__spacer" aria-hidden="true"/>
+            <ContactsAbout />
+        </div>
+    </main>
+</BaseLayout>
+<style lang="scss">
+    .about-page {
+        padding: var(--container-padding) 0;
+        height: calc(100vh - var(--header-height));
+    }
+
+    .about-page__text {
+        grid-column-start: 4;
+        grid-column-end: 7;
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+
+        font-size: 16px;
+        line-height: 1.2;
+    }
+
+    .about-page__photo-wrapper {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        display: flex;
+    }
+
+    .about-page__spacer {
+        display: flex;
+        flex-grow: 1;
+    }
+
+    .about-page__photo {
+        max-height: 508px;
+        aspect-ratio: 36/59;
+        align-self: end;
+    }
+
+    .about-page__hello {
+        max-width: 440px;
+
+        .info-column__inline-part {
+            font-size: 16px;
+        }
+    }
+
+    .about-page__about {
+        display: flex;
+        flex-direction: column;
+        font-size: 22px;
+        gap: 20px;
+        max-width: 440px;
+        align-self: flex-end;
+    }
+</style>
