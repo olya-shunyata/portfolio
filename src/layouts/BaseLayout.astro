@@ -1,0 +1,25 @@
+---
+import "../styles/reset.scss";
+import "../styles/main.scss";
+import "../styles/mixins.scss";
+import "../styles/animations.scss";
+const { title = "Olga Bis" } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Neue Montreal -->
+    <link
+      href="https://fonts.cdnfonts.com/css/pp-neue-montreal"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

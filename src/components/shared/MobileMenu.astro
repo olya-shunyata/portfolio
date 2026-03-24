@@ -1,0 +1,219 @@
+---
+type NavItem = {
+  label: string;
+  href: string;
+};
+
+const { items, location } = Astro.props as { items: NavItem[]; location: string };
+---
+
+<div class="mobile-menu" data-mobile-menu>
+  <button
+    class="mobile-menu__trigger"
+    type="button"
+    aria-haspopup="dialog"
+    aria-expanded="false"
+    aria-controls="mobile-menu-dialog"
+    data-mobile-menu-open
+  >
+    Menu
+  </button>
+
+  <dialog
+    id="mobile-menu-dialog"
+    class="mobile-menu__dialog"
+    aria-label="Mobile navigation"
+    data-mobile-menu-dialog
+  >
+    <div class="mobile-menu__panel">
+      <button
+        class="mobile-menu__close"
+        type="button"
+        aria-label="Close menu"
+        data-mobile-menu-close
+      >
+        <span class="mobile-menu__close-line"></span>
+        <span class="mobile-menu__close-line"></span>
+      </button>
+
+      <nav class="mobile-menu__nav" aria-label="Primary">
+        {items.map((item) => (
+          <a class="mobile-menu__link" href={item.href} data-mobile-menu-link>
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <p class="mobile-menu__location">{location}</p>
+    </div>
+  </dialog>
+</div>
+
+<script>
+  const roots = document.querySelectorAll("[data-mobile-menu]");
+
+  roots.forEach((root) => {
+    const dialog = root.querySelector("[data-mobile-menu-dialog]");
+    const openButton = root.querySelector("[data-mobile-menu-open]");
+    const closeButton = root.querySelector("[data-mobile-menu-close]");
+    const links = root.querySelectorAll("[data-mobile-menu-link]");
+
+    if (!(dialog instanceof HTMLDialogElement) || !(openButton instanceof HTMLButtonElement)) {
+      return;
+    }
+
+    const syncState = (isOpen) => {
+      openButton.setAttribute("aria-expanded", String(isOpen));
+      document.documentElement.classList.toggle("has-mobile-menu", isOpen);
+      document.body.classList.toggle("has-mobile-menu", isOpen);
+    };
+
+    const openMenu = () => {
+      if (!dialog.open) {
+        dialog.showModal();
+      }
+      syncState(true);
+    };
+
+    const closeMenu = () => {
+      if (dialog.open) {
+        dialog.close();
+      }
+      syncState(false);
+    };
+
+    openButton.addEventListener("click", openMenu);
+    closeButton?.addEventListener("click", closeMenu);
+    dialog.addEventListener("close", closeMenu);
+    dialog.addEventListener("cancel", closeMenu);
+
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) {
+        closeMenu();
+      }
+    });
+
+    links.forEach((link) => link.addEventListener("click", closeMenu));
+  });
+</script>
+
+<style lang="scss">
+.mobile-menu {
+  display: none;
+}
+
+.mobile-menu__trigger {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mobile-menu__dialog {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--color-white);
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+.mobile-menu__dialog::backdrop {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.mobile-menu__panel {
+  position: relative;
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 24px calc(45px + env(safe-area-inset-bottom, 0px));
+  background: var(--color-white);
+}
+
+.mobile-menu__close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: inline-flex;
+  height: 28px;
+  width: 28px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.mobile-menu__close-line {
+  position: absolute;
+  width: 20px;
+  height: 1.5px;
+  background: var(--color-text);
+}
+
+.mobile-menu__close-line:first-child {
+  transform: rotate(45deg);
+}
+
+.mobile-menu__close-line:last-child {
+  transform: rotate(-45deg);
+}
+
+.mobile-menu__nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.mobile-menu__link {
+  color: var(--color-text);
+  text-decoration: none;
+  text-align: center;
+
+  font-size: 32px;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.mobile-menu__link:hover,
+.mobile-menu__link:focus-visible {
+  text-decoration: underline;
+}
+
+.mobile-menu__location {
+  position: absolute;
+  bottom: calc(45px + env(safe-area-inset-bottom, 0px));
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+:global(.has-mobile-menu) {
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .mobile-menu {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    flex: 0 0 auto;
+  }
+}
+</style>

@@ -1,0 +1,201 @@
+---
+import type { Image } from "../../types";
+import { buildUrl } from "../../scripts/path-utils";
+import getTimezoneLabel from "../../scripts/timezone-label";
+
+import DownloadIcon from "../icons/DownloadIcon.astro";
+
+const image: Image = {
+  src: buildUrl("/images/about.webp"),
+  alt: "Contact me",
+};
+
+const hints = ['Contacts', `Serbia, ${getTimezoneLabel()}`];
+const title = "Let’s pause for a moment, brew some tea, and discuss your project";
+const links = [
+  { label: "Telegram", href: "#" },
+  { label: "LinkedIn", href: "#" },
+  { label: "CV", href: "#", icon: DownloadIcon },
+]
+
+const email = "olgabis.design@gmail.com";
+
+---
+<div class="contacts">
+  <div class="contacts__content">
+    <span class="contacts__hints">
+      {hints.map((hint, index) => (
+        <span key={index}>{hint}</span>
+      ))}
+    </span>
+    <div class="contacts__info">
+      <h2>{title}</h2>
+      <div class="contacts__list">
+        {links.map((link, index) => (
+          <div class="contacts__point">
+            <span class="contacts__number">( {index + 1} )</span>
+            <a href={link.href} class="contacts__plaque">
+              {link.icon && <link.icon size="15" class="contacts__link-icon" />}
+              {link.label}
+            </a>
+          </div>
+        ))}
+      </div>
+      <span class="contacts__mail">
+        {email}
+      </span>
+    </div>
+  </div>
+  <img class="contacts__image" src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+</div>
+
+<style lang="scss">
+.contacts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  gap: var(--space-4l);
+  width: 100%;
+  background: var(--color-dark-grey);
+  box-sizing: border-box;
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.contacts__content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 0;
+  padding: 32px 40px;
+  min-height: 600px;
+
+  @media (max-width: 1024px) {
+    padding: 32px 16px;
+    min-height: 496px;
+  }
+}
+
+.contacts__hints {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  @media (max-width: 767px) {
+    gap: var(--space-xs);
+  }
+}
+
+.contacts__info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: var(--space-4l);
+
+  @media (max-width: 767px) {
+    gap: var(--space-xl);
+  }
+
+  h2 {
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.13;
+  }
+}
+
+.contacts__list {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: var(--space-l);
+}
+
+.contacts__number {
+  display: inline-block;
+  width: 40px;
+  font-size: 20px;
+  color: var(--color-text);
+}
+
+.contacts__plaque {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+
+  width: 104px;
+  padding: var(--space-s) var(--space-xl);
+  border: 1px solid rgba(15, 15, 15, 0.7);
+
+  color: var(--color-text);
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-dark);
+  }
+
+  @media (max-width: 767px) {
+    min-width: 0;
+    white-space: normal;
+  }
+}
+
+.contacts__point {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4l);
+  min-width: 0;
+
+  @media (max-width: 767px) {
+    gap: var(--space-m);
+  }
+}
+
+.contacts__link-icon {
+  flex-shrink: 0;
+  margin-top: -2px;
+}
+
+.contacts__mail {
+  display: flex;
+  justify-self: flex-end;
+  font-size: 36px;
+  line-height: 1.13;
+  overflow-wrap: anywhere;
+
+  @media (max-width: 767px) {
+    font-size: 26px;
+  }
+
+  @media (max-width: 340px) {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+}
+
+.contacts__image {
+  display: block;
+  aspect-ratio: 241 / 200;
+  object-fit: cover;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    max-height: none;
+  }
+}
+</style>

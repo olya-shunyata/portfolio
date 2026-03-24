@@ -5,15 +5,15 @@
 	"scripts": {
 		"dev": "astro dev",
 		"build": "astro build",
-		"preview": "astro build && wrangler pages dev",
-		"astro": "astro",
-		"deploy": "astro build && wrangler pages deploy",
-		"cf-typegen": "wrangler types"
+		"preview": "astro build && astro preview",
+		"astro": "astro"
 	},
 	"dependencies": {
-		"astro": "^5.17.1"
+		"astro": "^5.17.1",
+		"prettier-plugin-astro": "^0.14.1"
 	},
 	"devDependencies": {
-		"@types/node": "^25.3.3"
+		"@types/node": "^25.3.3",
+		"sass": "^1.97.3"
 	}
 }

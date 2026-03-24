@@ -1,0 +1,80 @@
+---
+type NavItem = {
+    label: string;
+    href: string;
+}
+
+const { items, location } = Astro.props as { items: NavItem[], location: string };
+---
+<div class="menu">
+      <nav class="menu__navigation" aria-label="Primary">
+          {items.map((item, index) => (
+              <>
+                <a
+                    class="menu__navigation-link"
+                    href={item.href}
+                >
+                    {item.label}
+                </a>
+
+                {index < items.length - 1 && (
+                    <span
+                    class="menu__navigation-divider"
+                    aria-hidden="true"
+                    >
+                    /
+                    </span>
+                )}
+              </>
+          ))}
+      </nav>
+
+      <span class="menu__location">
+        {location}
+      </span>
+</div>
+
+<style lang="scss">
+.menu {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  flex-grow: 1;
+}
+.menu__navigation {
+  display: flex;
+  align-items: start;
+  gap: var(--space-xs);
+  flex-grow: 1;
+  min-height: 100%;
+}
+
+.menu__navigation-divider {
+  font-size: var(--font-size-ui);
+  line-height: var(--line-height-ui);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-text);
+}
+
+.menu__navigation-link {
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.menu__navigation-link:hover {
+  text-decoration: underline;
+}
+
+.menu__location {
+  font-size: 12px;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  min-height: 100%;
+}
+</style>

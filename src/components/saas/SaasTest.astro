@@ -1,0 +1,187 @@
+---
+import type { Image, InfoRowSection } from "../../types";
+import { buildUrl } from "../../scripts/path-utils";
+
+import InfoRows from "../shared/InfoRows.astro";
+import SubHeader from "../shared/SubHeader.astro";
+
+type SaasTestCard = Image & {
+  width: number;
+  height: number;
+  loading: "eager" | "lazy";
+};
+
+const cards: Record<string, SaasTestCard> = {
+  first: {
+    src: buildUrl("/images/saas/tests/test_1.webp"),
+    alt: "A/B test setup screen.",
+    width: 1189,
+    height: 743,
+    loading: "eager",
+  },
+  second: {
+    src: buildUrl("/images/saas/tests/test_2.webp"),
+    alt: "Goal management screen.",
+    width: 1189,
+    height: 743,
+    loading: "lazy",
+  },
+  bottomLeft: {
+    src: buildUrl("/images/saas/tests/test_4.webp"),
+    alt: "Traffic split and participation settings.",
+    width: 787,
+    height: 527,
+    loading: "lazy",
+  },
+  bottomRight: {
+    src: buildUrl("/images/saas/tests/test_3.webp"),
+    alt: "A/B test analytics dashboard.",
+    width: 489,
+    height: 527,
+    loading: "lazy",
+  },
+};
+
+const header = {
+  title: "Design",
+  description: [
+    "The stylistic solution relies on the interplay of contrasting typography and vibrant accents.",
+  ]
+}
+
+const topHeader: InfoRowSection = {
+    title: "Design",
+    description: "The stylistic solution relies on the interplay of contrasting typography and vibrant accents.",
+}
+
+const subHeader = {
+  title: "(  A/B test  )",
+};
+---
+
+<div class="saas-abtest">
+  <div class="grid-layout">
+    <div class="saas-abtest__heading">
+      <InfoRows sections={[topHeader]} />
+    </div>
+    <SubHeader item={subHeader} type="h3" />
+  </div>
+  <div class="saas-abtest__stage">
+    <div class="saas-abtest__stage-top">
+      {[cards.first, cards.second].map((card) => 
+        <img
+          class="saas-abtest__image"
+          src={card.src}
+          alt={card.alt}
+          width={card.width}
+          loading={card.loading}
+          decoding="async"
+        />
+      )}
+    </div>
+    <div class="saas-abtest__bottom">
+      <div class="saas-abtest__bottom-images">
+        {[cards.bottomLeft, cards.bottomRight].map((card) =>
+          <img
+            class="saas-abtest__image"
+            src={card.src}
+            alt={card.alt}
+            width={card.width}
+            loading={card.loading}
+            decoding="async"
+          />
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+.saas-abtest {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  --abtest-space: 50px;
+}
+
+.saas-abtest__heading {
+  display: grid;
+  grid-column: 3 / 6;
+
+  @media (max-width: 768px) {
+    grid-column: auto;
+  }
+}
+
+.saas-abtest__stage {
+  flex: 1 1 0;
+  background: var(--color-dark);
+  width: 100%;
+  padding-bottom: 90px;
+}
+
+.saas-abtest__stage,
+.saas-abtest__stage-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.saas-abtest__stage-top {
+  padding: var(--abtest-space);
+  padding-top: 90px;
+  gap: var(--abtest-space);
+  .saas-abtest__image:first-child {
+    display: flex;
+  }
+  .saas-abtest__image:last-child {
+    display: flex;
+    align-self: end;
+  }
+}
+
+.saas-abtest__image {
+  aspect-ratio: 16 / 10;
+  height: auto;
+}
+
+.saas-abtest__bottom {
+  position: relative;
+  aspect-ratio: 1276 / 527; // (787 + 50 gap + 489) x 527
+  overflow: hidden;
+  padding: 0 var(--abtest-space) var(--abtest-space) 0;
+}
+
+.saas-abtest__bottom-images {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  gap: var(--abtest-space);
+  padding-left: var(--abtest-space);
+
+  .saas-abtest__image {
+    aspect-ratio: initial;
+    height: 100%;
+    width: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .saas-abtest {
+    --abtest-space: 32px;
+  }
+
+  .saas-abtest__stage {
+    padding-bottom: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .saas-abtest {
+    --abtest-space: 20px;
+  }
+  .saas-abtest__stage {
+    padding-bottom: 28px;
+  }
+}
+</style>

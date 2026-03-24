@@ -1,0 +1,283 @@
+---
+import type { Image, InfoItem } from "../../types";
+import { buildUrl } from "../../scripts/path-utils";
+import InfoColumn from "../shared/InfoColumn.astro";
+import LockIcon from "../icons/LockIcon.astro";
+
+type CursorIcon = Image & {
+  top: string;
+  left: string;
+}
+
+const image: Image = {
+  src: buildUrl("/images/nda.webp"),
+  alt: "Heavily blurred showcase with list of companies.",
+};
+
+const cursors: Record<string, CursorIcon> = {
+  sila: {
+    src: buildUrl("/images/cursors/sila.svg"),
+    alt: "SilaSveta Figma cursor icon",
+    top: "58%",
+    left: "16%",
+  },
+  samolet: {
+    src: buildUrl("/images/cursors/samolet.svg"),
+    alt: "Samolet Figma cursor icon",
+    top: "40%",
+    left: "35%",
+  },
+  vtb: {
+    src: buildUrl("/images/cursors/vtb.svg"),
+    alt: "VTB Bank Figma cursor icon",
+    top: "80%",
+    left: "30%",
+  },
+  otpbank: {
+    src: buildUrl("/images/cursors/otpbank.svg"),
+    alt: "OTP Bank Figma cursor icon",
+    top: "52%",
+    left: "66%",
+  },
+  pinkman: {
+    src: buildUrl("/images/cursors/pinkman.svg"),
+    alt: "Pinkman Figma cursor icon",
+    top: "68%",
+    left: "52%",
+  },
+  funsun: {
+    src: buildUrl("/images/cursors/funsun.svg"),
+    alt: "Funsun Figma cursor icon",
+    top: "30%",
+    left: "78%",
+  },
+  metacade: {
+    src: buildUrl("/images/cursors/metacade.svg"),
+    alt: "Metacade Figma cursor icon",
+    top: "75%",
+    left: "76%",
+  },
+};
+
+const ndaLabel = "NDA protected";
+
+const items: InfoItem[] = [
+  {
+    title: "My roles",
+    description: [["UX/UI Designer", "Product Designer"]]
+  },
+  {
+    title: "Role",
+    description: [
+      ["I have worked with leading design studios and product teams. I launched different products and features for FinTech, Travel, Property developer companies, and large-scale interactive museum exhibitions."]
+    ]
+  },
+  {
+    title: "Tools",
+    description: [
+      ["User Experience Design", "User Interface Design", "Interaction Design", "Typography & Color Schemes", "Design System", "Accessibility"],
+      ["User Testing & Feedback", "Competitive Analysis", "Success Metrics", "A/B testing", "2D & 3D graphics", "AI-generated visuals"]
+    ]
+  }
+];
+
+const deliveredItems = [
+  { mark: "Delivered", title: "350+ UX wireframes" },
+  { mark: "and", title: "450+ polished UI mockups" },
+];
+---
+
+<div class="nda">
+  <div class="nda__info">
+    {items.map((item) => <InfoColumn item={item} />)}
+  </div>
+
+  <div 
+    class="nda__block" 
+    role="img" 
+    aria-label={image.alt}
+    style={`background-image: url(${image.src});`}
+  >
+    <div class="nda__plaque">
+      <LockIcon size="33" />
+      <span>{ndaLabel}</span>
+    </div>
+
+    <h3 class="nda__stats">
+      {deliveredItems.map((item) => (
+        <span class="nda__stats-row">
+          <span class="nda__stats-mark">{item.mark}</span>
+          {item.title}
+        </span>
+      ))}
+    </h3>
+
+    {Object.entries(cursors).map(([name, cursor]) => (
+      <img
+        class={`nda__cursor nda__cursor--${name}`}
+        src={cursor.src}
+        alt={cursor.alt}
+        style={`--initial-top: ${cursor.top}; --initial-left: ${cursor.left};`}
+      />
+    ))}
+  </div>
+</div>
+
+<style lang="scss">
+@use "sass:math";
+
+  .nda {
+    --overlay-padding: var(--space-6l);
+    --cursor-motion: 18px;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    width: 100%;
+
+    font-size: 24px;
+    line-height: 120%;
+  }
+
+  .nda__block {
+    width: 100%;
+    height: 792px;
+
+    position: relative;
+    overflow: hidden;
+    
+    display: flex;
+    flex-direction: column;
+    padding: var(--overlay-padding);
+    gap: var(--overlay-padding);
+    box-sizing: border-box;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--color-opacity-60);
+    aspect-ratio: 16 / 9;
+  }
+
+  .nda__plaque, .nda__stats {
+    position: relative;
+    z-index: 2;
+  }
+
+  .nda__plaque {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: var(--space-m);
+    padding: var(--space-s) var(--space-xxl) var(--space-s) var(--space-l);
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    span {
+      padding-top: 2px;
+    }
+  }
+
+  .nda__stats {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-white);
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 113%;
+    margin: 0;
+
+    &-row {
+      display: block;
+    }
+
+    &-mark {
+      color: var(--color-grey);
+    }
+  }
+
+  .nda__cursor {
+    position: absolute;
+    height: clamp(40px, 10vh, 120px);
+    width: auto;
+    z-index: 1;
+    pointer-events: none;
+    top: var(--initial-top);
+    left: var(--initial-left);
+
+    will-change: transform;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+
+    transform: translate3d(-50%, -50%, 0);
+    transition: transform 0.1s ease-in-out;
+    animation: figma-drift 5s infinite ease-in-out;
+
+    @each $name in (sila, samolet, vtb, otpbank, pinkman, funsun, metacade) {
+      &--#{$name} {
+        animation-delay: -(math.div(math.random(18000), 1000)) * 1s;
+        animation-duration: (14 + math.div(math.random(8000), 1000)) * 1s;
+        --cursor-drift-scale: #{0.5 + math.div(math.random(10), 10)}; 
+      }
+    }
+  }
+
+  .nda__info {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(max-content, minmax(400px, 1fr));
+    gap: 140px;
+    justify-content: space-between;
+    
+    @media (max-width: 1024px) {
+        grid-auto-flow: row;
+        gap: var(--space-6l);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .nda__info {
+      padding: var(--container-padding);
+    }
+
+    .nda__cursor {
+      height: clamp(40px, 10vh, 90px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nda__block {
+      min-height: 400px;
+      --overlay-padding: var(--space-l);
+    }
+    
+    .nda__stats {
+      font-size: 32px;
+    }
+
+    .nda__cursor {
+      height: clamp(40px, 8vh, 80px);
+      left: calc(var(--initial-left) - 10%);
+    }
+
+    .nda__cursor--metacade {
+      left: calc(var(--initial-left) - 22%);
+      top: calc(var(--initial-top) + 10%);
+    }
+
+    .nda__cursor--vtb {
+      left: calc(var(--initial-left) - 15%);
+      top: calc(var(--initial-top) - 5%);
+    }
+
+    .nda__stats {
+      font-size: 32px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nda__cursor {
+      animation: none;
+    }
+  }
+</style>

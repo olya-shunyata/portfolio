@@ -1,0 +1,43 @@
+---
+import type { Image } from '../../types';
+
+const { images } = Astro.props;
+---
+<div class="media-grid">
+  {images.map((image: Image) => (
+    <div class:list={[
+        "media-grid__card",
+        `${image.class || ""}`
+      ]}>
+      <img
+        class="media-grid__image"
+        src={image.src}
+        alt={image.alt}
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+  ))}
+</div>
+<style lang="scss">
+.media-grid {
+  display: grid;
+  gap: var(--space-m);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.media-grid__card {
+  margin: 0;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+@media (max-width: 1023px) {
+  .media-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

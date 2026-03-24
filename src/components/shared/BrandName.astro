@@ -1,0 +1,32 @@
+---
+const { data } = Astro.props;
+---
+<div class="brand">
+  <span class="brand__name">{data.name}</span>
+  <span class="brand__experience">{data.experience}</span>
+  <span class="brand__profession">{data.profession}</span>
+</div>
+
+<style lang="scss">
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-grow: 1;
+
+  span {
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+.brand__name {
+    padding-left: 38px;
+}
+
+.brand__profession {
+    padding-left: 24px;
+}
+</style>

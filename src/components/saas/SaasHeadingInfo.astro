@@ -1,0 +1,63 @@
+---
+import InfoColumn from "../shared/InfoColumn.astro";
+import type { InfoItem } from "../../types";
+
+const items: InfoItem[] = [
+  {
+    title: "My role",
+    description: [["UX / UI designer"]],
+  },
+  {
+    title: "Introduction",
+    description: [[
+      "SaaS service is a data-driven website optimization platform that helps businesses improve digital performance. Using tools like heat maps and A/B testing, teams can validate hypotheses.",
+    ]],
+  },
+  {
+    title: "Contribution",
+    selected: true,
+    description: [[
+      [
+        { text: "I led the redesign of the platform and its marketing website, conducting competitive research, " },
+        { text: "refining key user scenarios,", accent: true },
+        { text: "and rebuilding feature hierarchy.", accent: true },
+        { text: "I improved user flow,", accent: true },
+        { text: " " },
+        { text: "modernized the visual system.", accent: true },
+      ],
+    ]],
+  },
+];
+---
+
+<div class="saas-info grid-layout">
+  <div class="saas-info__left">
+    <InfoColumn item={items[0]}/>
+  </div>
+  <div class="saas-info__right">
+    {items.slice(1,).map((item) => <InfoColumn item={item} />)}
+  </div>
+</div>
+
+<style lang="scss">
+.saas-info__left {
+  grid-column: span 2;
+}
+
+.saas-info__right {
+  grid-column: span 4;
+  display: flex;
+  justify-content: space-between;
+  gap: 140px;
+
+  @media (max-width: 1024px) {
+    gap: 80px;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 36px;
+  }
+}
+
+</style>

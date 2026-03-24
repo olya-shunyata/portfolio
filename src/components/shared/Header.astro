@@ -1,0 +1,129 @@
+---
+import { buildUrl } from "../../scripts/path-utils";
+import getTimezoneLabel from "../../scripts/timezone-label";
+import NavMenu from "./NavMenu.astro";
+import MobileMenu from "./MobileMenu.astro";
+import BrandName from "./BrandName.astro";
+
+const brandInfo = {
+  name: "OLGA BIS",
+  profession: "UX / UI DESIGNER",
+  experience: `2020 - ${new Date().getFullYear()}`,
+}
+
+const geo = `BASED IN SERBIA / ${getTimezoneLabel()}`;
+
+const navItems = [
+  { label: "PROJECTS", href: buildUrl("/#projects") },
+  { label: "CONTACTS", href: buildUrl("/#contacts") },
+  { label: "ABOUT ME", href: buildUrl("/about") },
+];
+---
+<header class="site-header">
+  <div class="container site-header__container">
+    <div class="site-header__grid">
+      <BrandName data={brandInfo} />
+
+      <div class="site-header__nav">
+        <NavMenu items={navItems} location={geo} />
+      </div>
+
+      <div class="site-header__mobile-nav">
+        <MobileMenu items={navItems} location={geo} />
+      </div>
+    </div>
+  </div>
+</header>
+
+<style lang="scss">
+.site-header {
+  background: var(--color-background);
+  height: var(--header-height);
+}
+
+.site-header__container {
+  box-sizing: border-box;
+  height: 100%;
+  padding-top: 26px;
+  padding-bottom: 18px;
+}
+
+.site-header__grid {
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.site-header__nav {
+  display: flex;
+  flex-grow: 1;
+  min-height: 100%;
+}
+
+.site-header__mobile-nav {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .site-header__grid {
+    gap: 24px;
+  }
+
+  .site-header__location {
+    justify-self: end;
+  }
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    height: fit-content;
+  }
+
+  .site-header__container {
+    height: auto;
+  }
+
+  .site-header__grid {
+    height: auto;
+  }
+
+  .site-header__grid {
+    align-items: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-header__container {
+    padding-top: 14px;
+    padding-bottom: 12px;
+  }
+
+  .site-header__grid {
+    gap: 16px;
+  }
+
+  .site-header__brand {
+    gap: 2px;
+  }
+
+  .site-header__brand-name {
+    padding-left: 0;
+  }
+
+  .site-header__brand-profession {
+    padding-left: 0;
+  }
+
+  .site-header__nav {
+    display: none;
+  }
+
+  .site-header__mobile-nav {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: flex-start;
+  }
+}
+</style>

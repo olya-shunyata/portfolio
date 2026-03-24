@@ -1,0 +1,18 @@
+---
+import { buildUrl } from "../../scripts/path-utils";
+import MediaGrid from "../shared/MediaGrid.astro";
+import type { Image } from '../types';
+
+const images: Image[] = [
+  {
+    src: buildUrl("/images/vet_mockup.webp"),
+    alt: "Vet clinic interface mobile mockup.",
+  },
+  {
+    src: buildUrl("/images/project_vet_info.webp"),
+    alt: "Vet. clinic interface.",
+    class: "background-dark",
+  },
+];
+---
+<MediaGrid images={images}/>

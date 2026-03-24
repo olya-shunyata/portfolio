@@ -1,0 +1,72 @@
+
+@keyframes figma-drift {
+  0%   { transform: translate3d(0, 0, 0); }
+  5%  { transform: translate3d(0, 0, 0); }
+
+  18%  {
+    transform: translate3d(
+      calc(var(--cursor-motion) * -0.8),
+      calc(var(--cursor-motion) * -0.35),
+      0
+    );
+  }
+
+  26%  {
+    transform: translate3d(
+      calc(var(--cursor-motion) * -1),
+      calc(var(--cursor-motion) * -0.55),
+      0
+    );
+  }
+
+  32%  {
+    transform: translate3d(
+      calc(var(--cursor-motion) * -1),
+      calc(var(--cursor-motion) * -0.55),
+      0
+    );
+  }
+
+  36%  {
+    transform: translate3d(
+      calc(var(--cursor-motion) * -0.95),
+      calc(var(--cursor-motion) * -0.5),
+      0
+    );
+  }
+
+  40%  {
+    transform: translate3d(
+      calc(var(--cursor-motion) * -1),
+      calc(var(--cursor-motion) * -0.55),
+      0
+    );
+  }
+
+  52%  {
+    transform: translate3d(
+      calc(var(--cursor-motion) * -0.35),
+      calc(var(--cursor-motion) * -0.8),
+      0
+    );
+  }
+
+  60%  {
+    transform: translate3d(
+      calc(var(--cursor-motion) * -0.1),
+      calc(var(--cursor-motion) * -0.9),
+      0
+    );
+  }
+
+  70%  {
+    transform: translate3d(
+      calc(var(--cursor-motion) * -0.1),
+      calc(var(--cursor-motion) * -0.9),
+      0
+    );
+  }
+
+  88%  { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}

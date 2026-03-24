@@ -1,0 +1,88 @@
+---
+import { buildUrl } from "../../scripts/path-utils";
+
+const videoSrc =
+  "https://res.cloudinary.com/dqttqbfmo/video/upload/v1773402706/ipad_z6exsk.mp4";
+const posterSrc = buildUrl("/images/showreel.webp");
+const videoTitle = "Showreel video displayed inside an iPad-style frame";
+---
+
+<div class="showreel" data-showreel-root>
+  <video
+    class="showreel__video"
+    data-video-src={videoSrc}
+    poster={posterSrc}
+    muted
+    loop
+    playsinline
+    preload="none"
+    aria-label={videoTitle}
+  >
+    <source type="video/mp4" />
+  </video>
+</div>
+
+<script>
+  const root = document.querySelector("[data-showreel-root]");
+  const video = root?.querySelector(".showreel__video");
+  const source = video?.querySelector("source");
+
+  if (video instanceof HTMLVideoElement && source instanceof HTMLSourceElement) {
+    const hydrateVideo = async () => {
+      if (source.src) return;
+
+      source.src = video.dataset.videoSrc ?? "";
+      video.load();
+
+      try {
+        await video.play();
+      } catch (error) {
+        console.error("Showreel autoplay failed", error);
+      }
+    };
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        async ([entry]) => {
+          if (!entry?.isIntersecting) return;
+
+          observer.disconnect();
+          await hydrateVideo();
+        },
+        {
+          rootMargin: "240px 0px",
+          threshold: 0.2,
+        },
+      );
+
+      observer.observe(video);
+    } else {
+      void hydrateVideo();
+    }
+  }
+</script>
+
+<style lang="scss">
+.showreel {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 66px var(--space-l) 78px;
+  background: var(--color-black);
+
+  @media (max-width: 1023px) {
+    padding-top: 48px;
+    padding-bottom: 56px;
+  }
+}
+
+.showreel__video {
+  display: block;
+  width: min(100%, 854px);
+  height: auto;
+  aspect-ratio: 854 / 656;
+  object-fit: cover;
+  background: #090b10;
+  margin: 0 auto;
+}
+</style>

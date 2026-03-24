@@ -1,0 +1,170 @@
+---
+import type { Image, InfoItem } from "../types";
+import { buildUrl } from "../scripts/path-utils";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/shared/Header.astro";
+import InfoColumn from "../components/shared/InfoColumn.astro";
+import ContactsAbout from "../components/about/ContactsAbout.astro";
+
+const videoLink =
+    "https://res.cloudinary.com/dqttqbfmo/video/upload/v1773955890/The_cat_types_on_the_keyboard__Kling_26_Pro_68461_iaavnw.mp4";
+
+const photo: Image = {
+    src: buildUrl("/images/photo.webp"),
+    alt: "Self-portait photo",
+};
+
+const helloItem: InfoItem = {
+    description: [
+        [
+            [
+                { text: "Hello!" },
+                {
+                    text: "My name is Olya, I'm a Senior UX/UI designer and",
+                },
+                {
+                    text: "I have been working in this field for 5 years",
+                    accent: true,
+                },
+                {
+                    text: ". I have worked with leading design studios, international startups, and product teams such as ",
+                },
+                { text: "Sila Sveta", accent: true },
+                { text: ", " },
+                { text: "Samolet", accent: true },
+                { text: ", " },
+                { text: "VTB Bank", accent: true },
+                { text: ", pinkman, Fun&Sun, and Metacade." },
+            ],
+        ],
+    ],
+};
+
+const texts = [
+    "Design is more than my profession — it’s a big part of who I am. I love diving into details, understanding the full context, and shaping solutions that feel thoughtful, clear, and effective.",
+    "I blend UX thinking and human-centered design to create experiences that are both functional and aesthetic. I’m inspired by nature, urban spaces, and technology.",
+];
+---
+
+<BaseLayout title="Olga Bis — About me">
+    <Header />
+    <main class="container about-page">
+        <div class="about-page__photo-wrapper">
+            <img class="about-page__photo" src={photo.src} alt={photo.alt} />
+        </div>
+        <div class="about-page__text">
+            <div class="about-page__hello">
+                <InfoColumn
+                    item={helloItem}
+                    descriptionSize="var(--about-hello-description-size)"
+                />
+            </div>
+            <div class="about-page__about">
+                {texts.map((text) => <p>{text}</p>)}
+            </div>
+            <span class="about-page__spacer" aria-hidden="true"></span>
+            <ContactsAbout />
+        </div>
+    </main>
+</BaseLayout>
+<style lang="scss">
+    .about-page {
+        display: flex;
+        padding: var(--container-padding) 0;
+        align-items: start;
+        gap: 32px;
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            gap: 28px;
+        }
+    }
+
+    .about-page__text {
+        grid-column-start: 4;
+        grid-column-end: 7;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        gap: 60px;
+
+        @media (max-width: 1023px) {
+            padding: 24px;
+            gap: 24px;
+        }
+    }
+
+    .about-page__photo-wrapper {
+        display: flex;
+        flex-grow: 1;
+        align-self: stretch;
+
+        @media (max-width: 1023px) {
+            justify-content: center;
+        }
+
+        @media (max-width: 480px) {
+            width: 100%;
+        }
+    }
+
+    .about-page__spacer {
+        display: flex;
+        flex-grow: 1;
+
+        @media (max-width: 768px) {
+            height: 1px;
+        }
+    }
+
+    .about-page__photo {
+        min-width: 310px;
+        max-height: 508px;
+        aspect-ratio: 36/59;
+        align-self: end;
+
+        @media (max-width: 768px) {
+            width: min(100%, 350px);
+            max-height: none;
+            align-self: start;
+            justify-content: center;
+        }
+    }
+
+    .about-page__hello,
+    .about-page__about {
+        max-width: 440px;
+
+        @media (max-width: 480px) {
+            width: 100%
+        }
+    }
+
+    .about-page__hello {
+        --about-hello-description-size: 22px;
+
+        @media (max-width: 480px) {
+            --about-hello-description-size: 16px;
+        }
+    }
+
+    .about-page__about {
+        display: flex;
+        flex-direction: column;
+        font-size: 22px;
+        gap: 20px;
+        max-width: 440px;
+        line-height: 1.3;
+        align-self: flex-end;
+
+        @media (max-width: 768px) {
+            align-self: stretch;
+            font-size: 20px;
+        }
+
+        @media (max-width: 480px) {
+            font-size: 16px;
+        }
+    }
+</style>

@@ -1,0 +1,9 @@
+@mixin main-page-gap {
+    display: flex;
+    flex-direction: column;
+    gap: 90px;
+
+    @media (max-width: 1023px) {
+        gap: 72px;
+    }
+}

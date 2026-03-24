@@ -1,0 +1,90 @@
+---
+import InfoRows from "../shared/InfoRows.astro";
+import type { InfoRowSection } from "../../types";
+import type { Image } from '../../types';
+import { buildUrl } from "../../scripts/path-utils";
+
+const image: Image = {
+    src: buildUrl('/images/saas/key-scenario.png'),
+    alt: 'Key Scenarios image',
+}
+const imageMobile: Image = {
+    src: buildUrl('/images/saas/key-scenario-sm.png'),
+    alt: 'Key Scenarios image',
+}
+
+const sections: InfoRowSection[] = [
+  {
+    title: "Problem",
+    items: [
+      {
+        title: "Brand & Positioning",
+        width: "326px",
+        description:
+          "The marketing website and platform no longer reflected the product's value or competitive positioning, weakening overall brand perception.",
+      },
+      {
+        title: "Usability & Structure",
+        width: "292px",
+        description:
+          "An outdated visual language and unclear information architecture made the product difficult to navigate and use effectively.",
+      },
+    ],
+    columnsGap: "72px",
+  },
+  {
+    title: "Opportunity",
+    contentWidth: "350px",
+    description: [
+      "Redesign the ecosystem by modernizing the visual system, clarifying structure, and strengthening positioning to improve usability, credibility,",
+      "and conversion performance.",
+    ],
+  },
+];
+---
+
+<div class="saas-problem">
+  <div class="grid-layout">
+    <div class="saas-problem__heading">
+      <InfoRows sections={sections} className="saas-problem__rows" />
+    </div>
+  </div>
+  <div class="saas-problem__scenarios">
+    <picture>
+      <source media="(max-width: 475px)" srcset={imageMobile.src} />
+      <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+    </picture>
+  </div> 
+</div>
+
+<style lang="scss">
+.saas-problem {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+}
+
+.saas-problem__heading {
+  display: grid;
+  grid-column-start: 3;
+}
+
+.saas-problem__scenarios {
+  background: var(--color-light-grey);
+}
+
+.saas-problem__scenarios picture,
+.saas-problem__scenarios img {
+  display: block;
+  width: 100%;
+}
+
+@media (max-width: 1023px) {
+  .saas-problem {
+    grid-template-columns: 1fr;
+  }
+  .saas-problem__heading {
+    grid-column-start: auto;
+  }
+}
+</style>
