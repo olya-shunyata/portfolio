@@ -7,7 +7,7 @@ const { item, titleSize = "24px", descriptionSize = "16px" } = Astro.props as { 
   "info-column",
   { "info-column--selected": item?.selected || false }
 ]} style={`--info-column-title-size: ${titleSize}; --info-column-description-size: ${descriptionSize};`}>
-  <h3 class="info-column__title">{item.title}</h3>
+  { item?.title && <h3 class="info-column__title">{item.title}</h3> }
   <div class="info-column__description">
       {item.description.map((list) => (
         <ul class="info-column__list">

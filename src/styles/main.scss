@@ -132,7 +132,7 @@
 /* Mobile (480–767) */
 @media (min-width: 480px) and (max-width: 767px) {
   :root {
-    --container-padding: 16px;
+    --container-padding: 20px;
     --section-padding-block: 24px;
 
     --header-padding-top: 14px;
@@ -144,7 +144,7 @@
 /* Small mobile (≤479, includes 375) */
 @media (max-width: 479px) {
   :root {
-    --container-padding: 14px;
+    --container-padding: 20px;
     --section-padding-block: 22px;
 
     --header-padding-top: 12px;
