@@ -1,0 +1,131 @@
+---
+import type { Image } from "../../types";
+import { content } from "../../content";
+import { buildResponsiveImage } from "../../scripts/responsive-images";
+import ImageComponent from "../shared/ImageComponent.astro";
+import heroMobilesAsset from "../../assets/images/vet/hero-mobiles.png";
+import heroDesktopAsset from "../../assets/images/vet/hero-imac.png";
+
+const mediaSizes = "(max-width: 767px) 100vw, 50vw";
+const [mobilesImage, desktopImage] = await Promise.all([
+  buildResponsiveImage({ asset: heroMobilesAsset, profile: "showcase", maxDisplayWidth: 760, quality: 92, dprCap: 2.5 }),
+  buildResponsiveImage({ asset: heroDesktopAsset, profile: "screenshot", maxDisplayWidth: 760 }),
+]);
+
+const images: Record<string, Image> = {
+  mobiles: {
+    ...mobilesImage,
+    sizes: mediaSizes,
+    alt: content.projects.vet.media.alts.mobiles,
+  },
+  desktop: {
+    ...desktopImage,
+    sizes: mediaSizes,
+    alt: content.projects.vet.media.alts.desktop,
+  },
+};
+---
+<div class="vet-media">
+  <ImageComponent class="vet-media__card vet-media__card--light" src={images.mobiles.src} srcset={images.mobiles.srcset} sizes={images.mobiles.sizes} alt={images.mobiles.alt} ratio="68 / 63" mode="intrinsic" />
+  <ImageComponent
+    class="vet-media__card vet-media__card--dark"
+    src={images.desktop.src}
+    srcset={images.desktop.srcset}
+    sizes={images.desktop.sizes}
+    alt={images.desktop.alt}
+    ratio="68 / 63"
+    mode="intrinsic"
+    frameBg="var(--color-dark)"
+    skeletonBg="#191919"
+    shimmerColor="rgba(255, 255, 255, 0.12)"
+  />
+</div>
+
+<style lang="scss">
+.vet-media {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+}
+
+.vet-media__card {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+}
+
+.vet-media__card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vet-media__card--light {
+  background: var(--color-background);
+  min-height: 630px;
+}
+
+.vet-media__card--dark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 630px;
+  padding: 48px;
+  background: var(--color-dark);
+}
+
+.vet-media__card--dark img {
+  object-fit: contain;
+}
+
+@media (max-width: 1023px) {
+  .vet-media__card--light,
+  .vet-media__card--dark {
+    min-height: 460px;
+  }
+
+  .vet-media__card--dark {
+    padding: 32px;
+  }
+
+  .vet-media__cursor {
+    right: 28px;
+    top: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .vet-media {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .vet-media__card--dark {
+    order: -1;
+    min-height: 324px;
+    padding: 20px;
+  }
+
+  .vet-media__card--light {
+    min-height: 324px;
+  }
+
+  .vet-media__cursor {
+    right: 18px;
+    top: 16px;
+    gap: 8px;
+  }
+
+  .vet-media__cursor-shape {
+    width: 26px;
+    height: 30px;
+  }
+
+  .vet-media__cursor-label {
+    margin-top: 18px;
+    padding: 5px 8px 3px;
+    font-size: 14px;
+  }
+}
+</style>

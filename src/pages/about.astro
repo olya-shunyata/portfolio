@@ -1,0 +1,192 @@
+---
+import type { Image, InfoItem } from "../types";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/shared/Header.astro";
+import InfoColumn from "../components/shared/InfoColumn.astro";
+import ContactsAbout from "../components/about/ContactsAbout.astro";
+import ImageComponent from "../components/shared/ImageComponent.astro";
+import { buildResponsiveImage } from "../scripts/responsive-images";
+import photoAsset from "../assets/images/photo.webp";
+import { content } from "../content";
+
+const photo: Image = {
+  ...(await buildResponsiveImage({
+    asset: photoAsset,
+    profile: "showcase",
+    maxDisplayWidth: 310,
+    quality: 92,
+  })),
+  sizes: "(max-width: 480px) 100vw, 310px",
+  alt: content.about.photoAlt,
+};
+
+const helloItem: InfoItem = {
+  description: content.about.intro.description,
+};
+---
+
+<BaseLayout
+  title={content.about.meta.title}
+  description={content.about.meta.description}
+  canonicalPath="/about/"
+  ogType="profile"
+>
+  <Header />
+  <main class="container about-page">
+    <div class="about-page__self">
+      <div class="about-page__photo-wrapper">
+        <ImageComponent
+          class="about-page__photo"
+          src={photo.src}
+          srcset={photo.srcset}
+          sizes={photo.sizes}
+          alt={photo.alt}
+          ratio="310 / 508"
+          ratioMobile="350 / 398"
+          loading="eager"
+        />
+      </div>
+    </div>
+    <div class="about-page__text">
+      <div class="about-page__hello">
+        <InfoColumn
+          item={helloItem}
+          descriptionSize="var(--about-text-size)"
+        />
+      </div>
+      <div class="about-page__about">
+        {content.about.paragraphs.map((text) => <p>{text}</p>)}
+      </div>
+      <div class="about-page__contacts">
+        <ContactsAbout />
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+<style lang="scss">
+    .about-page {
+        display: flex;
+        padding: var(--container-padding);
+        justify-content: space-between;
+        gap: 32px;
+        height: calc(100dvh - var(--header-height));
+        --about-text-size: 20px;
+
+        @media (max-width: 1024px) {
+            --about-text-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            align-items: start;
+            gap: 40px;
+        }
+
+        @media (max-width: 480px) {
+            --about-text-size: 16px;
+        }
+    }
+
+    .about-page__text {
+        display: flex;
+        flex: 1 1 0;
+        min-width: 0;
+        flex-direction: column;
+        gap: 60px;
+
+        @media (max-width: 1023px) {
+            flex-grow: 0;
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            padding-bottom: 40px;
+        }
+    }
+
+    .about-page__self {
+        display: flex;
+        flex: 1 1 310px;
+        min-width: 310px;
+        align-self: end;
+
+        @media (max-width: 1024px) {
+            flex: 0 1 310px;
+            min-width: 0;
+            max-width: 310px;
+        }
+
+        @media (max-width: 768px) {
+            flex: 0 0 auto;
+            width: 100%;
+            min-width: 0;
+            align-self: start;
+            max-width: 100%;
+        }
+    }
+
+    .about-page__photo-wrapper {
+        display: flex;
+        flex: 0 0 auto;
+        width: min(100%, 310px);
+        overflow: hidden;
+
+        @media (max-width: 480px) {
+            width: 100%;
+        }
+    }
+
+    :global(.about-page__photo) {
+        display: block;
+        width: 100%;
+    }
+
+    :global(.about-page__photo .image-frame__img) {
+        display: block;
+        max-width: none;
+        object-fit: cover;
+        object-position: center top;
+    }
+
+    @media (max-width: 480px) {
+        :global(.about-page__photo .image-frame__img) {
+            height: 140%;
+            width: 100%;
+        }
+    }
+
+    .about-page__hello,
+    .about-page__about {
+        max-width: 440px;
+
+        @media (max-width: 480px) {
+            width: 100%;
+        }
+    }
+
+    .about-page__about {
+        display: flex;
+        flex-direction: column;
+        font-size: var(--about-text-size);
+        color: var(--color-muted);
+        gap: 20px;
+        max-width: 440px;
+        line-height: 1.3;
+        align-self: flex-end;
+
+        @media (max-width: 1024px) {
+            align-self: start;
+        }
+    }
+
+    .about-page__contacts {
+        display: flex;
+        flex-grow: 1;
+        align-self: stretch;
+
+        @media (max-width: 768px) {
+            padding-top: 32px;
+        }
+    }
+</style>

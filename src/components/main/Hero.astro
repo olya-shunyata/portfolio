@@ -1,0 +1,207 @@
+---
+import SkillChips from "../shared/SkillChips.astro";
+import type { Image } from "../../types";
+import { buildUrl } from "../../scripts/path-utils";
+import { buildResponsiveImage } from "../../scripts/responsive-images";
+import ImageComponent from "../shared/ImageComponent.astro";
+import abMockupImage from "../../assets/images/ab_mockup.webp";
+import vetMockupImage from "../../assets/images/vet_mockup.webp";
+import { content } from "../../content";
+
+const heroCardSizes = "(max-width: 1023px) 100vw, 50vw";
+const [leftCardImage, rightCardImage] = await Promise.all([
+  buildResponsiveImage({ asset: abMockupImage, profile: "showcase", maxDisplayWidth: 900, quality: 92, dprCap: 2.5 }),
+  buildResponsiveImage({ asset: vetMockupImage, profile: "showcase", maxDisplayWidth: 900, quality: 92, dprCap: 2.5 }),
+]);
+
+const heroCards: Image[] = [
+  {
+    ...leftCardImage,
+    sizes: heroCardSizes,
+    alt: content.home.hero.cards.saasAlt,
+  },
+  {
+    ...rightCardImage,
+    sizes: heroCardSizes,
+    alt: content.home.hero.cards.vetAlt,
+  },
+];
+
+const cursor = {
+  src: buildUrl("/images/cursors/cursor.svg"),
+  alt: content.home.hero.cursorAlt,
+};
+---
+
+<div class="hero">
+  <div class="hero__header">
+    <h1 class="hero__title">
+      {content.home.hero.headlineParts.map((item) =>
+        item?.highlight ? <span class="hero__title-accent">{item.text}</span> : item.text
+      )}
+    </h1>
+    <div class="hero__skills">
+      <SkillChips items={content.home.hero.skills} label={content.home.hero.skillsLabel} />
+    </div>
+
+    <div class="hero__cursor" aria-hidden="true">
+      <img
+        class="hero__cursor-icon"
+        src={cursor.src}
+        alt={cursor.alt}
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+  </div>
+
+  <div class="media-grid">
+    {heroCards.map((image) => (
+      <ImageComponent
+        class="media-grid__image"
+        src={image.src}
+        srcset={image.srcset}
+        sizes={image.sizes}
+        alt={image.alt}
+        loading="eager"
+        ratio="680 / 630"
+      />
+    ))}
+  </div>
+</div>
+
+<style lang="scss">
+.hero {
+  --cursor-motion: 32px;
+  --hero-gap: 70px;
+  gap: var(--hero-gap);
+}
+
+.hero,
+.hero__header {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__header {
+  position: relative;
+  gap: 35px;
+}
+
+.hero__title {
+  margin: 0;
+  color: var(--color-text);
+
+  font-family: var(--font-family-base);
+  font-style: normal;
+  font-weight: var(--font-weight-regular);
+
+  font-size: 44px;
+  line-height: 1.13;
+  letter-spacing: 0;
+
+  max-width: 1020px;
+
+  @media (max-width: 1023px) {
+    font-size: 34px;
+  }
+}
+
+.hero__title-accent {
+  background: linear-gradient(
+    180deg,
+    transparent 20%,
+    var(--color-accent) 20%,
+    var(--color-accent) 95%,
+    transparent 95%
+  );
+}
+
+.hero__cursor {
+  position: absolute;
+
+  left: min(calc(980px + var(--space-6xl)), calc(100% - 100px));
+  top: clamp(25vh, 120px, 300px);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  pointer-events: none;
+
+  transform: translate3d(0, 0, 0);
+
+  animation: figma-drift-a 8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  will-change: transform;
+  z-index: 5;
+}
+
+.hero__cursor-icon {
+  display: block;
+  height: auto;
+}
+
+.media-grid {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(2, 1fr);
+  
+  @media (max-width: 1023px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.media-grid__card {
+  margin: 0;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__cursor {
+    animation: none;
+  }
+}
+
+/* laptop */
+@media (max-width: 1199px) {
+  .hero__title {
+    font-size: clamp(34px, 4.2vw, 46px);
+  }
+}
+
+/* tablet */
+@media (max-width: 1023px) {
+  .hero__title {
+    font-size: clamp(34px, 4.2vw, 40px);
+  }
+
+  .hero__cursor {
+    display: none;
+  }
+}
+
+/* mobile */
+@media (max-width: 767px) {
+  .hero__title {
+    max-width: 350px;
+    font-size: 34px;
+    line-height: 1.15;
+  }
+
+  .hero__title-accent {
+    padding: 0 0.12em 0.02em;
+  }
+}
+
+/* small mobile */
+@media (max-width: 479px) {
+  .hero__title {
+    font-size: 30px;
+    line-height: 1.1;
+  }
+}
+</style>

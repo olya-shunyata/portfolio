@@ -1,0 +1,218 @@
+---
+import type { Image } from "../../types";
+import getTimezoneLabel from "../../scripts/timezone-label";
+import { buildResponsiveImage } from "../../scripts/responsive-images";
+import { LINKEDIN_URL, TG_URL, CV_URL } from "../../constants";
+import { content } from "../../content";
+
+import ImageComponent from "../shared/ImageComponent.astro";
+import DownloadIcon from "../icons/DownloadIcon.astro";
+import aboutImageAsset from "../../assets/images/about.webp";
+
+const imageSizes = "(max-width: 1024px) 100vw, 50vw";
+const image: Image = {
+  ...(await buildResponsiveImage({ asset: aboutImageAsset, profile: "showcase", maxDisplayWidth: 704, quality: 92 })),
+  sizes: imageSizes,
+  alt: content.shared.contacts.mainImageAlt,
+};
+
+const hints = [content.shared.contacts.hintsLabel, `${content.shared.location.contactsCountry}, ${getTimezoneLabel()}`];
+const title = content.shared.contacts.mainTitle;
+const links = [
+  { label: content.shared.contacts.links.telegram, href: TG_URL },
+  { label: content.shared.contacts.links.linkedin, href: LINKEDIN_URL },
+  { label: content.shared.contacts.links.cv, href: CV_URL, icon: DownloadIcon },
+];
+
+const email = content.shared.contacts.email;
+---
+<div class="contacts">
+  <div class="contacts__content">
+    <span class="contacts__hints">
+      {hints.map((hint, index) => (
+        <span key={index}>{hint}</span>
+      ))}
+    </span>
+    <div class="contacts__info">
+      <h2>{title}</h2>
+      <div class="contacts__list">
+        {links.map((link, index) => (
+          <div class="contacts__point">
+            <span class="contacts__number">( {index + 1} )</span>
+            <a href={link.href} class="contacts__plaque">
+              {link.icon && <link.icon size="15" class="contacts__link-icon" />}
+              {link.label}
+            </a>
+          </div>
+        ))}
+      </div>
+      <span class="contacts__mail">
+        {email}
+      </span>
+    </div>
+  </div>
+  <ImageComponent
+    class="contacts__image"
+    src={image.src}
+    srcset={image.srcset}
+    sizes={image.sizes}
+    alt={image.alt}
+    loading="lazy"
+    ratio="723 / 600"
+    frameBg="var(--color-dark-grey)"
+    skeletonBg="#2a2a2a"
+    shimmerColor="rgba(255, 255, 255, 0.12)"
+  />
+</div>
+
+<style lang="scss">
+.contacts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  gap: var(--space-4xl);
+  width: 100%;
+  background: var(--color-dark-grey);
+  box-sizing: border-box;
+
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.contacts__content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 32px 40px;
+  min-height: 600px;
+
+  @media (max-width: 1024px) {
+    padding: 32px 16px;
+    min-height: 496px;
+  }
+}
+
+.contacts__hints {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  @media (max-width: 767px) {
+    gap: var(--space-xs);
+  }
+}
+
+.contacts__info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: var(--space-4xl);
+
+  @media (max-width: 767px) {
+    gap: var(--space-xl);
+  }
+
+  h2 {
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.13;
+  }
+}
+
+.contacts__list {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: var(--space-lg);
+
+  @media (max-width: 375px) {
+    gap: var(--space-md);
+  }
+}
+
+.contacts__number {
+  display: inline-block;
+  width: 40px;
+  font-size: 20px;
+  color: var(--color-text);
+}
+
+.contacts__plaque {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+
+  width: 104px;
+  padding: var(--space-sm) var(--space-xl);
+  border: 1px solid rgba(15, 15, 15, 0.7);
+
+  color: var(--color-text);
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-dark);
+  }
+
+  @media (max-width: 767px) {
+    white-space: normal;
+  }
+}
+
+.contacts__point {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4xl);
+
+  @media (max-width: 767px) {
+    gap: var(--space-md);
+  }
+}
+
+.contacts__link-icon {
+  flex-shrink: 0;
+  margin-top: -2px;
+}
+
+.contacts__mail {
+  display: flex;
+  justify-self: flex-end;
+  font-size: 36px;
+  line-height: 1.13;
+  overflow-wrap: anywhere;
+
+  @media (max-width: 767px) {
+    font-size: 26px;
+  }
+
+  @media (max-width: 340px) {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+}
+
+.contacts__image {
+  display: block;
+  aspect-ratio: 241 / 200;
+  object-fit: cover;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    max-height: none;
+  }
+}
+</style>

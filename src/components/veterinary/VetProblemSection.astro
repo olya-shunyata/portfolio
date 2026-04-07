@@ -1,0 +1,220 @@
+---
+import ImageComponent from "../shared/ImageComponent.astro";
+import { content } from "../../content";
+import { buildResponsiveImage } from "../../scripts/responsive-images";
+import researchBoardAsset from "../../assets/images/vet/research-board.png";
+import researchNotesAsset from "../../assets/images/vet/research-notes.png";
+import designCollageAsset from "../../assets/images/vet/design-collage.webp";
+import designBoxesAsset from "../../assets/images/vet/design-boxes.webp";
+
+const sections = content.projects.vet.problem.sections;
+const boardSizes = "(max-width: 767px) 100vw, 66vw";
+const notesSizes = "(max-width: 767px) 100vw, 33vw";
+const designWideSizes = "(max-width: 767px) 100vw, 66vw";
+const designNarrowSizes = "(max-width: 767px) 100vw, 33vw";
+const [boardImage, notesImage, collageImage, boxesImage] = await Promise.all([
+  buildResponsiveImage({ asset: researchBoardAsset, profile: "screenshot", maxDisplayWidth: 900 }),
+  buildResponsiveImage({ asset: researchNotesAsset, profile: "screenshot", maxDisplayWidth: 461 }),
+  buildResponsiveImage({ asset: designCollageAsset, profile: "showcase", maxDisplayWidth: 511, quality: 92 }),
+  buildResponsiveImage({ asset: designBoxesAsset, profile: "showcase", maxDisplayWidth: 849, quality: 92 }),
+]);
+
+const images = {
+  board: { ...boardImage, sizes: boardSizes, alt: content.projects.vet.problem.alts.board },
+  notes: { ...notesImage, sizes: notesSizes, alt: content.projects.vet.problem.alts.notes },
+  collage: { ...collageImage, sizes: designNarrowSizes, alt: content.projects.vet.problem.alts.collage },
+  boxes: { ...boxesImage, sizes: designWideSizes, alt: content.projects.vet.problem.alts.boxes },
+};
+---
+<div class="vet-problem">
+  <div class="grid-layout">
+    <div class="vet-problem__content">
+      {sections.map((section) => (
+        <article class="vet-problem__group">
+          <h2>{section.title}</h2>
+          <p>{section.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <div class="vet-problem__gallery">
+    <div class="vet-problem__research-row">
+      <figure class="vet-problem__research-frame vet-problem__research-frame--board">
+        <div class="vet-problem__research-crop vet-problem__research-crop--board">
+          <ImageComponent
+            class="vet-problem__research-image vet-problem__research-image--board"
+            src={images.board.src}
+            srcset={images.board.srcset}
+            sizes={images.board.sizes}
+            alt={images.board.alt}
+            ratio="1798 / 1214"
+            mode="fill"
+          />
+        </div>
+      </figure>
+      <figure class="vet-problem__research-frame vet-problem__research-frame--notes">
+        <div class="vet-problem__research-crop vet-problem__research-crop--notes">
+          <ImageComponent
+            class="vet-problem__research-image vet-problem__research-image--notes"
+            src={images.notes.src}
+            srcset={images.notes.srcset}
+            sizes={images.notes.sizes}
+            alt={images.notes.alt}
+            ratio="922 / 1214"
+            mode="fill"
+          />
+        </div>
+      </figure>
+    </div>
+
+    <div class="vet-problem__design-row">
+      <figure class="vet-problem__design-frame vet-problem__design-frame--collage">
+        <ImageComponent
+          class="vet-problem__design-image vet-problem__design-image--collage"
+          src={images.collage.src}
+          srcset={images.collage.srcset}
+          sizes={images.collage.sizes}
+          alt={images.collage.alt}
+          ratio="511 / 579"
+          mode="fill"
+        />
+      </figure>
+      <figure class="vet-problem__design-frame vet-problem__design-frame--boxes">
+        <ImageComponent
+          class="vet-problem__design-image vet-problem__design-image--boxes"
+          src={images.boxes.src}
+          srcset={images.boxes.srcset}
+          sizes={images.boxes.sizes}
+          alt={images.boxes.alt}
+          ratio="849 / 579"
+          mode="fill"
+        />
+      </figure>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+.vet-problem {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.vet-problem__content {
+  grid-column: 3 / 5;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 448px;
+}
+
+.vet-problem__group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.vet-problem__group h2 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.15;
+}
+
+.vet-problem__group p {
+  margin: 0;
+  color: rgba(0, 0, 0, 0.62);
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.vet-problem__gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vet-problem__research-row,
+.vet-problem__design-row {
+  display: grid;
+  gap: 16px;
+}
+
+.vet-problem__research-row {
+  grid-template-columns: minmax(0, 1.9501fr) minmax(0, 1fr);
+}
+
+.vet-problem__design-row {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6614fr);
+}
+
+.vet-problem__research-frame,
+.vet-problem__design-frame {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+}
+
+.vet-problem__research-frame {
+  background: var(--color-light-grey);
+}
+
+.vet-problem__research-frame--board {
+  aspect-ratio: 899 / 607;
+}
+
+.vet-problem__research-frame--notes {
+  aspect-ratio: 461 / 607;
+}
+
+.vet-problem__research-crop {
+  position: absolute;
+  overflow: hidden;
+}
+
+:global(.vet-problem__research-image) {
+  width: 100%;
+  height: 100%;
+}
+
+.vet-problem__design-frame--collage {
+  aspect-ratio: 511 / 579;
+}
+
+.vet-problem__design-frame--boxes {
+  aspect-ratio: 849 / 579;
+}
+
+:global(.vet-problem__design-image) {
+  width: 100%;
+  height: 100%;
+}
+
+.vet-problem__design-frame--boxes :global(.image-frame__img) {
+  object-position: center 47%;
+}
+
+@media (max-width: 1023px) {
+  .vet-problem__content {
+    grid-column: auto;
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 767px) {
+  .vet-problem__content {
+    gap: 40px;
+  }
+
+  .vet-problem__group h2 {
+    font-size: 30px;
+  }
+
+  .vet-problem__research-row,
+  .vet-problem__design-row {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

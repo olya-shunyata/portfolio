@@ -1,17 +1,47 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/shared/Header.astro";
+import Hero from "../components/main/Hero.astro";
+import Projects from "../components/main/Projects.astro";
+import ProjectSection from "../components/shared/ProjectSection.astro";
+import Confidential from "../components/main/Confidential.astro";
+import ShowReel from "../components/main/ShowReel.astro";
+import Contacts from "../components/main/Contacts.astro";
+import Footer from "../components/main/Footer.astro";
+import { content } from "../content";
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro here</h1>
-	</body>
-</html>
+<BaseLayout
+  title={content.home.meta.title}
+  description={content.home.meta.description}
+  canonicalPath="/"
+  ogType="website"
+>
+  <Header />
+  <main class="main">
+    <section class="container">
+      <Hero />
+    </section>
+    <ProjectSection title={content.home.sections.nda} delimiter mobileFluid id="confidential">
+      <Confidential />
+    </ProjectSection>
+    <ProjectSection title={content.home.sections.projects} id="projects">
+      <Projects />
+    </ProjectSection>
+    <ProjectSection title={content.home.sections.showreel} id="showreel" mobileFluid>
+      <ShowReel />
+    </ProjectSection>
+    <section id="contacts" class="container">
+      <Contacts />
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+<style lang="scss">
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+  padding-top: 60px;
+  padding-bottom: 90px;
+}
+</style>

@@ -1,0 +1,292 @@
+---
+import type { Image, InfoItem } from "../../types";
+import { buildUrl } from "../../scripts/path-utils";
+import InfoColumn from "../shared/InfoColumn.astro";
+import LockIcon from "../icons/LockIcon.astro";
+import { content } from "../../content";
+
+type CursorIcon = Image & {
+  top: string;
+  left: string;
+};
+
+const image: Image = {
+  src: buildUrl("/images/nda.webp"),
+  alt: content.home.confidential.imageAlt,
+};
+
+const cursors: Record<string, CursorIcon> = {
+  sila: {
+    src: buildUrl("/images/cursors/sila.svg"),
+    alt: "SilaSveta Figma cursor icon",
+    top: "58%",
+    left: "16%",
+  },
+  samolet: {
+    src: buildUrl("/images/cursors/samolet.svg"),
+    alt: "Samolet Figma cursor icon",
+    top: "40%",
+    left: "35%",
+  },
+  vtb: {
+    src: buildUrl("/images/cursors/vtb.svg"),
+    alt: "VTB Bank Figma cursor icon",
+    top: "80%",
+    left: "30%",
+  },
+  otpbank: {
+    src: buildUrl("/images/cursors/otpbank.svg"),
+    alt: "OTP Bank Figma cursor icon",
+    top: "52%",
+    left: "66%",
+  },
+  pinkman: {
+    src: buildUrl("/images/cursors/pinkman.svg"),
+    alt: "Pinkman Figma cursor icon",
+    top: "68%",
+    left: "52%",
+  },
+  funsun: {
+    src: buildUrl("/images/cursors/funsun.svg"),
+    alt: "Funsun Figma cursor icon",
+    top: "30%",
+    left: "78%",
+  },
+  metacade: {
+    src: buildUrl("/images/cursors/metacade.svg"),
+    alt: "Metacade Figma cursor icon",
+    top: "75%",
+    left: "76%",
+  },
+};
+
+const items: InfoItem[] = content.home.confidential.columns;
+const deliveredItems = content.home.confidential.stats;
+---
+
+<div class="nda">
+  <div class="nda__info">
+    {items.map((item) => <InfoColumn item={item} />)}
+  </div>
+
+  <div
+    class="nda__block"
+    role="img"
+    aria-label={image.alt}
+    style={`background-image: url(${image.src});`}
+  >
+    <div class="nda__plaque">
+      <LockIcon size="33" />
+      <span>{content.home.confidential.ndaLabel}</span>
+    </div>
+
+    <h3 class="nda__stats">
+      {deliveredItems.map((item) => (
+        <span class="nda__stats-row">
+          <span class="nda__stats-mark">{item.mark}</span>
+          {item.title}
+        </span>
+      ))}
+    </h3>
+
+    {Object.entries(cursors).map(([name, cursor]) => (
+      <span
+        class={`nda__cursor-anchor nda__cursor-anchor--${name}`}
+        style={`--initial-top: ${cursor.top}; --initial-left: ${cursor.left};`}
+        aria-hidden="true"
+      >
+        <img class="nda__cursor" src={cursor.src} alt={cursor.alt} />
+      </span>
+    ))}
+  </div>
+</div>
+
+<style lang="scss">
+  .nda {
+    --overlay-padding: var(--space-6xl);
+    --cursor-motion: 18px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    width: 100%;
+
+    font-size: 24px;
+    line-height: 120%;
+  }
+
+  .nda__block {
+    width: 100%;
+    height: 792px;
+
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    padding: var(--overlay-padding);
+    gap: var(--overlay-padding);
+    box-sizing: border-box;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--color-opacity-60);
+    aspect-ratio: 16 / 9;
+  }
+
+  .nda__plaque,
+  .nda__stats {
+    position: relative;
+    z-index: 2;
+  }
+
+  .nda__plaque {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-2xl) var(--space-sm) var(--space-lg);
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    span {
+      padding-top: 2px;
+    }
+  }
+
+  .nda__stats {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-white);
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 113%;
+    margin: 0;
+
+    &-row {
+      display: block;
+    }
+
+    &-mark {
+      color: var(--color-grey);
+    }
+  }
+
+  .nda__cursor-anchor {
+    position: absolute;
+    top: var(--initial-top);
+    left: var(--initial-left);
+    z-index: 1;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+  }
+
+  .nda__cursor {
+    --cursor-drift-distance: var(--cursor-motion);
+
+    display: block;
+    height: clamp(40px, 6vw, 80px);
+    width: auto;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    transform-origin: center;
+    animation-name: figma-drift-a;
+    animation-duration: var(--cursor-duration, 16s);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: var(--cursor-delay, 0s);
+  }
+
+  .nda__cursor-anchor--sila .nda__cursor {
+    --cursor-drift-distance: calc(var(--cursor-motion) * 0.7);
+    --cursor-duration: 16.4s;
+    --cursor-delay: -2.8s;
+    animation-name: figma-drift-a;
+  }
+
+  .nda__cursor-anchor--samolet .nda__cursor {
+    --cursor-drift-distance: calc(var(--cursor-motion) * 1.15);
+    --cursor-duration: 19.2s;
+    --cursor-delay: -11.4s;
+    animation-name: figma-drift-b;
+  }
+
+  .nda__cursor-anchor--vtb .nda__cursor {
+    --cursor-drift-distance: calc(var(--cursor-motion) * 0.9);
+    --cursor-duration: 14.8s;
+    --cursor-delay: -7.1s;
+    animation-name: figma-drift-c;
+  }
+
+  .nda__cursor-anchor--otpbank .nda__cursor {
+    --cursor-drift-distance: calc(var(--cursor-motion) * 1.25);
+    --cursor-duration: 18.1s;
+    --cursor-delay: -5.6s;
+    animation-name: figma-drift-d;
+  }
+
+  .nda__cursor-anchor--pinkman .nda__cursor {
+    --cursor-drift-distance: calc(var(--cursor-motion) * 0.85);
+    --cursor-duration: 15.6s;
+    --cursor-delay: -9.8s;
+    animation-name: figma-drift-c;
+  }
+
+  .nda__cursor-anchor--funsun .nda__cursor {
+    --cursor-drift-distance: calc(var(--cursor-motion) * 1.05);
+    --cursor-duration: 17.3s;
+    --cursor-delay: -3.9s;
+    animation-name: figma-drift-b;
+  }
+
+  .nda__cursor-anchor--metacade .nda__cursor {
+    --cursor-drift-distance: calc(var(--cursor-motion) * 0.95);
+    --cursor-duration: 20.6s;
+    --cursor-delay: -13.1s;
+    animation-name: figma-drift-d;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nda__cursor {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .nda {
+      gap: 40px;
+      font-size: 20px;
+    }
+
+    .nda__block {
+      height: auto;
+      min-height: 520px;
+    }
+
+    .nda__stats {
+      font-size: 36px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .nda {
+      gap: 32px;
+      font-size: 16px;
+    }
+
+    .nda__block {
+      min-height: 420px;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .nda__plaque {
+      padding: 10px 14px 10px 12px;
+    }
+
+    .nda__stats {
+      font-size: 30px;
+    }
+  }
+</style>

@@ -1,0 +1,90 @@
+---
+import type { NavItem } from "../../types";
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/shared/Header.astro";
+import ProjectSection from "../../components/shared/ProjectSection.astro";
+import BottomNav from "../../components/shared/BottomNav.astro";
+
+import VetOverview from "../../components/veterinary/VetOverview.astro";
+import VetProblemSection from "../../components/veterinary/VetProblemSection.astro";
+import VetDashboardSection from "../../components/veterinary/VetDashboardSection.astro";
+import VetTestingSection from "../../components/veterinary/VetTestingSection.astro";
+import VetArtifacts from "../../components/veterinary/VetArtifacts.astro";
+import VetGallery from "../../components/veterinary/VetGallery.astro";
+
+import { buildUrl } from "../../scripts/path-utils";
+import { buildResponsiveImage } from "../../scripts/responsive-images";
+import ndaImageAsset from "../../assets/images/nda.webp";
+import projectAbHeatImageAsset from "../../assets/images/project_ab_heat.webp";
+import { content } from "../../content";
+
+const navImageSizes = "(max-width: 767px) 100vw, 50vw";
+const navItems: [NavItem, NavItem] = [
+  {
+    title: content.projects.vet.nav.previousTitle,
+    direction: "previous",
+    href: buildUrl("/#confidential"),
+    image: {
+      ...(await buildResponsiveImage({ asset: ndaImageAsset, profile: "showcase", maxDisplayWidth: 260 })),
+      sizes: navImageSizes,
+      alt: content.projects.vet.nav.previousAlt,
+    },
+  },
+  {
+    title: content.projects.vet.nav.nextTitle,
+    direction: "next",
+    href: buildUrl("/projects/saas"),
+    image: {
+      ...(await buildResponsiveImage({ asset: projectAbHeatImageAsset, profile: "showcase", maxDisplayWidth: 364 })),
+      sizes: navImageSizes,
+      alt: content.projects.vet.nav.nextAlt,
+    },
+  },
+];
+---
+<BaseLayout
+  title={content.projects.vet.meta.title}
+  description={content.projects.vet.meta.description}
+  canonicalPath="/projects/vet/"
+  ogType="article"
+>
+  <Header />
+  <main class="main">
+    <ProjectSection title={content.projects.vet.pageTitle} delimiter>
+      <VetOverview />
+    </ProjectSection>
+    <section class="container">
+      <VetProblemSection />
+    </section>
+    <section class="container">
+      <VetDashboardSection />
+    </section>
+    <section class="container">
+      <VetTestingSection />
+    </section>
+    <section class="container">
+      <VetArtifacts />
+    </section>
+    <section class="container">
+      <VetGallery />
+    </section>
+  </main>
+  <footer class="container">
+    <BottomNav navItems={navItems} heading={content.projects.vet.navHeading} />
+  </footer>
+</BaseLayout>
+
+<style lang="scss">
+@use "../../styles/mixins" as *;
+
+.main {
+  padding: 90px 0;
+
+  @include main-page-gap;
+
+  @media (max-width: 767px) {
+    padding: 60px 0 70px 0;
+  }
+}
+</style>

@@ -1,0 +1,124 @@
+@mixin text-style(
+  $size,
+  $line-height,
+  $letter-spacing: null,
+  $weight: var(--font-weight-regular)
+) {
+  font-size: $size;
+  line-height: $line-height;
+  font-weight: $weight;
+
+  @if $letter-spacing != null {
+    letter-spacing: $letter-spacing;
+  }
+}
+
+@mixin stack($gap: var(--space-lg), $align: stretch) {
+  display: flex;
+  flex-direction: column;
+  align-items: $align;
+  gap: $gap;
+}
+
+@mixin cluster(
+  $gap: var(--space-lg),
+  $justify: flex-start,
+  $align: center,
+  $wrap: wrap
+) {
+  display: flex;
+  flex-wrap: $wrap;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
+}
+
+@mixin inset($block: var(--space-lg), $inline: $block) {
+  padding-block: $block;
+  padding-inline: $inline;
+}
+
+@mixin surface(
+  $background: var(--color-surface),
+  $border-color: var(--color-border)
+) {
+  background: $background;
+  border: 1px solid $border-color;
+}
+
+@mixin type-caption {
+  @include text-style(var(--font-size-caption), var(--line-height-copy));
+}
+
+@mixin type-ui {
+  @include text-style(
+    var(--font-size-ui),
+    var(--line-height-ui),
+    var(--letter-spacing-ui)
+  );
+}
+
+@mixin type-brand {
+  @include text-style(
+    var(--font-size-ui),
+    var(--line-height-ui),
+    var(--letter-spacing-brand)
+  );
+  text-transform: uppercase;
+}
+
+@mixin type-copy($size: var(--font-size-body)) {
+  @include text-style($size, var(--line-height-copy));
+}
+
+@mixin type-body($size: var(--font-size-body)) {
+  @include text-style($size, var(--line-height-body));
+}
+
+@mixin type-lead {
+  @include text-style(var(--font-size-lead), var(--line-height-copy));
+}
+
+@mixin type-subheading {
+  @include text-style(var(--font-size-subheading), 1.2);
+}
+
+@mixin heading-md {
+  @include text-style(
+    var(--font-size-heading-md),
+    var(--line-height-subheading),
+    var(--letter-spacing-tight)
+  );
+}
+
+@mixin heading-lg {
+  @include text-style(
+    var(--font-size-heading-lg),
+    var(--line-height-heading),
+    var(--letter-spacing-tight)
+  );
+}
+
+@mixin heading-xl {
+  @include text-style(
+    var(--font-size-heading-xl),
+    var(--line-height-display),
+    var(--letter-spacing-tight)
+  );
+}
+
+@mixin section-title {
+  @include text-style(
+    var(--font-size-section-title),
+    var(--line-height-tight),
+    var(--letter-spacing-tight)
+  );
+}
+
+@mixin main-page-gap {
+  @include stack(var(--space-page-gap));
+
+  @media (max-width: 1023px) {
+    gap: var(--space-page-gap-compact);
+  }
+}

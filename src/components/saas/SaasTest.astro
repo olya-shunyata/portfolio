@@ -1,0 +1,231 @@
+---
+import type { Image, InfoRowSection } from "../../types";
+import { content } from "../../content";
+
+import InfoRows from "../shared/InfoRows.astro";
+import SubHeader from "../shared/SubHeader.astro";
+import ImageComponent from "../shared/ImageComponent.astro";
+import { buildResponsiveImage } from "../../scripts/responsive-images";
+import testOneAsset from "../../assets/images/saas/tests/test_1.webp";
+import testTwoAsset from "../../assets/images/saas/tests/test_2.webp";
+import testThreeAsset from "../../assets/images/saas/tests/test_3.webp";
+import testFourAsset from "../../assets/images/saas/tests/test_4.webp";
+
+type SaasTestCard = Image & {
+  width: number;
+  height: number;
+  loading: "eager" | "lazy";
+};
+
+const topSizes = "(max-width: 768px) 100vw, 1189px";
+const bottomLeftSizes = "(max-width: 768px) 60vw, 787px";
+const bottomRightSizes = "(max-width: 768px) 40vw, 489px";
+const [firstCardImage, secondCardImage, bottomRightCardImage, bottomLeftCardImage] = await Promise.all([
+  buildResponsiveImage({ asset: testOneAsset, profile: "showcase", maxDisplayWidth: 1189, quality: 92, dprCap: 2.5 }),
+  buildResponsiveImage({ asset: testTwoAsset, profile: "showcase", maxDisplayWidth: 1189, quality: 92, dprCap: 2.5 }),
+  buildResponsiveImage({ asset: testThreeAsset, profile: "showcase", maxDisplayWidth: 489 }),
+  buildResponsiveImage({ asset: testFourAsset, profile: "showcase", maxDisplayWidth: 787 }),
+]);
+
+const testContent = content.projects.saas.test;
+const cards: Record<string, SaasTestCard> = {
+  first: {
+    ...firstCardImage,
+    sizes: topSizes,
+    alt: testContent.alts.first,
+    width: 1189,
+    height: 743,
+    loading: "eager",
+  },
+  second: {
+    ...secondCardImage,
+    sizes: topSizes,
+    alt: testContent.alts.second,
+    width: 1189,
+    height: 743,
+    loading: "lazy",
+  },
+  bottomLeft: {
+    ...bottomLeftCardImage,
+    sizes: bottomLeftSizes,
+    alt: testContent.alts.bottomLeft,
+    width: 787,
+    height: 527,
+    loading: "lazy",
+  },
+  bottomRight: {
+    ...bottomRightCardImage,
+    sizes: bottomRightSizes,
+    alt: testContent.alts.bottomRight,
+    width: 489,
+    height: 527,
+    loading: "lazy",
+  },
+};
+
+const topHeader: InfoRowSection = {
+  title: testContent.heading.title,
+  description: testContent.heading.description,
+};
+
+const subHeader = {
+  title: testContent.subHeaderTitle,
+};
+---
+
+<div class="saas-abtest">
+  <div class="grid-layout">
+    <div class="saas-abtest__heading">
+      <InfoRows sections={[topHeader]} />
+    </div>
+    <SubHeader item={subHeader} type="h3" />
+  </div>
+  <div class="saas-abtest__stage">
+    <div class="saas-abtest__stage-top">
+      <ImageComponent
+        class="saas-abtest__image saas-abtest__image--first"
+        src={cards.first.src}
+        srcset={cards.first.srcset}
+        sizes={cards.first.sizes}
+        alt={cards.first.alt}
+        ratio={`${cards.first.width} / ${cards.first.height}`}
+        loading={cards.first.loading}
+        frameBg="var(--color-dark)"
+        skeletonBg="#191919"
+        shimmerColor="rgba(255, 255, 255, 0.12)"
+      />
+      <ImageComponent
+        class="saas-abtest__image saas-abtest__image--second"
+        src={cards.second.src}
+        srcset={cards.second.srcset}
+        sizes={cards.second.sizes}
+        alt={cards.second.alt}
+        ratio={`${cards.second.width} / ${cards.second.height}`}
+        loading={cards.second.loading}
+        frameBg="var(--color-dark)"
+        skeletonBg="#191919"
+        shimmerColor="rgba(255, 255, 255, 0.12)"
+      />
+    </div>
+    <div class="saas-abtest__bottom">
+      <div class="saas-abtest__bottom-images">
+        <ImageComponent
+          class="saas-abtest__image saas-abtest__bottom-image saas-abtest__bottom-image--left"
+          src={cards.bottomLeft.src}
+          srcset={cards.bottomLeft.srcset}
+          sizes={cards.bottomLeft.sizes}
+          alt={cards.bottomLeft.alt}
+          ratio={`${cards.bottomLeft.width} / ${cards.bottomLeft.height}`}
+          loading={cards.bottomLeft.loading}
+          frameBg="var(--color-dark)"
+          skeletonBg="#191919"
+          shimmerColor="rgba(255, 255, 255, 0.12)"
+        />
+        <ImageComponent
+          class="saas-abtest__image saas-abtest__bottom-image saas-abtest__bottom-image--right"
+          src={cards.bottomRight.src}
+          srcset={cards.bottomRight.srcset}
+          sizes={cards.bottomRight.sizes}
+          alt={cards.bottomRight.alt}
+          ratio={`${cards.bottomRight.width} / ${cards.bottomRight.height}`}
+          loading={cards.bottomRight.loading}
+          frameBg="var(--color-dark)"
+          skeletonBg="#191919"
+          shimmerColor="rgba(255, 255, 255, 0.12)"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+.saas-abtest {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  --abtest-space: 50px;
+}
+
+.saas-abtest__heading {
+  display: grid;
+  grid-column: 3 / 6;
+
+  @media (max-width: 768px) {
+    grid-column: auto;
+  }
+}
+
+.saas-abtest__stage {
+  flex: 1 1 0;
+  background: var(--color-dark);
+  width: 100%;
+  padding-bottom: 90px;
+}
+
+.saas-abtest__stage,
+.saas-abtest__stage-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.saas-abtest__stage-top {
+  padding: var(--abtest-space);
+  padding-top: 90px;
+  gap: var(--abtest-space);
+}
+
+:global(.saas-abtest__image) {
+  display: block;
+}
+
+:global(.saas-abtest__image--first),
+:global(.saas-abtest__image--second) {
+  width: 100%;
+  max-width: 1189px;
+}
+
+:global(.saas-abtest__image--second) {
+  align-self: end;
+}
+
+.saas-abtest__bottom {
+  position: relative;
+  aspect-ratio: 1276 / 527;
+  overflow: hidden;
+  padding: 0 var(--abtest-space) var(--abtest-space) 0;
+}
+
+.saas-abtest__bottom-images {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  gap: var(--abtest-space);
+  padding-left: var(--abtest-space);
+}
+
+:global(.saas-abtest__bottom-image) {
+  height: 100%;
+  width: auto;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .saas-abtest {
+    --abtest-space: 32px;
+  }
+
+  .saas-abtest__stage {
+    padding-bottom: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .saas-abtest {
+    --abtest-space: 20px;
+  }
+  .saas-abtest__stage {
+    padding-bottom: 28px;
+  }
+}
+</style>

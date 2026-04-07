@@ -1,0 +1,121 @@
+---
+import { buildUrl } from "../../scripts/path-utils";
+import type { Image } from "../../types";
+import { content } from "../../content";
+
+const carouselContent = content.projects.saas.carousel;
+const heroCards: Image[] = Array.from({ length: 5 }, (_, index) => ({
+  src: buildUrl(`/images/saas/carousel/slide_${index + 1}.webp`),
+  alt: `${carouselContent.imageAltPrefix} ${index + 1}.`,
+}));
+---
+<section class="saas-carousel" aria-label={carouselContent.ariaLabel}>
+  <div class="saas-carousel__stage" data-node-id="2245:1244">
+    <div class="saas-carousel__track" aria-hidden="true">
+      {[0, 1].map((groupIndex) => (
+        <div class="saas-carousel__group" data-carousel-group>
+          {heroCards.map((card, index) => (
+            <figure class="saas-carousel__card">
+              <img
+                class="saas-carousel__image"
+                src={card.src}
+                alt={card.alt}
+                loading={groupIndex === 0 && index < 2 ? "eager" : "lazy"}
+                decoding="async"
+              />
+            </figure>
+          ))}
+        </div>
+      ))}
+    </div>
+    <div class="visually-hidden">
+      <span>
+        {carouselContent.srText}
+      </span>
+    </div>
+  </div>
+</section>
+<script>
+  const stage = document.querySelector(".saas-carousel__stage");
+  const firstGroup = stage?.querySelector("[data-carousel-group]");
+  if (stage instanceof HTMLElement && firstGroup instanceof HTMLElement) {
+    const syncShift = () => {
+      const width = Math.round(firstGroup.getBoundingClientRect().width);
+      stage.style.setProperty("--marquee-shift", `${width}px`);
+    };
+    syncShift();
+    const ro = new ResizeObserver(syncShift);
+    ro.observe(firstGroup);
+  }
+</script>
+<style lang="scss">
+.saas-carousel {
+  --stage-height: clamp(270px, 43.06vw, 620px);
+  --card-width: clamp(300px, 45.625vw, 657px);
+  --card-gap: clamp(20px, 3.472vw, 50px);
+  --scroll-duration: 45s;
+  width: 100%;
+  background: var(--color-dark);
+  overflow: hidden;
+}
+.saas-carousel__stage {
+  position: relative;
+  width: 100%;
+  height: var(--stage-height);
+  margin-inline: auto;
+  overflow: hidden;
+}
+.saas-carousel__track {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  will-change: transform;
+  animation: saas-marquee var(--scroll-duration) linear infinite;
+  transform: translate3d(0, 0, 0);
+}
+.saas-carousel__group {
+  display: flex;
+  flex: 0 0 auto;
+}
+.saas-carousel__card {
+  flex: 0 0 auto;
+  aspect-ratio: 657 / 440;
+  width: var(--card-width);
+  margin: 0 calc(var(--card-gap) / 2);
+}
+.saas-carousel__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 1023px) {
+  .saas-carousel__stage {
+    --stage-height: clamp(240px, 52vw, 500px);
+    --card-width: clamp(280px, 62vw, 560px);
+    --scroll-duration: 20s;
+  }
+}
+@media (max-width: 767px) {
+  .saas-carousel__stage {
+    --stage-height: clamp(210px, 64vw, 360px);
+    --card-width: clamp(250px, 84vw, 420px);
+    --scroll-duration: 16s;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .saas-carousel__track {
+    animation: none;
+  }
+}
+@keyframes saas-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-1 * var(--marquee-shift, 0px)), 0, 0);
+  }
+}
+</style>

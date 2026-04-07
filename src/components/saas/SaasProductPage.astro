@@ -1,0 +1,77 @@
+---
+import { buildUrl } from "../../scripts/path-utils";
+import { content } from "../../content";
+import SubHeader from "../shared/SubHeader.astro";
+
+const productPage = content.projects.saas.productPage;
+const header = productPage.header;
+const videoSrc = "https://res.cloudinary.com/dqttqbfmo/video/upload/v1773518438/video_landing_x2xxbd.mp4";
+const posterSrc = buildUrl("/images/saas/cover.webp");
+const mockupSrc = buildUrl("/images/mockups/laptop.webp");
+const videoTitle = productPage.videoTitle;
+---
+<div class="saas-product">
+  <div class="grid-layout">
+    <SubHeader item={header} />
+  </div>
+  <div class="saas-product__content">
+    <div class="saas-product__mockup">
+      <img class="saas-product__mockup-mask" src={mockupSrc} alt="" aria-hidden="true" />
+      <video
+        class="saas-product__video"
+        src={videoSrc}
+        poster={posterSrc}
+        muted
+        autoplay
+        loop
+        playsinline
+        preload="none"
+        aria-label={videoTitle}
+      />
+    </div>
+  </div>
+</div>
+<style lang="scss">
+.saas-product {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.saas-product__content {
+  background: var(--color-surface);
+  padding: 80px;
+}
+.saas-product__mockup {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1098 / 650;
+  max-width: 1098px;
+  margin: auto;
+}
+.saas-product__mockup-mask {
+  position: relative;
+  width: 100%;
+  height: auto;
+  z-index: 20;
+}
+
+.saas-product__video {
+  position: absolute;
+  top: 3.1%;
+  left: 9.4%;
+  width: 83%;
+  height: auto;
+  aspect-ratio: 8 / 5;
+  object-fit: cover;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .saas-product {
+    gap: 32px;
+  }
+  .saas-product__content {
+    padding: 72px 12px;
+  }
+}
+</style>

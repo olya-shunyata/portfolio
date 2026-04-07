@@ -1,0 +1,67 @@
+---
+import type { InfoColumnItem } from "../../types";
+import { content } from "../../content";
+
+import InfoColumn from "../shared/InfoColumn.astro";
+import VetMedia from "./VetMedia.astro";
+
+const infoItems = content.projects.vet.overview.columns as InfoColumnItem[];
+---
+<div class="vet-overview">
+  <div class="vet-overview__info grid-layout">
+    <div class="vet-overview__info-left">
+      <InfoColumn item={infoItems[0]} />
+    </div>
+    <div class="vet-overview__info-right">
+      {infoItems.slice(1).map((item) => <InfoColumn item={item} />)}
+    </div>
+  </div>
+  <VetMedia />
+</div>
+
+<style lang="scss">
+.vet-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+}
+
+.vet-overview__info-left {
+  grid-column: span 2;
+
+  @media (max-width: 1023px) {
+    grid-column: span 4;
+  }
+}
+
+.vet-overview__info-right {
+  grid-column: span 4;
+  display: flex;
+  justify-content: space-between;
+  gap: 140px;
+
+  @media (max-width: 1023px) {
+    gap: var(--space-4xl);
+  }
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 480px) {
+    gap: 36px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .vet-overview {
+    gap: 60px;
+  }
+}
+
+@media (max-width: 767px) {
+  .vet-overview {
+    gap: 32px;
+  }
+}
+</style>
