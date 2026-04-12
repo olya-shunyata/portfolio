@@ -1,0 +1,108 @@
+---
+import type { InfoColumnItem } from "../../types";
+import { content } from "../../content";
+import { buildUrl } from "../../scripts/path-utils";
+import InfoColumn from "../shared/InfoColumn.astro";
+import VetMedia from "./VetMedia.astro";
+
+const infoItems = content.projects.vet.overview.columns as InfoColumnItem[];
+
+const cursor = {
+  src: buildUrl("/images/cursors/cursor.svg"),
+  alt: content.home.hero.cursorAlt,
+};
+---
+<div class="vet-overview">
+  <div class="vet-overview__info grid-layout">
+    <div class="vet-overview__info-left">
+      <InfoColumn item={infoItems[0]} />
+    </div>
+    <div class="vet-overview__info-right">
+      {infoItems.slice(1).map((item) => <InfoColumn item={item} />)}
+      <div class="vet-overview__cursor" aria-hidden="true">
+        <img
+          class="vet-overview__cursor-icon"
+          src={cursor.src}
+          alt={cursor.alt}
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </div>
+  <VetMedia />
+</div>
+
+<style lang="scss">
+.vet-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+}
+
+.vet-overview__info-left {
+  grid-column: span 2;
+
+  @media (max-width: 1023px) {
+    grid-column: span 4;
+  }
+}
+
+.vet-overview__info-right {
+  position: relative;
+  grid-column: span 4;
+  display: flex;
+  justify-content: space-between;
+  gap: 140px;
+
+  @media (max-width: 1023px) {
+    gap: var(--space-4xl);
+    grid-column: auto;
+  }
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 480px) {
+    gap: 36px;
+  }
+}
+
+.vet-overview__cursor {
+  position: absolute;
+
+  bottom: 0;
+  right: 0;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  transform: translateY(80%) translateX(15%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.vet-overview__cursor-icon {
+  display: block;
+  height: auto;
+
+  @media (max-width: 1023px) {
+    height: 48px;
+  }
+}
+
+
+@media (max-width: 1023px) {
+  .vet-overview {
+    gap: 60px;
+  }
+}
+
+@media (max-width: 767px) {
+  .vet-overview {
+    gap: 32px;
+  }
+}
+</style>

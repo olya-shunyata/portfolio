@@ -1,0 +1,282 @@
+---
+import { buildUrl } from "../../scripts/path-utils";
+import { buildResponsiveImage } from "../../scripts/responsive-images";
+import ImageComponent from "../shared/ImageComponent.astro";
+import projectVetImageAsset from "../../assets/images/project-vet.png";
+import projectVetInfoImageAsset from "../../assets/images/project-vet-info.png";
+import projectAbImageAsset from "../../assets/images/project-ab.png";
+import projectAbHeatImageAsset from "../../assets/images/project-ab-info.png";
+import { content } from "../../content";
+
+const projectLeftSizes = "(max-width: 768px) 100vw, 300px";
+const projectRightSizes = "(max-width: 899px) 100vw, 55vw";
+const [vetLeftImage, vetRightImage, saasLeftImage, saasRightImage] = await Promise.all([
+  buildResponsiveImage({ asset: projectVetImageAsset, profile: "showcase", maxDisplayWidth: 300 }),
+  buildResponsiveImage({ asset: projectVetInfoImageAsset, profile: "showcase", maxDisplayWidth: 700 }),
+  buildResponsiveImage({ asset: projectAbImageAsset, profile: "showcase", maxDisplayWidth: 300 }),
+  buildResponsiveImage({ asset: projectAbHeatImageAsset, profile: "showcase", maxDisplayWidth: 700 }),
+]);
+
+const items = [
+  {
+    ...content.home.projects.cards[0],
+    imageLeft: {
+      ...vetLeftImage,
+      ratio: "1332 / 594",
+      sizes: projectLeftSizes,
+    },
+    imageRight: {
+      ...vetRightImage,
+      ratio: "454 / 385",
+      sizes: projectRightSizes,
+    },
+    href: buildUrl("/projects/vet/"),
+  },
+  {
+    ...content.home.projects.cards[1],
+    imageLeft: {
+      ...saasLeftImage,
+      ratio: "1600 / 756",
+      sizes: projectLeftSizes,
+    },
+    imageRight: {
+      ...saasRightImage,
+      ratio: "990 / 885",
+      sizes: projectRightSizes,
+    },
+    href: buildUrl("/projects/saas/"),
+  },
+];
+---
+
+<div class="projects-list">
+  {items.map((project) => (
+    <article class="project-card">
+      <div class="project-card__content">
+        <h3 class="project-card__heading">
+          {project.title.map((line, index) => (
+            <>
+              {index > 0 && <br />}
+              {line}
+            </>
+          ))}
+        </h3>
+
+        <p class="project-card__description">{project.description}</p>
+
+        <ImageComponent
+          class="project-card__image"
+          src={project.imageLeft.src}
+          srcset={project.imageLeft.srcset}
+          sizes={project.imageLeft.sizes}
+          alt=""
+          ratio={project.imageLeft.ratio}
+          loading="lazy"
+          mode="contain"
+        />
+
+        <div class="project-card__tags" aria-label="Project tags">
+          {project.tags.map((tagList) => (
+            <span class="project-card__tag-list">
+              {tagList.map((tag, index) => (
+                <>
+                  {index > 0 && <span class="project-card__tag-separator" aria-hidden="true"></span>}
+                  <span class="project-card__tag">{tag}</span>
+                </>
+              ))}
+            </span>
+          ))}
+        </div>
+
+        <a class="project-card__link" href={project.href} aria-label={project.linkLabel} title={project.linkLabel}>
+          <span aria-hidden="true">{content.home.projects.ctaLabel}</span>
+          <span class="project-card__sr-only">{project.linkLabel}</span>
+        </a>
+      </div>
+
+      <div class="project-card__media">
+        <ImageComponent
+          class="project-card__media-image"
+          src={project.imageRight.src}
+          srcset={project.imageRight.srcset}
+          sizes={project.imageRight.sizes}
+          alt=""
+          ratio={project.imageRight.ratio}
+          loading="lazy"
+          mode="fill"
+          frameBg="var(--color-white)"
+          skeletonBg="#f5f5f5"
+          shimmerColor="rgba(255, 255, 255, 0.72)"
+        />
+      </div>
+    </article>
+  ))}
+</div>
+
+<style lang="scss">
+.projects-list {
+  display: grid;
+  gap: var(--space-4xl);
+}
+
+.project-card {
+  --project-card-space-1: 12px;
+  --project-card-space-2: 28px;
+
+  background: var(--color-surface);
+  padding: 20px var(--space-xl);
+  display: grid;
+  justify-items: center;
+  gap: 40px;
+  min-height: 620px;
+
+  @media (max-width: 1023px) {
+    padding: 40px var(--space-xl);
+  }
+}
+
+.project-card__content {
+  max-width: 326px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  align-content: start;
+  text-align: center;
+  grid-template-rows:
+    auto var(--project-card-space-1)
+    auto var(--project-card-space-2)
+    auto var(--project-card-space-1)
+    auto var(--project-card-space-2)
+    auto;
+}
+
+.project-card__content > * {
+  grid-column: 1;
+  align-self: start;
+}
+
+.project-card__heading {
+  grid-row: 1;
+  margin: 0;
+  width: min(100%, 326px);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: -0.02em;
+  font-size: 34px;
+  line-height: 1.15;
+}
+
+.project-card__description {
+  grid-row: 3;
+  margin: 0;
+  max-width: 420px;
+  font-size: 16px;
+  line-height: 1.3;
+  color: var(--color-muted);
+}
+
+:global(.project-card__image) {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  grid-row: 5;
+}
+
+.project-card__tags {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  grid-row: 7;
+}
+
+.project-card__tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.project-card__tag {
+  white-space: nowrap;
+}
+
+.project-card__tag-separator {
+  width: 4px;
+  height: 4px;
+  aspect-ratio: 1 / 1;
+
+  border-radius: 50%;
+  background: currentColor;
+
+  flex-shrink: 0;
+}
+
+.project-card__link {
+  grid-row: 9;
+  display: inline-block;
+
+  font-size: 24px;
+  line-height: 1.3;
+  text-transform: lowercase;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+
+  &:hover {
+    color: var(--color-accent-dark);
+  }
+}
+
+.project-card__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.project-card__media {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background: var(--color-white);
+  display: grid;
+  place-items: center;
+}
+
+:global(.project-card__media-image) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 900px) {
+  .project-card {
+    grid-template-columns: 1fr 1.2fr;
+    align-items: center;
+  }
+
+  .project-card__media {
+    place-items: stretch;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-card__content > * {
+  grid-column: 1;
+  align-self: start;
+}
+
+.project-card__heading {
+    font-size: 30px;
+  }
+}
+</style>

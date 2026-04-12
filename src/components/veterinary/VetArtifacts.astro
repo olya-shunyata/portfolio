@@ -1,0 +1,130 @@
+---
+import type { InfoItem } from "../../types";
+import { content } from "../../content";
+
+import SubHeader from "../shared/SubHeader.astro";
+import ImageComponent from "../shared/ImageComponent.astro";
+import { buildResponsiveImage } from "../../scripts/responsive-images";
+import prototypeAsset from "../../assets/images/vet/artifact-prototype.png";
+import uiKitAsset from "../../assets/images/vet/artifact-ui-kit.png";
+
+const headers: Record<string, InfoItem> = {
+  prototype: {
+    title: content.projects.vet.artifacts.headers.prototype,
+  },
+  uikit: {
+    title: content.projects.vet.artifacts.headers.uikit,
+  },
+};
+
+const artifactSizes = "100vw";
+const [prototypeImage, uiKitImage] = await Promise.all([
+  buildResponsiveImage({ asset: prototypeAsset, profile: "showcase", maxDisplayWidth: 1180, quality: 92, dprCap: 2.5 }),
+  buildResponsiveImage({ asset: uiKitAsset, profile: "showcase", maxDisplayWidth: 1180, quality: 92, dprCap: 2.5 }),
+]);
+
+const images = {
+  prototype: { ...prototypeImage, sizes: artifactSizes, alt: content.projects.vet.artifacts.alts.prototype },
+  uikit: { ...uiKitImage, sizes: artifactSizes, alt: content.projects.vet.artifacts.alts.uikit },
+};
+---
+<div class="vet-artifacts">
+  <section class="vet-artifacts__case">
+    <div class="grid-layout">
+      <h2 class="vet-artifacts__title">{content.projects.vet.artifacts.sectionTitle}</h2>
+      <SubHeader item={headers.prototype} />
+    </div>
+    <div class="vet-artifacts__stage vet-artifacts__stage--dark">
+      <ImageComponent
+        src={images.prototype.src}
+        srcset={images.prototype.srcset}
+        sizes={images.prototype.sizes}
+        alt={images.prototype.alt}
+        ratio="16 / 9"
+        class="vet-artifacts__image"
+        frameBg="var(--color-dark)"
+        skeletonBg="#191919"
+        shimmerColor="rgba(255, 255, 255, 0.12)"
+      />
+    </div>
+  </section>
+
+  <section class="vet-artifacts__case">
+    <div class="grid-layout">
+      <SubHeader item={headers.uikit} />
+    </div>
+    <div class="vet-artifacts__stage vet-artifacts__stage--light">
+      <ImageComponent
+        src={images.uikit.src}
+        srcset={images.uikit.srcset}
+        sizes={images.uikit.sizes}
+        alt={images.uikit.alt}
+        ratio="1920 / 924"
+        class="vet-artifacts__image"
+      />
+    </div>
+  </section>
+</div>
+
+<style lang="scss">
+.vet-artifacts {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+}
+
+.vet-artifacts__case {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.vet-artifacts__title {
+  grid-column: 3 / 6;
+  margin: 0;
+  font-size: 34px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.15;
+}
+
+.vet-artifacts__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:global(.vet-artifacts__image) {
+  display: block;
+  width: 100%;
+}
+
+.vet-artifacts__stage--dark {
+  padding: 40px;
+  background: var(--color-dark);
+}
+
+.vet-artifacts__stage--light {
+  padding: 40px 60px;
+  background: var(--color-light-grey);
+}
+
+@media (max-width: 767px) {
+  .vet-artifacts {
+    gap: 60px;
+  }
+
+  .vet-artifacts__case {
+    gap: 24px;
+  }
+
+  .vet-artifacts__title {
+    grid-column: auto;
+    font-size: 30px;
+  }
+
+  .vet-artifacts__stage--dark,
+  .vet-artifacts__stage--light {
+    padding: 20px;
+  }
+}
+</style>

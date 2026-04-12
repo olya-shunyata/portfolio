@@ -1,0 +1,221 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  ratio?: string;
+  ratioMobile?: string;
+  srcset?: string;
+  sizes?: string;
+  mobileSrc?: string;
+  mobileSrcset?: string;
+  mobileMedia?: string;
+  class?: string;
+  loading?: "lazy" | "eager";
+  mode?: "fill" | "contain" | "intrinsic";
+  frameBg?: string;
+  skeletonBg?: string;
+  shimmerColor?: string;
+}
+
+const {
+  src,
+  alt,
+  ratio = "16 / 9",
+  ratioMobile,
+  srcset,
+  sizes,
+  mobileSrc,
+  mobileSrcset,
+  mobileMedia = "(max-width: 475px)",
+  class: className = "",
+  loading = "lazy",
+  mode = "fill",
+  frameBg,
+  skeletonBg,
+  shimmerColor,
+} = Astro.props;
+
+const rootStyles = [
+  `--image-ratio: ${ratio}`,
+  ratioMobile ? `--image-ratio-mobile: ${ratioMobile}` : "",
+  frameBg ? `--image-frame-bg: ${frameBg}` : "",
+  skeletonBg ?? frameBg ? `--image-skeleton-bg: ${skeletonBg ?? frameBg}` : "",
+  shimmerColor ? `--image-shimmer-color: ${shimmerColor}` : "",
+].filter(Boolean).join("; ");
+---
+
+<div class={`image-frame image-frame--${mode} ${className}`} style={rootStyles} data-image-frame>
+  <div class="image-frame__skeleton" aria-hidden="true"></div>
+  {mobileSrc ? (
+    <picture>
+      <source media={mobileMedia} srcset={mobileSrcset ?? mobileSrc} />
+      <img
+        src={src}
+        srcset={srcset}
+        sizes={sizes}
+        alt={alt}
+        loading={loading}
+        decoding="async"
+        class="image-frame__img"
+      />
+    </picture>
+  ) : (
+    <img
+      src={src}
+      srcset={srcset}
+      sizes={sizes}
+      alt={alt}
+      loading={loading}
+      decoding="async"
+      class="image-frame__img"
+    />
+  )}
+</div>
+
+<script>
+  const root = document.documentElement;
+
+  const initImageFrames = () => {
+    document.querySelectorAll('[data-image-frame]').forEach((frame) => {
+      if (frame.dataset.imageFrameReady === 'true') {
+        return;
+      }
+
+      frame.dataset.imageFrameReady = 'true';
+
+      const img = frame.querySelector('.image-frame__img');
+
+      if (!(img instanceof HTMLImageElement)) {
+        return;
+      }
+
+      const markLoaded = () => {
+        frame.classList.add('is-loaded');
+      };
+
+      if (img.complete && img.naturalWidth > 0) {
+        markLoaded();
+        return;
+      }
+
+      img.addEventListener('load', markLoaded, { once: true });
+      img.addEventListener('error', markLoaded, { once: true });
+
+      requestAnimationFrame(() => {
+        if (img.complete) {
+          markLoaded();
+        }
+      });
+    });
+  };
+
+  initImageFrames();
+
+  if (root.dataset.imageFrameHandlersRegistered !== 'true') {
+    root.dataset.imageFrameHandlersRegistered = 'true';
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initImageFrames, { once: true });
+    }
+
+    document.addEventListener('astro:page-load', initImageFrames);
+    document.addEventListener('astro:after-swap', initImageFrames);
+  }
+</script>
+
+<style lang="scss">
+.image-frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--image-frame-bg, transparent);
+}
+
+.image-frame__skeleton {
+  position: relative;
+  pointer-events: none;
+  background: var(--image-skeleton-bg, #e8e8e8);
+}
+
+.image-frame__skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--image-shimmer-color, rgba(255, 255, 255, 0.55)) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: shimmer 1.4s linear infinite;
+}
+
+.image-frame.is-loaded .image-frame__skeleton {
+  display: none;
+}
+
+.image-frame--fill,
+.image-frame--contain {
+  display: grid;
+  aspect-ratio: var(--image-ratio);
+}
+
+.image-frame--fill > *,
+.image-frame--contain > * {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+}
+
+.image-frame--fill .image-frame__img {
+  object-fit: cover;
+}
+
+.image-frame--contain .image-frame__img {
+  object-fit: contain;
+}
+
+.image-frame--intrinsic {
+  display: inline-grid;
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: var(--image-ratio);
+  vertical-align: top;
+}
+
+.image-frame--intrinsic > * {
+  grid-area: 1 / 1;
+  height: 100%;
+}
+
+.image-frame--intrinsic .image-frame__skeleton {
+  width: 100%;
+}
+
+.image-frame--intrinsic .image-frame__img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.image-frame picture {
+  display: contents;
+}
+
+@media (max-width: 767px) {
+  .image-frame--fill,
+  .image-frame--contain,
+  .image-frame--intrinsic {
+    aspect-ratio: var(--image-ratio-mobile, var(--image-ratio));
+  }
+}
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+</style>

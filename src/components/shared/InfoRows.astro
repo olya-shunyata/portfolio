@@ -1,0 +1,183 @@
+---
+import type { InfoRowSection, InfoRowText } from "../../types";
+
+const { sections, className } = Astro.props as {
+  sections: InfoRowSection[];
+  className?: string;
+};
+
+const toParagraphs = (text?: InfoRowText): string[] => {
+  if (!text) {
+    return [];
+  }
+
+  const paragraphs = Array.isArray(text) ? text : [text];
+
+  return paragraphs.map((paragraph, index) => {
+    if (index === paragraphs.length - 1 || /\s$/.test(paragraph)) {
+      return paragraph;
+    }
+
+    return `${paragraph} `;
+  });
+};
+---
+
+<div class:list={["info-rows", className]}>
+  {sections.map((section) => (
+    <div
+      class:list={[
+        "info-rows__section",
+        `info-rows__section--${section.layout ?? "stack"}`,
+        { "info-rows__section--with-items": Boolean(section.items?.length) },
+      ]}
+      style={`--info-rows-content-width: ${section.contentWidth ?? "525px"}; --info-rows-columns-gap: ${section.columnsGap ?? "72px"};`}
+    >
+      {section.title && <h3 class="info-rows__title">{section.title}</h3>}
+
+      <div class="info-rows__content">
+        {section.items?.length ? (
+          <div class="info-rows__items">
+            {section.items.map((item) => (
+              <article
+                class="info-rows__item"
+                style={item.width ? `--info-rows-item-width: ${item.width};` : undefined}
+              >
+                {item.title && <h4 class="info-rows__item-title">{item.title}</h4>}
+
+                <div class="info-rows__description">
+                  {toParagraphs(item.description).map((paragraph) => (
+                    <span>{paragraph}</span>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div class="info-rows__description">
+            {toParagraphs(section.description).map((paragraph) => (
+              <span>{paragraph}</span>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  ))}
+</div>
+
+<style lang="scss">
+.info-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+.info-rows__section--stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-rows__section--split {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(260px, 1fr);
+  column-gap: 72px;
+  row-gap: 20px;
+  align-items: start;
+}
+
+.info-rows__section--split .info-rows__content {
+  grid-column: 2;
+}
+
+.info-rows__title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 34px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.15;
+}
+
+.info-rows__content {
+  width: 100%;
+}
+
+.info-rows__items {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: var(--info-rows-columns-gap);
+}
+
+.info-rows__item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: var(--info-rows-item-width, 350px);
+}
+
+.info-rows__item-title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 16px;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+.info-rows__description {
+  display: flex;
+  flex-direction: column;
+  color: rgba(0, 0, 0, 0.62);
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.3;
+
+  @media (max-width: 1023px) {
+    display: inline;
+  }
+}
+
+.info-rows__section:not(.info-rows__section--with-items) .info-rows__description {
+  max-width: var(--info-rows-content-width);
+}
+
+.info-rows__description p + p {
+  margin-top: 0;
+}
+
+@media (max-width: 1024px) {
+  .info-rows__items {
+    grid-auto-flow: row;
+    row-gap: 18px;
+  }
+
+  .info-rows__item {
+    width: min(100%, 525px);
+  }
+}
+
+@media (max-width: 767px) {
+  .info-rows__title {
+    font-size: 30px;
+  }
+
+  .info-rows__section--split {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-rows__item {
+    gap: 10px;
+    width: min(100%, 350px);
+  }
+
+  .info-rows__item-title,
+  .info-rows__description {
+    font-size: 16px;
+  }
+
+  .info-rows__section:not(.info-rows__section--with-items) .info-rows__description {
+    max-width: min(100%, 350px);
+  }
+}
+</style>

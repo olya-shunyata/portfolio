@@ -1,0 +1,38 @@
+---
+import InfoColumn from "../shared/InfoColumn.astro";
+import type { InfoItem } from "../../types";
+import { content } from "../../content";
+
+const items = content.projects.saas.headingInfo.columns as InfoItem[];
+---
+
+<div class="saas-info grid-layout">
+  <div class="saas-info__left">
+    <InfoColumn item={items[0]} />
+  </div>
+  <div class="saas-info__right">
+    {items.slice(1).map((item) => <InfoColumn item={item} />)}
+  </div>
+</div>
+
+<style lang="scss">
+.saas-info__left {
+  grid-column: span 2;
+}
+
+.saas-info__right {
+  grid-column: span 4;
+  display: flex;
+  justify-content: space-between;
+  gap: 140px;
+
+  @media (max-width: 1024px) {
+    gap: 80px;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 36px;
+  }
+}
+</style>

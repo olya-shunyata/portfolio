@@ -1,0 +1,99 @@
+---
+import ImageComponent from "../shared/ImageComponent.astro";
+import { content } from "../../content";
+import { buildResponsiveImage } from "../../scripts/responsive-images";
+import firstGalleryAsset from "../../assets/images/vet/gallery-1.png";
+import secondGalleryAsset from "../../assets/images/vet/gallery-2.png";
+
+const firstGallerySizes = "(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) 58vw, 740px";
+const secondGallerySizes = "(max-width: 767px) calc(100vw - 40px), (max-width: 1023px) 42vw, 540px";
+const [firstImage, secondImage] = await Promise.all([
+  buildResponsiveImage({ asset: firstGalleryAsset, profile: "showcase", maxDisplayWidth: 796, quality: 92 }),
+  buildResponsiveImage({ asset: secondGalleryAsset, profile: "showcase", maxDisplayWidth: 580, quality: 92 }),
+]);
+
+const images = {
+  first: {
+    ...firstImage,
+    sizes: firstGallerySizes,
+    alt: content.projects.vet.gallery.alts.first,
+    ratio: "796 / 516",
+  },
+  second: {
+    ...secondImage,
+    sizes: secondGallerySizes,
+    alt: content.projects.vet.gallery.alts.second,
+    ratio: "580 / 516",
+  },
+};
+---
+<div class="vet-gallery">
+  <ImageComponent
+    class="vet-gallery__image vet-gallery__image--subway"
+    src={images.first.src}
+    srcset={images.first.srcset}
+    sizes={images.first.sizes}
+    alt={images.first.alt}
+    ratio={images.first.ratio}
+    frameBg="var(--color-dark)"
+    skeletonBg="#191919"
+  />
+  <ImageComponent
+    class="vet-gallery__image vet-gallery__image--street"
+    src={images.second.src}
+    srcset={images.second.srcset}
+    sizes={images.second.sizes}
+    alt={images.second.alt}
+    ratio={images.second.ratio}
+    frameBg="var(--color-dark)"
+    skeletonBg="#191919"
+  />
+</div>
+
+<style lang="scss">
+.vet-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 796fr) minmax(0, 580fr);
+  gap: 16px;
+  padding: 40px;
+  background: var(--color-dark);
+}
+
+:global(.vet-gallery__image--subway) {
+  order: 1;
+
+  @media (max-width: 767px) {
+    order: 2;
+  }
+}
+
+:global(.vet-gallery__image--street) {
+  order: 2;
+
+  @media (max-width: 767px) {
+    order: 1;
+  }
+}
+
+:global(.vet-gallery__image) {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+:global(.vet-gallery__image .image-frame__img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 767px) {
+  .vet-gallery {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 0;
+  }
+}
+</style>

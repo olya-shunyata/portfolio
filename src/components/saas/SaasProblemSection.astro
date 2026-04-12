@@ -1,0 +1,77 @@
+---
+import InfoRows from "../shared/InfoRows.astro";
+import type { InfoRowSection, Image } from "../../types";
+import { content } from "../../content";
+import ImageComponent from "../shared/ImageComponent.astro";
+import { buildResponsiveImage } from "../../scripts/responsive-images";
+import keyScenarioAsset from "../../assets/images/saas/key-scenario.png";
+import keyScenarioMobileAsset from "../../assets/images/saas/key-scenario-sm.png";
+
+const image: Image = {
+  ...(await buildResponsiveImage({
+    asset: keyScenarioAsset,
+    profile: "screenshot",
+    maxDisplayWidth: 1180,
+    mobileAsset: keyScenarioMobileAsset,
+    mobileProfile: "screenshot",
+    mobileMaxDisplayWidth: 700,
+  })),
+  sizes: "100vw",
+  alt: content.projects.saas.problem.imageAlt,
+};
+
+const sections = content.projects.saas.problem.sections as InfoRowSection[];
+---
+
+<div class="saas-problem">
+  <div class="grid-layout">
+    <div class="saas-problem__heading">
+      <InfoRows sections={sections} className="saas-problem__rows" />
+    </div>
+  </div>
+  <div class="saas-problem__scenarios">
+    <ImageComponent
+      class="saas-problem__image"
+      src={image.src}
+      srcset={image.srcset}
+      sizes={image.sizes}
+      mobileSrc={image.mobileSrc}
+      mobileSrcset={image.mobileSrcset}
+      alt={image.alt}
+      loading="lazy"
+      ratio="2752 / 1066"
+      ratioMobile="700 / 646"
+    />
+  </div>
+</div>
+
+<style lang="scss">
+.saas-problem {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+}
+
+.saas-problem__heading {
+  display: grid;
+  grid-column-start: 3;
+}
+
+.saas-problem__scenarios {
+  background: var(--color-light-grey);
+}
+
+:global(.saas-problem__image) {
+  display: block;
+  width: 100%;
+}
+
+@media (max-width: 1023px) {
+  .saas-problem {
+    grid-template-columns: 1fr;
+  }
+  .saas-problem__heading {
+    grid-column-start: auto;
+  }
+}
+</style>

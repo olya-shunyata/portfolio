@@ -1,0 +1,128 @@
+---
+import type { Image } from "../../types";
+import { content } from "../../content";
+
+import SubHeader from "../shared/SubHeader.astro";
+import ImageComponent from "../shared/ImageComponent.astro";
+import { buildResponsiveImage } from "../../scripts/responsive-images";
+import showcase3dAsset from "../../assets/images/saas/showcase-3d.png";
+import prototypeAsset from "../../assets/images/saas/prototype.png";
+import uiKitAsset from "../../assets/images/saas/ui-kit.png";
+
+const illustrations = content.projects.saas.illustrations;
+const artifactsHeader = illustrations.artifactsTitle;
+const showcaseSizes = "100vw";
+
+const headers = {
+  model: illustrations.headers.model,
+  prototype: illustrations.headers.prototype,
+  uikit: illustrations.headers.uikit,
+};
+
+const [modelImage, prototypeImage, uiKitImage] = await Promise.all([
+  buildResponsiveImage({ asset: showcase3dAsset, profile: "showcase", maxDisplayWidth: 1180, quality: 92, dprCap: 2.5 }),
+  buildResponsiveImage({ asset: prototypeAsset, profile: "showcase", maxDisplayWidth: 1180, quality: 92, dprCap: 2.5 }),
+  buildResponsiveImage({ asset: uiKitAsset, profile: "showcase", maxDisplayWidth: 1180, quality: 92, dprCap: 2.5 }),
+]);
+
+const images: Record<string, Image> = {
+  model: {
+    ...modelImage,
+    sizes: showcaseSizes,
+    alt: illustrations.alts.model,
+  },
+  prototype: {
+    ...prototypeImage,
+    sizes: showcaseSizes,
+    alt: illustrations.alts.prototype,
+  },
+  uikit: {
+    ...uiKitImage,
+    sizes: showcaseSizes,
+    alt: illustrations.alts.uikit,
+  },
+};
+---
+
+<div class="saas-showcase">
+  <div class="saas-showcase__case">
+    <div class="grid-layout">
+      <SubHeader item={headers.model} />
+    </div>
+    <ImageComponent
+      class="saas-showcase__image"
+      src={images.model.src}
+      srcset={images.model.srcset}
+      sizes={images.model.sizes}
+      alt={images.model.alt}
+      ratio="2752 / 1600"
+    />
+  </div>
+  <div class="saas-showcase__case">
+    <div class="grid-layout saas-showcase__artifacts">
+      <h2>{artifactsHeader}</h2>
+      <SubHeader item={headers.prototype} />
+    </div>
+    <ImageComponent
+      class="saas-showcase__image"
+      src={images.prototype.src}
+      srcset={images.prototype.srcset}
+      sizes={images.prototype.sizes}
+      alt={images.prototype.alt}
+      ratio="2752 / 1720"
+    />
+  </div>
+  <div class="saas-showcase__case">
+    <div class="grid-layout">
+      <SubHeader item={headers.uikit} />
+    </div>
+    <ImageComponent
+      class="saas-showcase__image"
+      src={images.uikit.src}
+      srcset={images.uikit.srcset}
+      sizes={images.uikit.sizes}
+      alt={images.uikit.alt}
+      ratio="2752 / 1470"
+    />
+  </div>
+</div>
+<style lang="scss">
+.saas-showcase {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+}
+
+.saas-showcase__case {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.saas-showcase__artifacts {
+
+  h2, h3 {
+    grid-column: 3 / 6;
+
+    @media (max-width: 767px) {
+      grid-column: 1 / -1;      
+    }
+  }
+
+  h2 {
+    font-size: 34px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.15;
+
+    @media (max-width: 767px) {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+:global(.saas-showcase__image) {
+  display: block;
+  width: 100%;
+}
+</style>

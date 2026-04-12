@@ -1,17 +1,76 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/shared/Header.astro";
+import Hero from "../components/main/Hero.astro";
+import Projects from "../components/main/Projects.astro";
+import ProjectSection from "../components/shared/ProjectSection.astro";
+import Confidential from "../components/main/Confidential.astro";
+import ShowReel from "../components/main/ShowReel.astro";
+import Contacts from "../components/main/Contacts.astro";
+import Footer from "../components/main/Footer.astro";
+import { content } from "../content";
 ---
+<BaseLayout
+  title={content.home.meta.title}
+  description={content.home.meta.description}
+  canonicalPath="/"
+  ogType="website"
+>
+  <Header />
+  <main class="main">
+    <section class="container">
+      <Hero />
+    </section>
+    <div class="main__deferred main__deferred--nda">
+      <ProjectSection title={content.home.sections.nda} mobileFluid id="confidential">
+        <Confidential />
+      </ProjectSection>
+    </div>
+    <div class="main__deferred main__deferred--projects">
+      <ProjectSection title={content.home.sections.projects} id="projects">
+        <Projects />
+      </ProjectSection>
+    </div>
+    <div class="main__deferred main__deferred--showreel">
+      <ProjectSection title={content.home.sections.showreel} id="showreel">
+        <ShowReel />
+      </ProjectSection>
+    </div>
+    <section id="contacts" class="container main__deferred main__deferred--contacts">
+      <Contacts />
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+<style lang="scss">
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+  padding-top: 60px;
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro here</h1>
-	</body>
-</html>
+  @media (max-width: 1023px) {
+    gap: 72px;
+  }
+}
+
+.main__deferred {
+  content-visibility: auto;
+}
+
+.main__deferred--nda {
+  contain-intrinsic-size: 1480px;
+}
+
+.main__deferred--projects {
+  contain-intrinsic-size: 1400px;
+}
+
+.main__deferred--showreel {
+  contain-intrinsic-size: 860px;
+}
+
+.main__deferred--contacts {
+  contain-intrinsic-size: 760px;
+}
+</style>

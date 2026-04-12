@@ -1,0 +1,8 @@
+---
+const { size = "15", color = "currentColor" } = Astro.props;
+const viewBox = `0 0 ${size} ${size}`;
+---
+<svg width={size} height={size} viewBox={viewBox} fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M1 9V13H13L13 9" stroke={color}/>
+  <path d="M6.64645 9.35355C6.84171 9.54882 7.15829 9.54882 7.35355 9.35355L10.5355 6.17157C10.7308 5.97631 10.7308 5.65973 10.5355 5.46447C10.3403 5.2692 10.0237 5.2692 9.82843 5.46447L7 8.29289L4.17157 5.46447C3.97631 5.2692 3.65973 5.2692 3.46447 5.46447C3.2692 5.65973 3.2692 5.97631 3.46447 6.17157L6.64645 9.35355ZM7 1L6.5 1L6.5 9L7 9L7.5 9L7.5 1L7 1Z" fill={color}/>
+</svg>

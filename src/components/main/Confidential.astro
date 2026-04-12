@@ -1,0 +1,278 @@
+---
+import type { Image, InfoItem } from "../../types";
+import { buildUrl } from "../../scripts/path-utils";
+import InfoColumn from "../shared/InfoColumn.astro";
+import LockIcon from "../icons/LockIcon.astro";
+import { content } from "../../content";
+
+type CursorIcon = {
+  name: string;
+  src: string;
+  top: string;
+  left: string;
+  ratio: string;
+};
+
+const image: Image = {
+  src: buildUrl("/images/nda.webp"),
+  alt: content.home.confidential.imageAlt,
+};
+
+const cursors: CursorIcon[] = [
+  {
+    name: "sila",
+    src: buildUrl("/images/cursors/sila.png"),
+    top: "58%",
+    left: "16%",
+    ratio: "256 / 79",
+  },
+  {
+    name: "samolet",
+    src: buildUrl("/images/cursors/samolet.png"),
+    top: "40%",
+    left: "35%",
+    ratio: "160 / 79",
+  },
+  {
+    name: "vtb",
+    src: buildUrl("/images/cursors/vtb.png"),
+    top: "80%",
+    left: "30%",
+    ratio: "136 / 78",
+  },
+  {
+    name: "otpbank",
+    src: buildUrl("/images/cursors/otpbank.png"),
+    top: "52%",
+    left: "66%",
+    ratio: "183 / 79",
+  },
+  {
+    name: "pinkman",
+    src: buildUrl("/images/cursors/pinkman.png"),
+    top: "68%",
+    left: "52%",
+    ratio: "161 / 79",
+  },
+  {
+    name: "funsun",
+    src: buildUrl("/images/cursors/funsun.png"),
+    top: "30%",
+    left: "78%",
+    ratio: "115 / 79",
+  },
+  {
+    name: "metacade",
+    src: buildUrl("/images/cursors/metacade.png"),
+    top: "75%",
+    left: "76%",
+    ratio: "213 / 78",
+  },
+];
+
+const items: InfoItem[] = content.home.confidential.columns;
+const deliveredItems = content.home.confidential.stats;
+---
+
+<div class="nda">
+  <span class="nda__delimiter"></span>
+  <div class="nda__info">
+    {items.map((item) => <InfoColumn item={item} />)}
+  </div>
+
+  <div class="nda__block" role="img" aria-label={image.alt} data-nda-block>
+    <img
+      class="nda__background"
+      src={image.src}
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+      fetchpriority="low"
+    />
+
+    <div class="nda__plaque">
+      <LockIcon size="33" />
+      <span>{content.home.confidential.ndaLabel}</span>
+    </div>
+
+    <h3 class="nda__stats">
+      {deliveredItems.map((item) => (
+        <span class="nda__stats-row">
+          <span class="nda__stats-mark">{item.mark}</span>
+          {item.title}
+        </span>
+      ))}
+    </h3>
+
+    {cursors.map((cursor) => (
+      <span
+        class={`nda__cursor-anchor nda__cursor-anchor--${cursor.name}`}
+        data-cursor-anchor
+        data-cursor-name={cursor.name}
+        data-cursor-top={cursor.top}
+        data-cursor-left={cursor.left}
+        data-cursor-ratio={cursor.ratio}
+        aria-hidden="true"
+      >
+        <span class="nda__cursor-motion" data-cursor-motion>
+          <span class="nda__cursor" data-cursor-src={cursor.src}></span>
+        </span>
+      </span>
+    ))}
+  </div>
+</div>
+
+<style lang="scss">
+  .nda {
+    --overlay-padding: var(--space-6xl);
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    width: 100%;
+
+    font-size: 24px;
+    line-height: 120%;
+  }
+
+  .nda__delimiter {
+    position: absolute;
+    width: 100%;
+    border-top: 1px solid var(--color-border);
+
+    @media (max-width: 1023px) {
+      width: calc(100% - 2 * var(--container-padding));
+      left: var(--container-padding);
+    }
+  }
+
+  .nda__block {
+    width: 100%;
+    height: 792px;
+
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    padding: var(--overlay-padding);
+    gap: var(--overlay-padding);
+    box-sizing: border-box;
+
+    background-color: var(--color-opacity-60);
+    aspect-ratio: 16 / 9;
+  }
+
+  .nda__background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .nda__plaque,
+  .nda__stats {
+    position: relative;
+    z-index: 2;
+  }
+
+  .nda__plaque {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-2xl) var(--space-sm) var(--space-lg);
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    span {
+      padding-top: 2px;
+    }
+  }
+
+  .nda__stats {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-white);
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 113%;
+    margin: 0;
+
+    &-row {
+      display: block;
+    }
+
+    &-mark {
+      color: var(--color-grey);
+    }
+  }
+
+  .nda__cursor-anchor {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .nda__cursor-anchor.is-ready {
+    opacity: 1;
+  }
+
+  .nda__cursor-motion {
+    display: block;
+    transform: none;
+  }
+
+  .nda__cursor {
+    display: block;
+  }
+
+  .nda__cursor-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .nda__info {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(max-content, minmax(400px, 1fr));
+    gap: 140px;
+    justify-content: space-between;
+
+    @media (min-width: 1024px) {
+      padding-top: var(--space-lg);
+    }
+
+    @media (max-width: 1024px) {
+      grid-auto-flow: row;
+      gap: var(--space-6xl);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .nda__info {
+      padding: var(--space-3xl) var(--container-padding) 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nda__block {
+      min-height: 400px;
+      --overlay-padding: 32px 20px;
+    }
+
+    .nda__stats {
+      font-size: 32px;
+    }
+  }
+
+</style>

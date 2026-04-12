@@ -1,0 +1,88 @@
+---
+import type { NavItem } from "../../types";
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/shared/Header.astro";
+import ProjectSection from "../../components/shared/ProjectSection.astro";
+import BottomNav from "../../components/shared/BottomNav.astro";
+
+import SaasCarousel from "../../components/saas/SaasCarousel.astro";
+import SaasHeadingInfo from "../../components/saas/SaasHeadingInfo.astro";
+import SaasProblemSection from "../../components/saas/SaasProblemSection.astro";
+import SaasTest from "../../components/saas/SaasTest.astro";
+import SaasHeatMaps from "../../components/saas/SaasHeatMaps.astro";
+import SaasProductPage from "../../components/saas/SaasProductPage.astro";
+import SaasIllustrations from "../../components/saas/SaasIllustrations.astro";
+import { buildUrl } from "../../scripts/path-utils";
+import { buildResponsiveImage } from "../../scripts/responsive-images";
+import navPrevImageAsset from "../../assets/images/saas/nav/prev.webp";
+import navNextImageAsset from "../../assets/images/saas/nav/next.webp";
+import { content } from "../../content";
+
+const navImageSizes = "(max-width: 767px) 100vw, 50vw";
+const navItems: [NavItem, NavItem] = [
+  {
+    title: content.projects.saas.nav.previousTitle,
+    direction: "previous",
+    href: buildUrl("/projects/vet"),
+    image: {
+      ...(await buildResponsiveImage({ asset: navPrevImageAsset, profile: "showcase", maxDisplayWidth: 260 })),
+      sizes: navImageSizes,
+      alt: content.projects.saas.nav.previousAlt,
+    },
+  },
+  {
+    title: content.projects.saas.nav.nextTitle,
+    direction: "next",
+    href: buildUrl("/#confidential"),
+    image: {
+      ...(await buildResponsiveImage({ asset: navNextImageAsset, profile: "showcase", maxDisplayWidth: 260 })),
+      sizes: navImageSizes,
+      alt: content.projects.saas.nav.nextAlt,
+    },
+  },
+];
+---
+<BaseLayout
+  title={content.projects.saas.meta.title}
+  description={content.projects.saas.meta.description}
+  canonicalPath="/projects/saas/"
+  ogType="article"
+>
+  <Header />
+  <main class="main">
+    <ProjectSection title={content.projects.saas.pageTitle} delimiter>
+      <SaasHeadingInfo />
+    </ProjectSection>
+    <section class="container--fluid">
+      <SaasCarousel />
+    </section>
+    <section class="container">
+      <SaasProblemSection />
+    </section>
+    <section class="container">
+      <SaasTest />
+    </section>
+    <section class="container">
+      <SaasHeatMaps />
+    </section>
+    <section class="container">
+      <SaasProductPage />
+    </section>
+    <section class="container">
+      <SaasIllustrations />
+    </section>
+  </main>
+  <footer class="container">
+    <BottomNav navItems={navItems} heading={content.projects.saas.navHeading} />
+  </footer>
+</BaseLayout>
+<style lang="scss">
+@use "../../styles/mixins" as *;
+
+.main {
+  padding: 90px 0;
+
+  @include main-page-gap;
+}
+</style>

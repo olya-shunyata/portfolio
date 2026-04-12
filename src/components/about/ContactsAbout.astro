@@ -1,0 +1,294 @@
+---
+import DownloadIcon from "../icons/DownloadIcon.astro";
+import { LINKEDIN_URL, TG_URL, CV_URL } from "../../constants";
+import { content } from "../../content";
+
+const links = [
+  { label: content.shared.contacts.links.telegram, href: TG_URL },
+  { label: content.shared.contacts.links.linkedin, href: LINKEDIN_URL },
+  { label: content.shared.contacts.links.cv, href: CV_URL, icon: DownloadIcon },
+];
+
+const video = {
+  src: "https://res.cloudinary.com/dqttqbfmo/video/upload/v1773955890/The_cat_types_on_the_keyboard__Kling_26_Pro_68461_iaavnw.mp4",
+  title: content.shared.contacts.aboutVideoTitle,
+};
+---
+
+<div class="contacts" data-about-contacts>
+  <div class="contacts__video-wrapper" data-about-video-root>
+    <video
+      class="contacts__video"
+      id="about-contacts-video"
+      data-video-src={video.src}
+      muted
+      loop
+      playsinline
+      preload="none"
+      aria-label={video.title}
+    >
+      <source type="video/mp4" />
+    </video>
+  </div>
+  <h2
+    class="contacts__title"
+    data-contacts-title
+    role="button"
+    tabindex="0"
+    aria-controls="about-contacts-video"
+    aria-expanded="false"
+  >
+    {content.shared.contacts.aboutTitle}
+  </h2>
+  <div class="contacts__main">
+    <div class="contacts__list">
+      {
+        links.map((link, index) => (
+          <div class="contacts__point">
+            <a href={link.href} class="contacts__plaque" target="blank">
+              {link.icon && <i class="contacts__link-icon"><link.icon size="15" /></i>}
+              {link.label}
+            </a>
+          </div>
+        ))
+      }
+    </div>
+    <span class="contacts__mail">{content.shared.contacts.email}</span>
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector("[data-about-contacts]");
+  const titleTrigger = root?.querySelector("[data-contacts-title]");
+  const video = root?.querySelector(".contacts__video");
+  const source = video?.querySelector("source");
+  const desktopMq = window.matchMedia("(min-width: 769px)");
+
+  if (
+    root instanceof HTMLElement &&
+    titleTrigger instanceof HTMLElement &&
+    video instanceof HTMLVideoElement &&
+    source instanceof HTMLSourceElement
+  ) {
+    const hydrateVideo = async () => {
+      if (source.src) return;
+
+      source.src = video.dataset.videoSrc ?? "";
+      video.load();
+
+      try {
+        await video.play();
+      } catch (error) {
+        console.error("About page autoplay failed", error);
+      }
+    };
+
+    const showVideo = async () => {
+      if (!desktopMq.matches) return;
+
+      root.classList.toggle("contacts--video-visible");
+      titleTrigger.setAttribute("aria-expanded", "true");
+      await hydrateVideo();
+    };
+
+    const syncVideoState = () => {
+      const isDesktop = desktopMq.matches;
+      root.classList.toggle("contacts--video-visible", !isDesktop);
+      titleTrigger.setAttribute("aria-expanded", String(!isDesktop));
+
+      if (!isDesktop) {
+        void hydrateVideo();
+      }
+    };
+
+    titleTrigger.addEventListener("click", () => {
+      void showVideo();
+    });
+
+    titleTrigger.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+
+      event.preventDefault();
+      void showVideo();
+    });
+
+    if (typeof desktopMq.addEventListener === "function") {
+      desktopMq.addEventListener("change", syncVideoState);
+    } else {
+      desktopMq.addListener(syncVideoState);
+    }
+
+    syncVideoState();
+  }
+</script>
+
+<style lang="scss">
+  .contacts {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-self: end;
+
+    @media (max-width: 768px) {
+      gap: 24px;
+    }
+  }
+
+  .contacts__title {
+    order: 4;
+    margin: 0 0 4px;
+    font-size: 34px;
+    line-height: 1.15;
+    color: var(--color-text);
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--color-accent-dark);
+    }
+
+    @media (max-width: 768px) {
+      cursor: default;
+    }
+  }
+
+  .contacts__main {
+    order: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .contacts__list {
+    display: flex;
+    gap: 8px;
+    order: 5;
+
+    @media (max-width: 375px) {
+      flex-direction: column;
+    }
+  }
+
+  .contacts__plaque {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+    padding: 10px 20px;
+    border: 1px solid rgba(15, 15, 15, 0.7);
+    font-size: 16px;
+    line-height: 1.3;
+    color: var(--color-text);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--color-accent);
+      border-color: var(--color-dark);
+    }
+  }
+
+  .contacts__point {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4xl);
+
+    @media (max-width: 767px) {
+      flex-grow: 1;
+    }
+  }
+
+  .contacts__link-icon {
+    flex-shrink: 0;
+    margin-top: -2px;
+
+    svg {
+      display: block;
+      min-width: 15px;
+    }
+  }
+
+  .contacts__mail {
+    display: flex;
+    justify-self: flex-end;
+    font-size: 18px;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+
+  .contacts__video-wrapper {
+    position: absolute;
+    top: -110%;
+    display: flex;
+    flex: 0 0 auto;
+    width: min(100%, 215px);
+    overflow: hidden;
+    order: 1;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(12px);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      visibility 0s linear 0.2s;
+
+    @media (max-width: 768px) {
+      position: relative;
+      top: auto;
+      width: 100%;
+      order: 9;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  .contacts--video-visible .contacts__video-wrapper {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition-delay: 0s;
+  }
+
+  .contacts__video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 344 / 229;
+    object-fit: cover;
+    background: var(--color-light-grey);
+
+    @media (max-width: 375px) {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .contacts__point {
+      display: flex;
+      align-items: start;
+      gap: var(--space-md);
+    }
+
+    .contacts__plaque {
+      width: 100%;
+      min-width: 0;
+      white-space: normal;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .contacts__mail {
+      font-size: 20px;
+      line-height: 1.2;
+    }
+  }
+</style>

@@ -1,0 +1,85 @@
+---
+import SubHeader from "../shared/SubHeader.astro";
+import type { Image } from "../../types";
+import { content } from "../../content";
+import ImageComponent from "../shared/ImageComponent.astro";
+import { buildResponsiveImage } from "../../scripts/responsive-images";
+import heatmapOneAsset from "../../assets/images/saas/heatmaps/heatmap-1.png";
+import heatmapTwoAsset from "../../assets/images/saas/heatmaps/heatmap-2.png";
+import heatmapThreeAsset from "../../assets/images/saas/heatmaps/heatmap-3.png";
+
+const heatmapContent = content.projects.saas.heatmaps;
+const header = {
+  title: heatmapContent.headerTitle,
+};
+
+const heatmapSizes = "100vw";
+const images: Image[] = (await Promise.all([
+  buildResponsiveImage({ asset: heatmapOneAsset, profile: "showcase", maxDisplayWidth: 1180 }),
+  buildResponsiveImage({ asset: heatmapTwoAsset, profile: "showcase", maxDisplayWidth: 1180 }),
+  buildResponsiveImage({ asset: heatmapThreeAsset, profile: "showcase", maxDisplayWidth: 1180 }),
+])).map((image, index) => ({
+  ...image,
+  sizes: heatmapSizes,
+  alt: heatmapContent.imageAlts[index],
+}));
+---
+
+<div class="saas-heatmaps">
+  <div class="grid-layout">
+    <SubHeader item={header} type="h3" />
+  </div>
+  <div class="saas-heatmaps__images">
+    {images.map((image) => (
+      <ImageComponent
+        class="saas-heatmaps__image"
+        src={image.src}
+        srcset={image.srcset}
+        sizes={image.sizes}
+        alt={image.alt}
+        ratio="2378 / 1592"
+        frameBg="var(--color-dark)"
+        skeletonBg="#191919"
+        shimmerColor="rgba(255, 255, 255, 0.12)"
+      />
+    ))}
+  </div>
+</div>
+
+<style lang="scss">
+.saas-heatmaps {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.saas-heatmaps__images {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding: 90px;
+  background: var(--color-dark);
+}
+
+:global(.saas-heatmaps__image) {
+  display: block;
+  width: 100%;
+  margin: auto;
+}
+
+@media (max-width: 1024px) {
+  .saas-heatmaps {
+    gap: 32px;
+  }
+  .saas-heatmaps__images {
+    gap: 20px;
+    padding: 50px 20px;
+  }
+}
+
+@media (max-width: 475px) {
+  .saas-heatmaps__images {
+    padding: 28px 12px;
+  }
+}
+</style>
