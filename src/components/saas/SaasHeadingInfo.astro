@@ -2,8 +2,14 @@
 import InfoColumn from "../shared/InfoColumn.astro";
 import type { InfoItem } from "../../types";
 import { content } from "../../content";
+import { buildUrl } from "../../scripts/path-utils";
 
 const items = content.projects.saas.headingInfo.columns as InfoItem[];
+
+const cursor = {
+  src: buildUrl("/images/cursors/cursor.svg"),
+  alt: content.home.hero.cursorAlt,
+};
 ---
 
 <div class="saas-info grid-layout">
@@ -12,15 +18,31 @@ const items = content.projects.saas.headingInfo.columns as InfoItem[];
   </div>
   <div class="saas-info__right">
     {items.slice(1).map((item) => <InfoColumn item={item} />)}
+    <div class="saas-info__cursor" aria-hidden="true">
+      <span class="saas-info__cursor-motion">
+        <img
+          class="saas-info__cursor-icon"
+          src={cursor.src}
+          alt={cursor.alt}
+          loading="eager"
+          decoding="async"
+        />
+      </span>
+    </div>
   </div>
 </div>
 
 <style lang="scss">
+.saas-info {
+  --cursor-motion: 28px;
+}
+
 .saas-info__left {
   grid-column: span 2;
 }
 
 .saas-info__right {
+  position: relative;
   grid-column: span 4;
   display: flex;
   justify-content: space-between;
@@ -33,6 +55,31 @@ const items = content.projects.saas.headingInfo.columns as InfoItem[];
   @media (max-width: 480px) {
     flex-direction: column;
     gap: 36px;
+  }
+}
+
+.saas-info__cursor {
+  position: absolute;
+
+  bottom: 0;
+  right: 0;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  transform: translateY(105%) translateX(15%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.saas-info__cursor-motion {
+  display: inline-flex;
+  animation: figma-drift-a 8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  will-change: transform;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
   }
 }
 </style>

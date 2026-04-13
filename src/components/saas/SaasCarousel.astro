@@ -50,8 +50,8 @@ const heroCards: Image[] = Array.from({ length: 5 }, (_, index) => ({
 </script>
 <style lang="scss">
 .saas-carousel {
-  --stage-height: clamp(270px, 43.06vw, 620px);
-  --card-width: clamp(300px, 45.625vw, 657px);
+  --stage-height: clamp(394px, 43.06vw, 620px);
+  --card-width: clamp(372px, 45.625vw, 657px);
   --card-gap: clamp(20px, 3.472vw, 50px);
   --scroll-duration: 60s;
   width: 100%;
@@ -93,15 +93,15 @@ const heroCards: Image[] = Array.from({ length: 5 }, (_, index) => ({
 }
 @media (max-width: 1023px) {
   .saas-carousel__stage {
-    --stage-height: clamp(240px, 52vw, 500px);
-    --card-width: clamp(280px, 62vw, 560px);
+    --stage-height: clamp(394px, 52vw, 500px);
+    --card-width: clamp(372px, 62vw, 560px);
     --scroll-duration: 60s;
   }
 }
 @media (max-width: 767px) {
   .saas-carousel__stage {
-    --stage-height: clamp(210px, 64vw, 360px);
-    --card-width: clamp(250px, 84vw, 420px);
+    --stage-height: clamp(394px, 64vw, 360px);
+    --card-width: clamp(372px, 84vw, 420px);
     --scroll-duration: 60s;
   }
 }
