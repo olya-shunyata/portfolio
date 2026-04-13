@@ -373,7 +373,7 @@ export const content = {
       artifacts: {
         sectionTitle: "Artifacts",
         headers: {
-          prototype: "(  Prorotyping  )",
+          prototype: "(  Prototyping  )",
           uikit: "(  UI-kit  )",
         },
         alts: {
