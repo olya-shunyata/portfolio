@@ -20,13 +20,15 @@ const cursor = {
     <div class="vet-overview__info-right">
       {infoItems.slice(1).map((item) => <InfoColumn item={item} />)}
       <div class="vet-overview__cursor" aria-hidden="true">
-        <img
-          class="vet-overview__cursor-icon"
-          src={cursor.src}
-          alt={cursor.alt}
-          loading="eager"
-          decoding="async"
-        />
+        <span class="vet-overview__cursor-motion">
+          <img
+            class="vet-overview__cursor-icon"
+            src={cursor.src}
+            alt={cursor.alt}
+            loading="eager"
+            decoding="async"
+          />
+        </span>
       </div>
     </div>
   </div>
@@ -35,6 +37,7 @@ const cursor = {
 
 <style lang="scss">
 .vet-overview {
+  --cursor-motion: 28px;
   display: flex;
   flex-direction: column;
   gap: 90px;
@@ -79,9 +82,15 @@ const cursor = {
   align-items: center;
   gap: 10px;
 
-  transform: translateY(80%) translateX(15%);
+  transform: translateY(105%) translateX(15%);
   pointer-events: none;
   z-index: 5;
+}
+
+.vet-overview__cursor-motion {
+  display: inline-flex;
+  animation: figma-drift-c 8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  will-change: transform;
 }
 
 .vet-overview__cursor-icon {
@@ -103,6 +112,12 @@ const cursor = {
 @media (max-width: 767px) {
   .vet-overview {
     gap: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vet-overview__cursor-motion {
+    animation: none;
   }
 }
 </style>

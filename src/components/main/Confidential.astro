@@ -108,6 +108,7 @@ const deliveredItems = content.home.confidential.stats;
     {cursors.map((cursor) => (
       <span
         class={`nda__cursor-anchor nda__cursor-anchor--${cursor.name}`}
+        style={`--cursor-top: ${cursor.top}; --cursor-left: ${cursor.left}; --cursor-ratio: ${cursor.ratio};`}
         data-cursor-anchor
         data-cursor-name={cursor.name}
         data-cursor-top={cursor.top}
@@ -116,7 +117,9 @@ const deliveredItems = content.home.confidential.stats;
         aria-hidden="true"
       >
         <span class="nda__cursor-motion" data-cursor-motion>
-          <span class="nda__cursor" data-cursor-src={cursor.src}></span>
+          <span class="nda__cursor" data-cursor-src={cursor.src}>
+            <img class="nda__cursor-image" src={cursor.src} alt="" loading="lazy" decoding="async" />
+          </span>
         </span>
       </span>
     ))}
@@ -126,6 +129,7 @@ const deliveredItems = content.home.confidential.stats;
 <style lang="scss">
   .nda {
     --overlay-padding: var(--space-6xl);
+    --cursor-motion: 18px;
     position: relative;
 
     display: flex;
@@ -216,22 +220,24 @@ const deliveredItems = content.home.confidential.stats;
 
   .nda__cursor-anchor {
     position: absolute;
+    top: var(--cursor-top);
+    left: var(--cursor-left);
     z-index: 1;
     pointer-events: none;
-    opacity: 0;
-  }
-
-  .nda__cursor-anchor.is-ready {
     opacity: 1;
+    transform: translate(-50%, -50%);
   }
 
   .nda__cursor-motion {
     display: block;
-    transform: none;
+    will-change: transform;
+    animation: none !important;
   }
 
   .nda__cursor {
     display: block;
+    height: clamp(28px, 3.2vw, 44px);
+    aspect-ratio: var(--cursor-ratio);
   }
 
   .nda__cursor-image {
@@ -239,6 +245,25 @@ const deliveredItems = content.home.confidential.stats;
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+
+  .nda__cursor-anchor--sila .nda__cursor-motion,
+  .nda__cursor-anchor--pinkman .nda__cursor-motion {
+    animation: figma-drift-a 8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  }
+
+  .nda__cursor-anchor--samolet .nda__cursor-motion,
+  .nda__cursor-anchor--funsun .nda__cursor-motion {
+    animation: figma-drift-b 9s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  }
+
+  .nda__cursor-anchor--vtb .nda__cursor-motion,
+  .nda__cursor-anchor--metacade .nda__cursor-motion {
+    animation: figma-drift-c 8.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  }
+
+  .nda__cursor-anchor--otpbank .nda__cursor-motion {
+    animation: figma-drift-d 9.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
   }
 
   .nda__info {
@@ -272,6 +297,12 @@ const deliveredItems = content.home.confidential.stats;
 
     .nda__stats {
       font-size: 32px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nda__cursor-motion {
+      animation: none;
     }
   }
 

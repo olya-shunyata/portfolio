@@ -74,6 +74,8 @@ const helloItem: InfoItem = {
         height: calc(100dvh - var(--header-height));
         max-height: 1024px;
         --about-text-size: 20px;
+        --info-column-description-line-height: 1.2;
+        --info-column-text-color: var(--color-text);
 
         @media (max-width: 1024px) {
           height: fit-content;
@@ -88,7 +90,7 @@ const helloItem: InfoItem = {
         }
 
         @media (max-width: 480px) {
-            --about-text-size: 16px;
+            --about-text-size: 18px;
         }
     }
 
@@ -163,6 +165,7 @@ const helloItem: InfoItem = {
     .about-page__hello,
     .about-page__about {
         max-width: 440px;
+        line-height: 1.2;
 
         @media (max-width: 480px) {
             width: 100%;
@@ -175,7 +178,6 @@ const helloItem: InfoItem = {
         font-size: var(--about-text-size);
         gap: 20px;
         max-width: 440px;
-        line-height: 1.3;
         align-self: flex-end;
 
         @media (max-width: 1024px) {

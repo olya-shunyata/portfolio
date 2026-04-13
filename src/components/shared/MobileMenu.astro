@@ -191,6 +191,13 @@ const { items, location } = Astro.props as { items: NavItem[]; location: string 
   line-height: 1.25;
   letter-spacing: 0.01em;
   text-transform: uppercase;
+
+  &:hover,
+  &:active,
+  &:focus-visible {
+    text-decoration: none;
+    color: var(--color-accent-dark);
+  }
 }
 
 .mobile-menu__link:hover,
