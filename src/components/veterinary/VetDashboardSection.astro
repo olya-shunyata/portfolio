@@ -114,6 +114,8 @@ const images = {
 
 <style lang="scss">
 .vet-dashboard {
+  --vet-tabs-width: 321px;
+  --vet-browser-max-width: 1189px;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows:
@@ -187,7 +189,7 @@ const images = {
 }
 
 :global(.vet-dashboard__browser) {
-  max-width: 1189px;
+  max-width: var(--vet-browser-max-width);
 }
 
 .vet-dashboard__patient-heading {
@@ -435,6 +437,28 @@ const images = {
 
 .vet-dashboard__note {
   max-width: 446px;
+}
+
+@media (min-width: 1024px) {
+  .vet-dashboard__overview-layout {
+    width: 100%;
+    max-width: var(--vet-browser-max-width);
+  }
+
+  .vet-dashboard__overview-layout .vet-dashboard__copy--compact {
+    width: var(--vet-tabs-width);
+    justify-self: end;
+  }
+
+  .vet-dashboard__overview-layout .vet-dashboard__copy--wide > p,
+  .vet-dashboard__overview-layout .vet-dashboard__copy--compact > p {
+    width: var(--vet-tabs-width);
+    max-width: 100%;
+  }
+
+  .vet-dashboard__overview-layout .vet-dashboard__copy--compact :global(.vet-dashboard__markers) {
+    align-self: flex-start;
+  }
 }
 
 @media (max-width: 1023px) {

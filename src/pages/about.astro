@@ -204,10 +204,19 @@ const helloItem: InfoItem = {
     }
 
     @media (min-width: 1024px) {
+        .about-page__text {
+            height: 100%;
+        }
+
         .about-page__hello,
         .about-page__contacts {
             margin-left: calc(-1 * var(--about-midline-shift));
             align-self: flex-start;
+        }
+
+        .about-page__contacts {
+            margin-top: auto;
+            flex-grow: 0;
         }
 
         .about-page__contacts :global(.contacts) {

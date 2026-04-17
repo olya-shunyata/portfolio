@@ -348,11 +348,11 @@ const rawContent = {
           overviewSupport:
             "Icon-based markers support the task list, allowing administrators to quickly identify the type of procedure, such as feeding, medication, or other care activities, at a glance.",
           patientTop:
-            "When selecting a patient row, additional details expand to display prescribed treatments and the procedures scheduled for that day",
+            "When selecting a patient row, additional details expand to display prescribed treatments and the procedures scheduled for that day.",
           patientBottom:
             "After scanning the QR code on the animal’s enclosure and verifying prescriptions in the system, administrators can proceed with the required procedures. Completed tasks can then be marked as done and recorded in the system.",
           tasksLead:
-            "Administrators receive clear visual notifications when tasks are not completed within their assigned time windows. The system is structured around three predefined time periods — Morning, Day, and Evening — aligned with clinic shifts.",
+            "Administrators receive clear visual notifications when tasks are not completed within their assigned time windows. The system is structured around three predefined time periods — Morning, Day, and Evening, aligned with clinic shifts.",
           tasksSupport:
             "If a task is not completed within its time window, a red “Missed” status marker appears in the task list. Missed procedures are additionally highlighted to increase visibility and reduce the risk of oversight.",
           tasksFoot:
@@ -374,7 +374,7 @@ const rawContent = {
         title: "User Testing & Feedback",
         paragraphs: [
           "User testing with clinic administrators showed a reduction in identification errors and missed treatments after implementing the redesigned workflow. The QR-based verification step added a reliable control layer, reducing the risk of animal mix-ups during inpatient care.",
-          "The Daily Task Dashboard improved cross-shift visibility, enabling real-time task monitoring. Time-based segmentation (Morning / Day / Evening) and automated “Missed” markers ensured incomplete procedures were immediately visible.",
+          "The Daily Task Dashboard improved cross-shift visibility, enabling real-time task monitoring. Automated “Missed” markers ensured incomplete procedures were immediately visible, while time-based segmentation (Morning / Day / Evening) improved task organization across shifts.",
           "Following implementation, administrators reported increased confidence and reduced cognitive load, as the system minimized manual tracking and the need for double-checking, improving workflow reliability and patient safety.",
         ],
       },
@@ -427,7 +427,7 @@ const rawContent = {
           {
             title: "Introduction",
             description: [[
-              "Data-driven SaaS platform for website optimization, helping businesses improve digital performance and validate hypotheses through heat maps and A/B testing.",
+              "Data-driven SaaS platform for website optimization, helping businesses improve digital performance and validate hypotheses through A/B testing and heat maps.",
             ]],
           },
           {
