@@ -1,10 +1,12 @@
+import { deepApplyTypography } from "./scripts/typography";
+
 // Shared
-export const content = {
+const rawContent = {
   shared: {
     brand: {
       name: "Olga Bis",
       displayName: "OLGA BIS",
-      profession: "UX / UI DESIGNER",
+      profession: "UX / UI\u00A0DESIGNER",
       experienceStart: "2020",
       ariaLabel: "Go to homepage",
     },
@@ -48,7 +50,7 @@ export const content = {
     contacts: {
       email: "olgabis.design@gmail.com",
       hintsLabel: "Contacts",
-      mainTitle: "Let’s pause for a moment, brew some tea, and discuss your project",
+      mainTitle: "Let’s slow down, have a cup of tea, and find a solution for your project.",
       aboutTitle: "Let’s get in touch",
       links: {
         telegram: "Telegram",
@@ -105,10 +107,12 @@ export const content = {
     hero: {
       headlineParts: [
         {
-          text: "Senior UX/UI designer with 5 years of experience shaping digital products from concept to launch. I’ve collaborated with ",
+          text:
+          "Senior UX/UI Designer with 5+ years of experience shaping digital products from concept to delivery. I create clear, conversion-focused experiences for web and mobile, working with ",
+          
         },
         {
-          text: "leading design studios",
+          text: "design studios",
           highlight: true,
         },
         {
@@ -122,20 +126,20 @@ export const content = {
           text: ", ",
         },
         {
-          text: "product teams",
+          text: "cross-functional product teams",
           highlight: true,
         },
         {
-          text: " designing websites and apps.",
+          text: ".",
         },
       ],
       skillsLabel: "Skill set",
       skills: [
         "strong UX thinking",
+        "interaction design",
         "human-centered design",
-        "interactive interfaces",
+        "design systems",
         "2D & 3D visuals",
-        "AI-tools",
       ],
       cards: {
         saasAlt: "A screenshot of a mobile app interface showcasing a sleek and modern design with intuitive navigation and visually appealing graphics.",
@@ -149,7 +153,7 @@ export const content = {
         {
           title: ["Veterinary", "clinic software"],
           description:
-            "Health tech product for appointments, patient records, inpatient treatment, and daily care operations.",
+            "Health tech product for appointments, patient records, and inpatient treatment, streamlining care operations and improving workflow clarity.",
           tags: [
             [
               "Health tech",
@@ -166,7 +170,7 @@ export const content = {
         {
           title: ["SaaS website", "optimization platform"],
           description:
-            "Using tools like heat maps and A/B testing, teams can validate hypotheses.",
+            "SaaS product for user behavior analysis and hypothesis validation using heat maps and A/B testing, improving conversion performance.",
           tags: [
             [
               "SaaS",
@@ -193,7 +197,7 @@ export const content = {
         {
           title: "Past experience",
           description: [[
-            "I’ve collaborated with design studios and product teams on health tech, SaaS, travel, B2B/B2C, and selected fintech products, as well as large-scale interactive museum experiences.",
+            "NDA-protected projects, including product design for digital platforms and interactive experiences. I have collaborated with design studios and product teams across health tech, SaaS, fintech, travel, B2C, and large-scale interactive museum experiences, delivering end-to-end product solutions — from research and user flows to interface design and delivery.",
           ]],
         },
         {
@@ -203,15 +207,19 @@ export const content = {
               "UX/UI design",
               "Product design",
               "Interaction design",
+              "User flows",
               "Design systems",
               "Accessibility",
-              "Typography & visual systems",
+              "User testing",
+              "Usability",
             ],
             [
-              "Prototyping",
-              "User testing & feedback",
+              "Feedback analysis",
               "Competitive analysis",
               "A/B testing",
+              "Product metrics",
+              "Typography",
+              "Prototyping",
               "2D & 3D graphics",
               "AI-assisted visuals",
             ],
@@ -241,9 +249,9 @@ export const content = {
         [
           [
             { text: "Hello!" },
-            { text: "My name is Olya, I'm a Senior UX/UI designer and" },
-            { text: "I have been working in this field for 5 years", accent: true },
-            { text: ". I have worked with leading design studios, international startups, and product teams such as " },
+            { text: "My name is Olya, I'm a Senior UX/UI designer with" },
+            { text: "5+ years of experience designing digital products", accent: true },
+            { text: ". I’ve collaborated with leading design studios, international startups, and product teams, including " },
             { text: "Sila Sveta", accent: true },
             { text: ", " },
             { text: "Samolet", accent: true },
@@ -255,8 +263,8 @@ export const content = {
       ],
     },
     paragraphs: [
-      "Design is more than my profession — it’s a big part of who I am. I love diving into details, understanding the full context, and shaping solutions that feel thoughtful, clear, and effective.",
-      "I blend UX thinking and human-centered design to create experiences that are both functional and aesthetic. I’m inspired by nature, urban spaces, and technology.",
+      "Design is more than my profession — it’s a big part of who I am. I focus on understanding context, exploring details, and shaping solutions that are clear, thoughtful, and effective.",
+      "I combine UX thinking and human-centered design to create experiences that balance functionality and aesthetics. I’m inspired by nature, urban environments, and technology.",
     ],
   },
 
@@ -280,11 +288,11 @@ export const content = {
         columns: [
           {
             title: "My role",
-            description: [["Senior UX / UI designer"]],
+            description: [["Senior UX/UI designer"]],
           },
           {
             title: "Introduction",
-            description: [["App & PC software for managing veterinary clinics, designed to manage appointment bookings, patient records and inpatient treatment workflows."]],
+            description: [["Product designed for desktop and mobile, supporting veterinary clinic operations, including appointment bookings, patient records, and inpatient treatment workflows."]],
           },
           {
             title: "Contribution",
@@ -293,7 +301,7 @@ export const content = {
                 [
                   { text: "I"},
                   { text: "led the redesign of the inpatient care workflow", accent: true },
-                  { text: " and daily task dashboard, focusing on improving identification accuracy and treatment tracking within the veterinary clinic." }
+                  { text: " and daily task dashboard, improving patient identification accuracy and treatment tracking across clinical processes." }
                 ]
               ]
             ],
@@ -312,12 +320,12 @@ export const content = {
           {
             title: "Problem",
             description:
-              "The clinic lacked a reliable identification system for animals in the inpatient unit. Animals without microchips were sometimes confused, leading to missed or delayed treatments and increased operational risk.",
+              "The clinic lacked a reliable identification system for animals in the inpatient unit. Animals without microchips were sometimes misidentified, leading to missed or delayed treatments and increased operational risk.",
           },
           {
             title: "Opportunity",
             description:
-              "Based on research and CJM mapping of the existing process, I identified key gaps and proposed a unified identification system. The solution included generating unique QR codes at admission, attaching them to each enclosure, and introducing clear procedural guidelines to ensure accurate tracking and reduce errors.",
+              "Through research and customer journey mapping of the existing process, I identified key gaps and proposed a unified identification system. The solution included generating unique QR codes at admission, attaching them to each enclosure, and introducing clear procedural guidelines to ensure accurate tracking and reduce errors.",
           },
         ],
         alts: {
@@ -331,24 +339,24 @@ export const content = {
         heading: {
           title: "Design",
           description:
-            "Research insights and CJM findings directly shaped the interface decisions. I translated identified pain points into structured workflows, clear visual hierarchy, and system-based safeguards to reduce human error. The redesigned flow integrated QR identification and treatment tracking directly into the system, making the process clear, consistent, and easy for staff to follow.",
+            "Research insights and customer journey mapping findings directly informed interface decisions. I translated identified pain points into structured workflows, clear visual hierarchy, and system-level safeguards to reduce the risk of human error. The redesigned flow integrated QR-based identification and treatment tracking directly into the system, making the process more consistent, reliable, and easy for staff to follow.",
         },
         subHeaderTitle: "(  Daily Care Dashboard  )",
         copy: {
           overview:
-            "The admin dashboard provides a clear overview of daily operations. Administrators can track the progress of completed tasks, view current care activities, and quickly switch between filters to monitor feeding schedules, medication administration, and other required procedures.",
+            "The admin dashboard provides a clear overview of daily operations, enabling administrators to track task progress, monitor ongoing care activities, and quickly switch between filters for feeding schedules, medication administration, and other required procedures.",
           overviewSupport:
-            "Icon-based markers visually support the task list, allowing administrators to quickly identify the type of procedure, such as feeding, medication, or other care activities, at a glance.",
+            "Icon-based markers support the task list, allowing administrators to quickly identify the type of procedure, such as feeding, medication, or other care activities, at a glance.",
           patientTop:
-            "When clicking on a patient row, additional details expand to show prescribed treatments and the specific procedures scheduled for that day.",
+            "When selecting a patient row, additional details expand to display prescribed treatments and the procedures scheduled for that day",
           patientBottom:
-            "After scanning the QR code on the animal’s enclosure and verifying the prescriptions in the system, the administrator can proceed with the required procedures. Once completed, the tasks can be marked as done and saved in the system.",
+            "After scanning the QR code on the animal’s enclosure and verifying prescriptions in the system, administrators can proceed with the required procedures. Completed tasks can then be marked as done and recorded in the system.",
           tasksLead:
-            "Administrators receive clear visual notifications when tasks are not completed on time. The system is structured around three predefined time periods: Morning, Day, and Evening, aligned with clinic shifts.",
+            "Administrators receive clear visual notifications when tasks are not completed within their assigned time windows. The system is structured around three predefined time periods — Morning, Day, and Evening — aligned with clinic shifts.",
           tasksSupport:
-            "If a task is not completed within its assigned time window, a red “Missed” status marker appears in the task list. Missed procedures are additionally highlighted to increase visibility and reduce the risk of oversight.",
+            "If a task is not completed within its time window, a red “Missed” status marker appears in the task list. Missed procedures are additionally highlighted to increase visibility and reduce the risk of oversight.",
           tasksFoot:
-            "The system automatically refreshes in the background every minute to ensure that task statuses remain up to date and accurately reflected in the interface.",
+            "The system automatically refreshes in the background every minute, ensuring that task statuses remain up to date and accurately reflected in the interface.",
         },
         alts: {
           overview: "Daily care dashboard overview",
@@ -365,9 +373,9 @@ export const content = {
       testing: {
         title: "User Testing & Feedback",
         paragraphs: [
-          "User testing with clinic administrators showed a reduction in identification errors and missed treatments after implementing the redesigned workflow. The QR-based verification step added a reliable control layer, decreasing the risk of animal mix-ups during inpatient care.",
-          "The Daily Task Dashboard improved visibility across shifts, enabling real-time task monitoring. Time-based segmentation (Morning / Day / Evening) and automated “Missed” markers ensured incomplete procedures were immediately visible.",
-          "Following implementation, administrators reported greater confidence and reduced cognitive load, as the system minimized manual tracking and double-checking. Overall, the solution strengthened workflow reliability and enhanced patient safety.",
+          "User testing with clinic administrators showed a reduction in identification errors and missed treatments after implementing the redesigned workflow. The QR-based verification step added a reliable control layer, reducing the risk of animal mix-ups during inpatient care.",
+          "The Daily Task Dashboard improved cross-shift visibility, enabling real-time task monitoring. Time-based segmentation (Morning / Day / Evening) and automated “Missed” markers ensured incomplete procedures were immediately visible.",
+          "Following implementation, administrators reported increased confidence and reduced cognitive load, as the system minimized manual tracking and the need for double-checking, improving workflow reliability and patient safety.",
         ],
       },
       artifacts: {
@@ -414,24 +422,24 @@ export const content = {
         columns: [
           {
             title: "My role",
-            description: [["Senior UX / UI designer"]],
+            description: [["Senior UX/UI designer"]],
           },
           {
             title: "Introduction",
             description: [[
-              "SaaS service is a data-driven website optimization platform that helps businesses improve digital performance. Using tools like heat maps and A/B testing, teams can validate hypotheses.",
+              "Data-driven SaaS platform for website optimization, helping businesses improve digital performance and validate hypotheses through heat maps and A/B testing.",
             ]],
           },
           {
             title: "Contribution",
             selected: true,
             description: [[[
-              { text: "I led the redesign of the platform and its marketing website, conducting competitive research, " },
-              { text: "refining key user scenarios,", accent: true },
-              { text: "and rebuilding feature hierarchy.", accent: true },
-              { text: "I improved user flow,", accent: true },
+              { text: "I led the redesign of the platform and its marketing website, " },
+              { text: "refining user scenarios,", accent: true },
+              { text: "improving user flows ", accent: true },
+              { text: "and visual system to enable clearer navigation", accent: true },
               { text: " " },
-              { text: "modernized the visual system.", accent: true },
+              { text: "and more effective interaction.", accent: true },
             ]]],
           },
         ],
@@ -445,13 +453,13 @@ export const content = {
                 title: "Brand & Positioning",
                 width: "326px",
                 description:
-                  "The marketing website and platform no longer reflected the product's value or competitive positioning, weakening overall brand perception.",
+                  "The marketing website and platform no longer reflected the product’s value proposition or competitive positioning, weakening overall brand perception and user trust.",
               },
               {
                 title: "Usability & structure",
                 width: "292px",
                 description:
-                  "An outdated visual language and unclear information architecture made the product difficult to navigate and use effectively.",
+                  "An outdated visual language and unclear information architecture reduced usability and made the product difficult to navigate and use effectively.",
               },
             ],
             columnsGap: "72px",
@@ -460,8 +468,8 @@ export const content = {
             title: "Opportunity",
             contentWidth: "350px",
             description: [
-              "Redesign the ecosystem by modernizing the visual system, clarifying structure, and strengthening positioning to improve usability, credibility,",
-              "and conversion performance.",
+              "Redesign the product ecosystem by modernizing the visual system, clarifying the information architecture, and strengthening positioning ",
+              "to improve usability, credibility, and conversion performance.",
             ],
           },
         ],
@@ -471,8 +479,9 @@ export const content = {
         heading: {
           title: "Design",
           description: [
-            "The stylistic solution relies on the interplay of contrasting",
-            "typography and vibrant accents.",
+            "The visual approach is built on the contrast of typography ",
+            "and vibrant accents, creating a clear visual hierarchy ",
+            "and strengthening brand expression.",
           ],
         },
         subHeaderTitle: "(  A/B test  )",
@@ -495,9 +504,9 @@ export const content = {
         header: {
           title: "( Product page )",
           description: [
-            "I underscored the pivotal functionality that propels the service, ",
-            "bringing users' attention to the potential and benefits associated with ",
-            "the use of detailed analytics, heatmaps and A/B testing.",
+            "Highlighted the core functionality of the platform, ",
+            "focusing user attention on the value of detailed ",
+            "heat maps, and A/B testing.",
           ],
         },
         videoTitle: "Video presentation of SaaS landing by Olga Bis",
@@ -507,7 +516,10 @@ export const content = {
         headers: {
           model: {
             title: "( 3D illustrations )",
-            description: ["Created in Cinema 4D and rendered using Arnold Render"],
+            description: [
+              "Created in Cinema 4D and rendered with Arnold Renderer ",
+              "to support the visual identity of the product.",
+            ],
           },
           prototype: {
             title: "( Prototyping )",
@@ -525,3 +537,5 @@ export const content = {
     },
   },
 };
+
+export const content = deepApplyTypography(rawContent);
