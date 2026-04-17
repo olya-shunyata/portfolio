@@ -70,16 +70,19 @@ const helloItem: InfoItem = {
         padding-bottom: var(--container-padding);
         padding-top: var(--container-padding);
         justify-content: space-between;
-        gap: 32px;
+        gap: var(--about-columns-gap);
         height: calc(100dvh - var(--header-height));
         max-height: 1024px;
-        --about-text-size: 20px;
+        --about-photo-basis: 310px;
+        --about-columns-gap: 32px;
+        --about-midline-shift: calc((var(--about-photo-basis) + var(--about-columns-gap)) / 2);
+        --about-text-size: 22px;
         --info-column-description-line-height: 1.2;
         --info-column-text-color: var(--color-text);
 
         @media (max-width: 1024px) {
           height: fit-content;
-            --about-text-size: 20px;
+            --about-text-size: 22px;
             justify-content: start;
         }
 
@@ -90,7 +93,7 @@ const helloItem: InfoItem = {
         }
 
         @media (max-width: 480px) {
-            --about-text-size: 18px;
+            --about-text-size: 20px;
         }
     }
 
@@ -113,14 +116,14 @@ const helloItem: InfoItem = {
 
     .about-page__self {
         display: flex;
-        flex: 1 1 310px;
-        min-width: 310px;
+        flex: 1 1 var(--about-photo-basis);
+        min-width: var(--about-photo-basis);
         align-self: end;
 
         @media (max-width: 1023px) {
-            flex: 0 1 310px;
+            flex: 0 1 var(--about-photo-basis);
             min-width: 0;
-            max-width: 310px;
+            max-width: var(--about-photo-basis);
         }
 
         @media (max-width: 768px) {
@@ -198,5 +201,21 @@ const helloItem: InfoItem = {
         @media (max-width: 768px) {
             padding-top: 32px;
         }
+    }
+
+    @media (min-width: 1024px) {
+        .about-page__hello,
+        .about-page__contacts {
+            margin-left: calc(-1 * var(--about-midline-shift));
+            align-self: flex-start;
+        }
+
+        .about-page__contacts :global(.contacts) {
+            align-self: flex-start;
+        }
+    }
+
+    .about-page__contacts :global(.contacts__title) {
+        font-size: 36px;
     }
 </style>
