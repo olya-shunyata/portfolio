@@ -165,7 +165,7 @@ const rawContent = {
               "Interaction design"
             ],
           ],
-          linkLabel: "View veterinary software case study",
+          linkLabel: "View veterinary software case",
         },
         {
           title: ["SaaS website", "optimization platform"],
@@ -182,7 +182,7 @@ const rawContent = {
               "Visual design"
             ],
           ],
-          linkLabel: "View SaaS conversion optimization case study",
+          linkLabel: "View SaaS conversion optimization case",
         },
       ],
     },
@@ -272,9 +272,9 @@ const rawContent = {
   projects: {
     vet: {
       meta: {
-        title: "Veterinary Software Case Study — Olga Bis",
+        title: "Veterinary Software Case — Olga Bis",
         description:
-          "Health tech UX/UI case study by Olga Bis, Senior UX/UI Designer specializing in dashboard design, inpatient workflows, treatment tracking, and product systems for complex digital products.",
+          "Health tech UX/UI case by Olga Bis, Senior UX/UI Designer specializing in dashboard design, inpatient workflows, treatment tracking, and product systems for complex digital products.",
       },
       pageTitle: "Veterinary clinic software",
       navHeading: "See more",
@@ -400,9 +400,9 @@ const rawContent = {
     // Projects / SaaS
     saas: {
       meta: {
-        title: "SaaS Conversion Optimization Case Study — Olga Bis",
+        title: "SaaS Conversion Optimization Case — Olga Bis",
         description:
-          "SaaS UX/UI case study by Olga Bis, Senior UX/UI Designer specializing in responsive web design, heatmaps, A/B testing, prototyping, and UI systems for product growth.",
+          "SaaS UX/UI case by Olga Bis, Senior UX/UI Designer specializing in responsive web design, heatmaps, A/B testing, prototyping, and UI systems for product growth.",
       },
       pageTitle: ["Conversion optimization", "and Personalization platform"],
       navHeading: "See more",
