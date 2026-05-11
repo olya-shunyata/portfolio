@@ -62,10 +62,10 @@ const rawContent = {
     },
     meta: {
       defaultDescription:
-        "Senior UX/UI Designer with 5+ years of experience in web and mobile product design, design systems, prototyping, visual design, and AI-assisted design across health tech, SaaS, travel, and B2B/B2C, with past experience in fintech.",
-      ogAlt: "Portrait of Olga Bis with the title Senior UX/UI Designer",
+        "UX/UI Designer with 5+ years of experience in web and mobile product design, design systems, prototyping, visual design, and AI-assisted design across health tech, SaaS, travel, and B2B/B2C, with past experience in fintech.",
+      ogAlt: "Portrait of Olga Bis with the title UX/UI Designer",
       knowsAbout: [
-        "Senior UX/UI Designer",
+        "UX/UI Designer",
         "Product Design",
         "UX/UI Design",
         "User-Centered Design",
@@ -95,9 +95,9 @@ const rawContent = {
   // Home
   home: {
     meta: {
-      title: "Olga Bis — Senior UX/UI Designer Portfolio",
+      title: "Olga Bis — UX/UI Designer Portfolio",
       description:
-        "Portfolio of Olga Bis, Senior UX/UI Designer with 5+ years of experience in web and mobile product design, design systems, prototyping, visual design, and AI-assisted design across health tech, SaaS, travel, and B2B/B2C, with past experience in fintech.",
+        "Portfolio of Olga Bis, UX/UI Designer with 5+ years of experience in web and mobile product design, design systems, prototyping, visual design, and AI-assisted design across health tech, SaaS, travel, and B2B/B2C, with past experience in fintech.",
     },
     sections: {
       projects: "Projects",
@@ -108,7 +108,7 @@ const rawContent = {
       headlineParts: [
         {
           text:
-          "Senior UX/UI Designer with 5+ years of experience shaping digital products from concept to delivery. I create clear, conversion-focused experiences for web and mobile, working with ",
+          "UX/UI Designer with 5+ years of experience shaping digital products from concept to delivery. I create clear, conversion-focused experiences for web and mobile, working with ",
           
         },
         {
@@ -192,7 +192,7 @@ const rawContent = {
       columns: [
         {
           title: "Roles",
-          description: [["Senior UX/UI Designer", "Product Designer"]],
+          description: [["UX/UI Designer", "Product Designer"]],
         },
         {
           title: "Past experience",
@@ -239,9 +239,9 @@ const rawContent = {
   // About
   about: {
     meta: {
-      title: "About Olga Bis — Senior UX/UI Designer",
+      title: "About Olga Bis — UX/UI Designer",
       description:
-        "Olga Bis is a Senior UX/UI Designer based in Belgrade, Serbia, with 5+ years of experience in product design, responsive web and mobile interfaces, Figma systems, prototyping, visual design, 2D/3D graphics, and AI-assisted workflows.",
+        "Olga Bis is a UX/UI Designer based in Belgrade, Serbia, with 5+ years of experience in product design, responsive web and mobile interfaces, Figma systems, prototyping, visual design, 2D/3D graphics, and AI-assisted workflows.",
     },
     photoAlt: "Self-portait photo",
     intro: {
@@ -249,7 +249,7 @@ const rawContent = {
         [
           [
             { text: "Hello!" },
-            { text: "My name is Olya, I'm a Senior UX/UI designer with" },
+            { text: "My name is Olya, I'm a UX/UI designer with" },
             { text: "5+ years of experience designing digital products", accent: true },
             { text: ". I’ve collaborated with leading design studios, international startups, and product teams, including " },
             { text: "Sila Sveta", accent: true },
@@ -274,7 +274,7 @@ const rawContent = {
       meta: {
         title: "Veterinary Software Case — Olga Bis",
         description:
-          "Health tech UX/UI case by Olga Bis, Senior UX/UI Designer specializing in dashboard design, inpatient workflows, treatment tracking, and product systems for complex digital products.",
+          "Health tech UX/UI case by Olga Bis, UX/UI Designer specializing in dashboard design, inpatient workflows, treatment tracking, and product systems for complex digital products.",
       },
       pageTitle: "Veterinary clinic software",
       navHeading: "See more",
@@ -288,7 +288,7 @@ const rawContent = {
         columns: [
           {
             title: "My role",
-            description: [["Senior UX/UI designer"]],
+            description: [["UX/UI designer"]],
           },
           {
             title: "Introduction",
@@ -402,7 +402,7 @@ const rawContent = {
       meta: {
         title: "SaaS Conversion Optimization Case — Olga Bis",
         description:
-          "SaaS UX/UI case by Olga Bis, Senior UX/UI Designer specializing in responsive web design, heatmaps, A/B testing, prototyping, and UI systems for product growth.",
+          "SaaS UX/UI case by Olga Bis, UX/UI Designer specializing in responsive web design, heatmaps, A/B testing, prototyping, and UI systems for product growth.",
       },
       pageTitle: ["Conversion optimization", "and Personalization platform"],
       navHeading: "See more",
@@ -422,7 +422,7 @@ const rawContent = {
         columns: [
           {
             title: "My role",
-            description: [["Senior UX/UI designer"]],
+            description: [["UX/UI designer"]],
           },
           {
             title: "Introduction",
