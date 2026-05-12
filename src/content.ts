@@ -107,9 +107,7 @@ const rawContent = {
     hero: {
       headlineParts: [
         {
-          text:
-          "UX/UI Designer with 5+ years of experience shaping digital products from concept to delivery. I create clear, conversion-focused experiences for web and mobile, working with ",
-          
+          text: "UX/UI Designer with 5+ years of experience shaping digital products from concept to delivery. I create clear, conversion-focused experiences for web and mobile, working with ",
         },
         {
           text: "design studios",
