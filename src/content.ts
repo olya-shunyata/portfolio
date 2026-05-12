@@ -197,7 +197,9 @@ const rawContent = {
         {
           title: "Past experience",
           description: [[
-            "NDA-protected projects, including product design for digital platforms and interactive experiences. I have collaborated with design studios and product teams across health tech, SaaS, fintech, travel, B2C, and large-scale interactive museum experiences, delivering end-to-end product solutions — from research and user flows to interface design and delivery.",
+            "NDA-protected projects, including product design for web and mobile products, digital platforms, and interactive experiences. I collaborated with design studios and product teams across SaaS, fintech, travel, real estate, B2C, and large-scale interactive museum projects.",
+            "",
+            "I worked across the full UX/UI design process, from research and user flow mapping to interface design, prototyping, and developer handoff, influencing product usability, workflow clarity, and visual consistency. I focused on simplifying complex scenarios, improving navigation and interaction logic, and creating user-centered solutions aligned with business goals and technical constraints.",
           ]],
         },
         {
