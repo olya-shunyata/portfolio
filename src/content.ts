@@ -62,7 +62,7 @@ const rawContent = {
     },
     meta: {
       defaultDescription:
-        "UX/UI Designer with 5+ years of experience in web and mobile product design, design systems, prototyping, visual design, and AI-assisted design across health tech, SaaS, travel, and B2B/B2C, with past experience in fintech.",
+        "UX/UI Designer with 6 years of experience in web and mobile product design, design systems, prototyping, visual design, and AI-assisted design across health tech, SaaS, travel, and B2B/B2C, with past experience in fintech.",
       ogAlt: "Portrait of Olga Bis with the title UX/UI Designer",
       knowsAbout: [
         "UX/UI Designer",
@@ -97,7 +97,7 @@ const rawContent = {
     meta: {
       title: "Olga Bis — UX/UI Designer Portfolio",
       description:
-        "Portfolio of Olga Bis, UX/UI Designer with 5+ years of experience in web and mobile product design, design systems, prototyping, visual design, and AI-assisted design across health tech, SaaS, travel, and B2B/B2C, with past experience in fintech.",
+        "Portfolio of Olga Bis, UX/UI Designer with 6 years of experience in web and mobile product design, design systems, prototyping, visual design, and AI-assisted design across health tech, SaaS, travel, and B2B/B2C, with past experience in fintech.",
     },
     sections: {
       projects: "Projects",
@@ -107,7 +107,7 @@ const rawContent = {
     hero: {
       headlineParts: [
         {
-          text: "UX/UI Designer with 5+ years of experience shaping digital products from concept to delivery. I create clear, conversion-focused experiences for web and mobile, working with ",
+          text: "UX/UI Designer with 6 years of experience shaping digital products from concept to delivery. I create clear, conversion-focused experiences for web and mobile, working with ",
         },
         {
           text: "design studios",
@@ -137,7 +137,7 @@ const rawContent = {
         "interaction design",
         "human-centered design",
         "design systems",
-        "2D & 3D visuals",
+        "AI tools",
       ],
       cards: {
         saasAlt: "A screenshot of a mobile app interface showcasing a sleek and modern design with intuitive navigation and visually appealing graphics.",
@@ -250,7 +250,7 @@ const rawContent = {
           [
             { text: "Hello!" },
             { text: "My name is Olya, I'm a UX/UI designer with" },
-            { text: "5+ years of experience designing digital products", accent: true },
+            { text: "6 years of experience designing digital products", accent: true },
             { text: ". I’ve collaborated with leading design studios, international startups, and product teams, including " },
             { text: "Sila Sveta", accent: true },
             { text: ", " },
