@@ -3,6 +3,7 @@ import { deepApplyTypography } from "./scripts/typography";
 // Shared
 const rawContent = {
   shared: {
+    comingSoon: "Case coming soon",
     brand: {
       name: "Olga Bis",
       displayName: "OLGA BIS",
@@ -147,11 +148,31 @@ const rawContent = {
     },
     projects: {
       ctaLabel: "see more",
-      cards: [
-        {
+      cards: {
+        mobile_app: {
+          title: ["Home Services", "Marketplace App"],
+          description:
+            "Mobile marketplace for local home services. Design complete. Launching soon.",
+          tags: [
+            [
+              "B2C",
+              "User Experience Design (UX)"
+            ],
+            [
+              "Mobile App Design",
+              "User Interface Design (UI)"
+            ],
+            [
+              "Product Design",
+              "Usability Testing"
+            ],
+          ],
+          linkLabel: "Case coming soon",
+        },
+        vet: {
           title: ["Veterinary", "clinic software"],
           description:
-            "Health tech product for appointments, patient records, and inpatient treatment, streamlining care operations and improving workflow clarity.",
+            "Clinic management for appointments, patient records, and inpatient care.",
           tags: [
             [
               "Health tech",
@@ -165,10 +186,11 @@ const rawContent = {
           ],
           linkLabel: "View veterinary software case",
         },
-        {
+      
+        saas: {
           title: ["SaaS website", "optimization platform"],
           description:
-            "SaaS product for user behavior analysis and hypothesis validation using heat maps and A/B testing, improving conversion performance.",
+            "Using tools like heat maps and A/B testing, teams can validate hypotheses.",
           tags: [
             [
               "SaaS",
@@ -182,7 +204,7 @@ const rawContent = {
           ],
           linkLabel: "View SaaS conversion optimization case",
         },
-      ],
+      },
     },
     confidential: {
       imageAlt: "Heavily blurred showcase with list of companies.",

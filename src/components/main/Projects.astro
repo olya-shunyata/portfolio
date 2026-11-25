@@ -6,21 +6,47 @@ import projectVetImageAsset from "../../assets/images/project-vet.png";
 import projectVetInfoImageAsset from "../../assets/images/project-vet-info.png";
 import projectAbImageAsset from "../../assets/images/project-ab.png";
 import projectAbHeatImageAsset from "../../assets/images/project-ab-info.png";
+import projectAppImageAsset from "../../assets/images/project-app.png";
+import projectAppInfoImageAsset from "../../assets/images/project-app-info.png";
 import { content } from "../../content";
 
 const projectLeftSizes = "(max-width: 768px) 100vw, 300px";
 const projectRightSizes = "(max-width: 899px) 100vw, 55vw";
 const projectCtaLabel = `${content.home.projects.ctaLabel.charAt(0).toUpperCase()}${content.home.projects.ctaLabel.slice(1)}`;
-const [vetLeftImage, vetRightImage, saasLeftImage, saasRightImage] = await Promise.all([
+const [
+  vetLeftImage,
+  vetRightImage,
+  saasLeftImage,
+  saasRightImage,
+  appLeftImage,
+  appRightImage
+] = await Promise.all([
   buildResponsiveImage({ asset: projectVetImageAsset, profile: "showcase", maxDisplayWidth: 300 }),
   buildResponsiveImage({ asset: projectVetInfoImageAsset, profile: "showcase", maxDisplayWidth: 700 }),
   buildResponsiveImage({ asset: projectAbImageAsset, profile: "showcase", maxDisplayWidth: 300 }),
   buildResponsiveImage({ asset: projectAbHeatImageAsset, profile: "showcase", maxDisplayWidth: 700 }),
+  buildResponsiveImage({ asset: projectAppImageAsset, profile: "showcase", maxDisplayWidth: 300 }),
+  buildResponsiveImage({ asset: projectAppInfoImageAsset, profile: "showcase", maxDisplayWidth: 700 }),
 ]);
 
 const items = [
   {
-    ...content.home.projects.cards[0],
+    ...content.home.projects.cards.mobile_app,
+    imageLeft: {
+      ...appLeftImage,
+      ratio: "1600 / 756",
+      sizes: projectLeftSizes,
+    },
+    imageRight: {
+      ...appRightImage,
+      ratio: "990 / 885",
+      sizes: projectRightSizes,
+    },
+    href: buildUrl("/projects/saas/"),
+    isDisabled: true,
+  },
+  {
+    ...content.home.projects.cards.vet,
     imageLeft: {
       ...vetLeftImage,
       ratio: "1332 / 594",
@@ -32,9 +58,10 @@ const items = [
       sizes: projectRightSizes,
     },
     href: buildUrl("/projects/vet/"),
+    isDisabled: false,
   },
   {
-    ...content.home.projects.cards[1],
+    ...content.home.projects.cards.saas,
     imageLeft: {
       ...saasLeftImage,
       ratio: "1600 / 756",
@@ -46,6 +73,7 @@ const items = [
       sizes: projectRightSizes,
     },
     href: buildUrl("/projects/saas/"),
+    isDisabled: false,
   },
 ];
 ---
@@ -89,8 +117,8 @@ const items = [
           ))}
         </div>
 
-        <a class="project-card__link project-card__plaque" href={project.href} aria-label={project.linkLabel} title={project.linkLabel}>
-          <span aria-hidden="true">{projectCtaLabel}</span>
+        <a class={project.isDisabled ? "project-card__link project-card__plaque project-card__link--disabled" : "project-card__link project-card__plaque"} href={project.href} aria-label={project.linkLabel} title={project.linkLabel} >
+          <span aria-hidden="true">{project.isDisabled ? content.shared.comingSoon : projectCtaLabel}</span>
           <span class="visually-hidden">{project.linkLabel}</span>
         </a>
       </div>
@@ -216,6 +244,13 @@ const items = [
 
 .project-card__link {
   grid-row: 9;
+}
+
+.project-card__link--disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-dark-grey) !important;
 }
 
 .project-card__plaque {
